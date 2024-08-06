@@ -1,3 +1,3 @@
 <?php   
-    echo 'ngobao';
+    echo 'Hello from main.php';
 ?>
