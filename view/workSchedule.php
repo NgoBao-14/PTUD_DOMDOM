@@ -36,17 +36,16 @@
         .navbar-nav .nav-link {
             margin-right: 20px;
         }
-        /* loại bỏ viền của các khung danh sách các khoa, thời khóa biểu, danh sách bác sĩ đăng kí. Thay bằng hiệu ứng đổ bóng nhẹ */
         .card {
             border: none;
-            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 1px 7px 9px 4px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Dom Đóm</a>
+            <a class="navbar-brand" href="#">Đom Đóm</a>
             <div class="navbar-nav ms-auto">
                 <a class="nav-link" href="#">Trang chủ</a>
                 <a class="nav-link" href="#">Bệnh nhân</a>
@@ -147,7 +146,7 @@
                         </div>
                     </div>
                 </div>
-                    <div class="text-end">
+                    <div class="text-end mt-2">
                         <button class="btn btn-primary">Xác nhận lịch làm việc</button>
                     </div>
             </div>
