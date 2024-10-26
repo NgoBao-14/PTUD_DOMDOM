@@ -9,7 +9,7 @@
         .sidebar-item {
             cursor: pointer;
         }
-        .sidebar-item:hover, .sidebar-item.active {
+        .sidebar-item:hover {
             background-color: #e9ecef;
         }
         .schedule-grid {
@@ -24,13 +24,30 @@
             width: 100%;
             margin-bottom: 5px;
         }
+        .navbar-brand, .sidebar-item, .navbar-nav a {
+            font-weight: bold;
+        }
+        .sidebar-item.active {
+            background-color: #e9ecef;
+            color: #0d6efd;
+            border: none;
+            border-bottom: 4px solid #0d6efd;
+        }
+        .navbar-nav .nav-link {
+            margin-right: 20px;
+        }
+        /* loại bỏ viền của các khung danh sách các khoa, thời khóa biểu, danh sách bác sĩ đăng kí. Thay bằng hiệu ứng đổ bóng nhẹ */
+        .card {
+            border: none;
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Dom Đóm</a>
-            <div class="navbar-nav me-auto">
+            <div class="navbar-nav ms-auto">
                 <a class="nav-link" href="#">Trang chủ</a>
                 <a class="nav-link" href="#">Bệnh nhân</a>
                 <a class="nav-link" href="#">Nhân viên</a>
@@ -69,36 +86,36 @@
                         <div class="schedule-grid">
                             <div class="schedule-day">
                                 <div>Thứ 2</div>
+                                <button class="btn btn-outline-primary btn-sm active">sáng</button>
+                                <button class="btn btn-outline-primary btn-sm">Chiều</button>
+                            </div>
+                            <div class="schedule-day">
+                                <div>Thứ 3</div>
                                 <button class="btn btn-outline-primary btn-sm">sáng</button>
                                 <button class="btn btn-outline-primary btn-sm">Chiều</button>
                             </div>
                             <div class="schedule-day">
-                                <div>Thứ 2</div>
+                                <div>Thứ 4</div>
                                 <button class="btn btn-outline-primary btn-sm">sáng</button>
                                 <button class="btn btn-outline-primary btn-sm">Chiều</button>
                             </div>
                             <div class="schedule-day">
-                                <div>Thứ 2</div>
+                                <div>Thứ 5</div>
                                 <button class="btn btn-outline-primary btn-sm">sáng</button>
                                 <button class="btn btn-outline-primary btn-sm">Chiều</button>
                             </div>
                             <div class="schedule-day">
-                                <div>Thứ 2</div>
+                                <div>Thứ 6</div>
                                 <button class="btn btn-outline-primary btn-sm">sáng</button>
                                 <button class="btn btn-outline-primary btn-sm">Chiều</button>
                             </div>
                             <div class="schedule-day">
-                                <div>Thứ 2</div>
+                                <div>Thứ 7</div>
                                 <button class="btn btn-outline-primary btn-sm">sáng</button>
                                 <button class="btn btn-outline-primary btn-sm">Chiều</button>
                             </div>
                             <div class="schedule-day">
-                                <div>Thứ 2</div>
-                                <button class="btn btn-outline-primary btn-sm">sáng</button>
-                                <button class="btn btn-outline-primary btn-sm">Chiều</button>
-                            </div>
-                            <div class="schedule-day">
-                                <div>Thứ 2</div>
+                                <div>Chủ nhật</div>
                                 <button class="btn btn-outline-primary btn-sm">sáng</button>
                                 <button class="btn btn-outline-primary btn-sm">Chiều</button>
                             </div>
@@ -107,7 +124,7 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title mb-3">Danh sách bác sĩ đăng ký ca Thứ 2-Buổi</h5>
+                        <h5 class="card-title mb-3">Danh sách bác sĩ đăng ký ca Thứ 2-Sáng</h5>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="doctor1">
                             <label class="form-check-label" for="doctor1">Dr.Nguyễn Văn A</label>
@@ -128,9 +145,11 @@
                             <input class="form-check-input" type="checkbox" id="doctor5">
                             <label class="form-check-label" for="doctor5">Dr.Nguyễn Văn A</label>
                         </div>
-                        <button class="btn btn-primary mt-3">Xác nhận lịch làm việc</button>
                     </div>
                 </div>
+                    <div class="text-end">
+                        <button class="btn btn-primary">Xác nhận lịch làm việc</button>
+                    </div>
             </div>
         </div>
     </div>
