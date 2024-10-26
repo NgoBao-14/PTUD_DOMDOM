@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/thongKe.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="header">
@@ -17,8 +18,8 @@
                 <a class="nav-link" href="#">Trang chủ</a>
                 <a class="nav-link" href="#">Bệnh nhân</a>
                 <a class="nav-link" href="#">Nhân viên</a>
-                <a class="nav-link active" href="#">Lịch làm việc</a>
-                <a class="nav-link" href="#">Thống kê</a>
+                <a class="nav-link" href="#">Lịch làm việc</a>
+                <a class="nav-link active" href="#">Thống kê</a>
             </div>
             <div class="navbar-nav">
                 <a class="nav-link" href="#">Quản lý-Duy Khương</a>
@@ -27,13 +28,13 @@
     </nav>
     </div>
     <div class="main">
-        <div class="container mt-4">
+        <div class="container mt-4 mb-3">
             <div class="row">
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Thống kê hóa đơn</h5>
-                            <form>
+                            <form id="statisticForm">
                                 <div class="mb-3">
                                     <label for="statisticCriteria" class="form-label">Tiêu chí thống kê:</label>
                                     <select class="form-select" id="statisticCriteria">
@@ -86,9 +87,10 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Biểu đồ thống kê</h5>
-                            <div id="chart"></div>
+                            <canvas id="chartCanvas"></canvas>
+                            </div>
                         </div>
-                        <div class="card-footer text-end">
+                        <div class="card-footer text-end mt-2">
                             <button class="btn btn-primary">In báo cáo</button>
                         </div>
                     </div>
@@ -119,6 +121,40 @@
             } else {
                 specificDateContainer.classList.add('d-none');
             }
+        });
+
+        function displayChart() {
+            const ctx = document.getElementById('chartCanvas').getContext('2d');
+            
+            if (window.myChart) {
+                window.myChart.destroy();
+            }
+            
+            // Create new chart instance
+            window.myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Dịch vụ 1', 'Dịch vụ 2', 'Dịch vụ 3'],
+                    datasets: [{
+                        label: 'Số lượng',
+                        data: [12, 19, 7], 
+                        backgroundColor: ['rgba(75, 192, 192, 0.2)'],
+                        borderColor: ['rgba(75, 192, 192, 1)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+        document.getElementById('statisticForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            displayChart();
         });
     </script>
     <div class="footer">

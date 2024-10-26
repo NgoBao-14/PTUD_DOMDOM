@@ -53,37 +53,37 @@
                             <div class="schedule-grid">
                                 <div class="schedule-day">
                                     <div>Thứ 2</div>
-                                    <button class="btn btn-outline-primary btn-sm active">sáng</button>
+                                    <button class="btn btn-outline-primary btn-sm active">Sáng</button>
                                     <button class="btn btn-outline-primary btn-sm">Chiều</button>
                                 </div>
                                 <div class="schedule-day">
                                     <div>Thứ 3</div>
-                                    <button class="btn btn-outline-primary btn-sm">sáng</button>
+                                    <button class="btn btn-outline-primary btn-sm">Sáng</button>
                                     <button class="btn btn-outline-primary btn-sm">Chiều</button>
                                 </div>
                                 <div class="schedule-day">
                                     <div>Thứ 4</div>
-                                    <button class="btn btn-outline-primary btn-sm">sáng</button>
+                                    <button class="btn btn-outline-primary btn-sm">Sáng</button>
                                     <button class="btn btn-outline-primary btn-sm">Chiều</button>
                                 </div>
                                 <div class="schedule-day">
                                     <div>Thứ 5</div>
-                                    <button class="btn btn-outline-primary btn-sm">sáng</button>
+                                    <button class="btn btn-outline-primary btn-sm">Sáng</button>
                                     <button class="btn btn-outline-primary btn-sm">Chiều</button>
                                 </div>
                                 <div class="schedule-day">
                                     <div>Thứ 6</div>
-                                    <button class="btn btn-outline-primary btn-sm">sáng</button>
+                                    <button class="btn btn-outline-primary btn-sm">Sáng</button>
                                     <button class="btn btn-outline-primary btn-sm">Chiều</button>
                                 </div>
                                 <div class="schedule-day">
                                     <div>Thứ 7</div>
-                                    <button class="btn btn-outline-primary btn-sm">sáng</button>
+                                    <button class="btn btn-outline-primary btn-sm">Sáng</button>
                                     <button class="btn btn-outline-primary btn-sm">Chiều</button>
                                 </div>
                                 <div class="schedule-day">
                                     <div>Chủ nhật</div>
-                                    <button class="btn btn-outline-primary btn-sm">sáng</button>
+                                    <button class="btn btn-outline-primary btn-sm">Sáng</button>
                                     <button class="btn btn-outline-primary btn-sm">Chiều</button>
                                 </div>
                             </div>
