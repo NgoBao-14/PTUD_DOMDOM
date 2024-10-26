@@ -1,3 +1,4 @@
+/* Full */
 *{
     margin: 0;
     padding: 0;
@@ -5,21 +6,116 @@
 }
 .header
 {
-    height: 100px;
+    height: 50px;
     width: 100%;
     background-color: #333;
 }
-.container
+.main
 {
     width: 100%;
     height: 2000px;
-    background-color: red;
-}
-.footer
-{
-    height: 50px;
-    width: 100%;
-    background-color: #7451ca;
+    background-color: rgb(131, 45, 45);
 }
 
-/* lichLamViec */
+
+/* header */
+.sidebar-item {
+    cursor: pointer;
+}
+.sidebar-item:hover {
+    background-color: #e9ecef;
+}
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+.schedule-day {
+    text-align: center;
+}
+.btn-sm {
+    width: 100%;
+    margin-bottom: 5px;
+}
+.navbar-brand, .sidebar-item, .navbar-nav a {
+    font-weight: bold;
+}
+.sidebar-item.active {
+    background-color: #e9ecef;
+    color: #0d6efd;
+    border: none;
+    border-bottom: 4px solid #0d6efd;
+}
+.navbar-nav .nav-link {
+    margin-right: 20px;
+}
+.card {
+    border: none;
+    box-shadow: 1px 7px 9px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* footer */
+.footer{
+    width: 100%;
+    height: 500px;
+    background-image: url(../img/banner_web.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 50px;
+}
+.contain1{
+    width: 100%px;
+    height:400px;
+    background-color: #464545b0;
+    box-sizing: border-box;
+}
+.doc1, .doc2, .doc3, .doc4{
+
+    width: 25%;
+    height: 350px;
+    /* background-color: #333; */
+    float: left;
+    margin-top: px;
+    color: #fff;
+    padding: 20px;
+}
+.doc1 img{
+    max-width: 100%;
+    height: 150px;
+}
+.doc1 > ul li{
+    list-style: none;
+    padding: 5px;
+}
+.doc2 > ul li{
+    list-style: none;
+    padding: 5px;
+}
+.doc3 > ul li{
+    list-style: none;
+    padding: 5px;
+}
+.doc4 > ul li{
+    list-style: none;
+    padding: 5px;
+}
+.doc{
+    color: #fff;
+    text-decoration: none;
+}
+.doc:hover{
+    color:#fff;
+    text-decoration:none;
+}
+.doc1 > ul{
+    padding: 0;
+}
+.doc2 > ul{
+    padding: 0;
+}
+.doc3 > ul{
+    padding: 0;
+}
+.doc4 > ul{
+    padding: 0;
+}
