@@ -77,11 +77,11 @@
                                         </div>
                                         <div class="info-item">
                                             <div class="info-label">Email:</div>
-                                            <div>jane.smith@example.com</div>
+                                            <div>ngobao3861@gmail.com</div>
                                         </div>
                                         <div class="info-item">
-                                            <div class="info-label">Phone:</div>
-                                            <div>+1 (555) 123-4567</div>
+                                            <div class="info-label">Điện thoại:</div>
+                                            <div>0948520853</div>
                                         </div>
                                     </div>
                                 </div>
