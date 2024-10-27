@@ -66,14 +66,14 @@
                                 </table>
                             </div>
                             <div class="content" id="a1">
-                                <h1>Order #1002</h1>
+                                <h1>Hóa đơn #1001</h1>
                                 <span class="status status-completed">Processing</span>
                                 <div class="customer-info">
-                                    <h2>Customer Information</h2>
+                                    <h2>Thông tin khách hàng</h2>
                                     <div class="info-grid">
                                         <div class="info-item">
-                                            <div class="info-label">Name:</div>
-                                            <div>Jane Smith</div>
+                                            <div class="info-label">Họ và tên:</div>
+                                            <div>Ngô Huỳnh Hoài Bảo</div>
                                         </div>
                                         <div class="info-item">
                                             <div class="info-label">Email:</div>
