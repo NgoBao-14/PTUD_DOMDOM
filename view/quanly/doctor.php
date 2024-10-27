@@ -374,8 +374,8 @@
     });
 });
 document.addEventListener('DOMContentLoaded', function() {
-    const doctorBtn = document.querySelector('a[href="../HTML/doctor.html"]');
-    const nurseBtn = document.querySelector('a[href="../HTML/nurse.HTML"]');
+    const doctorBtn = document.querySelector('a[href="doctor.php"]');
+    const nurseBtn = document.querySelector('a[href="nurse.php"]');
 
     function setActiveButton(activeBtn, inactiveBtn) {
         activeBtn.classList.add('active');
@@ -396,9 +396,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Set initial active state based on current page
-    if (window.location.href.includes('doctor.html')) {
+    if (window.location.href.includes('doctor.php')) {
         setActiveButton(doctorBtn, nurseBtn);
-    } else if (window.location.href.includes('nurse.HTML')) {
+    } else if (window.location.href.includes('nurse.php')) {
         setActiveButton(nurseBtn, doctorBtn);
     }
 });
