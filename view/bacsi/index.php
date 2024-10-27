@@ -8,8 +8,8 @@
 <body>
 <!-- header -->
 <?php include("../interface/header.php"); ?>
-
-
+<!-- NhatCuong test -->
+ 
 <!-- footer -->
 <?php include("../interface/footer.php"); ?>
 </body>
