@@ -10,23 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="header">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Đom Đóm</a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="#">Trang chủ</a>
-                <a class="nav-link" href="#">Bệnh nhân</a>
-                <a class="nav-link" href="#">Nhân viên</a>
-                <a class="nav-link" href="#">Lịch làm việc</a>
-                <a class="nav-link active" href="#">Thống kê</a>
-            </div>
-            <div class="navbar-nav">
-                <a class="nav-link" href="#">Quản lý-Duy Khương</a>
-            </div>
-        </div>
-    </nav>
-    </div>
+<?php include("../interface/header.php"); ?>
     <div class="main">
         <div class="container mt-4 mb-3">
             <div class="row">
@@ -157,48 +141,7 @@
             displayChart();
         });
     </script>
-    <div class="footer">
-        <div class="contain1">
-                    <div class="doc1">
-                        <h4>
-                            BỆNH VIỆN ĐOM ĐÓM
-                        </h4>
-                        <p>
-                            Hệ thống bệnh viện uy tín, chất lượng, chuyên nghiệp với đội ngũ bác sĩ giỏi, nhiệt tình và chu đáo.
-                        </p>
-                        <img src="./img/logo.png" alt="">
-                        <ul>
-                            <li><a href="https://zalo.me/0346021604" class="doc">Zalo: 0764418902</a></li>
-                            <li>Địa chỉ: F4/9C tổ 14 ấp 6C, xã Vĩnh Lộc A, huyện Bình Chánh, TP.HCM</li>
-                            <li>Giờ mở cửa: 8:00 am – 9:00 pm</li>
-                        </ul>
-                    </div>
-                    <div class="doc2">
-                        <h4>CHÍNH SÁCH</h4>
-                        <ul>
-                            <li><a href="#" class="doc">Cách Đặt Lịch Tại Website</a></li>
-                            <li><a href="#" class="doc">Chính Sách Bảo Mật</a></li>
-                            <li><a href="#" class="doc">Phương Thức Thanh Toán</a></li>
-                        </ul>
-                    </div>
-                    <div class="doc3">
-                        <h4>Dịch vụ-Hỗ trợ</h4>
-                        <ul>
-                            <li><a href="#" class="doc">Đặt khám bác sĩ</a></li>
-                            <li><a href="#" class="doc">Đặt khám bệnh viện</a></li>
-                            <li><a href="#" class="doc">Đặt lịch xét nghiệm</a></li>
-                        </ul>
-                    </div>
-                    <div class="doc4">
-                        <h4>KÊNH TRUYỀN THÔNG</h4>
-                        <ul>
-                            <li><a href="#" class="doc">Giới Thiệu</a></li>
-                            <li><a href="#" class="doc">Liên Hệ-Bản Đồ Đường Đi</a></li>
-                            <li><a href="#" class="doc">Facebook</a></li>
-                        </ul>
-                    </div>
-                </div>
-    </div>
+    <?php include("../interface/footer.php"); ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

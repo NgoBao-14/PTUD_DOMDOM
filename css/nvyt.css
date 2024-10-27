@@ -1,0 +1,185 @@
+h1 {
+    text-align: center;
+    color: #333;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    max-width: 200px;
+    word-break: break-word;
+    white-space: normal;
+}
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+}
+tr:hover {
+    background-color: #f5f5f5;
+}
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+.status-pending {
+    background-color: #ffeeba;
+    color: #856404;
+}
+.status-processing {
+    background-color: #b8daff;
+    color: #004085;
+}
+.status-completed {
+    background-color: #c3e6cb;
+    color: #155724;
+}
+.status-cancelled {
+    background-color: #f5c6cb;
+    color: #721c24;
+}
+@media screen and (max-width: 600px) {
+    table {
+        border: 0;
+    }
+    table caption {
+        font-size: 1.3em;
+    }
+    table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+    table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+    table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+    }
+    table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    table td:last-child {
+        border-bottom: 0;
+    }
+
+}
+.list-group .tab_btn{
+    font-size: 18px;
+    font-weight: 600;
+    color: rgba(102,102,102,.85);
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 10px;
+    padding-left: 10px;
+    text-align: left;
+}
+.table-panel .content{
+    display: none;
+    animation: moving .5s ease;
+}
+@keyframes moving {
+    from {transform: translateX(50px);opacity: 0;}
+    to {transform: translateX(0px);opacity: 1;}
+}
+
+.list-group #a.active{
+    color:#fff;
+    background-color:blue;
+}
+.table-panel #a1.active{
+    display: block;
+}
+
+/* Chi tiet hoa don */
+h2 {
+    margin-left: 20px;
+    color: #333;
+    padding-top: 20px;
+}
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+.customer-info, .shipping-info {
+    margin-bottom: 20px;
+}
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+}
+.info-item {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+}
+.info-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.order-summary {
+    margin-top: 20px;
+    text-align: right;
+}
+.summary-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+.summary-label {
+    font-weight: bold;
+    margin-right: 20px;
+}
+.total {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #004085;
+}
+@media screen and (max-width: 600px) {
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .order-status {
+        margin-top: 10px;
+    }
+    table {
+        font-size: 0.9em;
+    }
+    th, td {
+        padding: 8px;
+    }
+}
