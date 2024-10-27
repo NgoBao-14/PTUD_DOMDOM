@@ -26,8 +26,8 @@
         </nav>
     </div>
     <div class="main">
-
-    <h1>ThaiBao</h1>
+    <p>test </p>
+    
     </div>
     <div class="footer">
         <div class="contain1">
