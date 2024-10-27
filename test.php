@@ -27,6 +27,7 @@
     </div>
     <div class="main">
 
+    <h1>ThaiBao</h1>
     </div>
     <div class="footer">
         <div class="contain1">
