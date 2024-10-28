@@ -51,6 +51,31 @@
                                             <td>21055151</td>
                                             <td>Đoàn Duy Khương</td>
                                         </tr>
+                                        <tr class="doctor-row" data-id="2">
+                                            <td>2</td>
+                                            <td>21055152</td>
+                                            <td>Nguyễn Thị Bình</td>
+                                        </tr>
+                                        <tr class="doctor-row" data-id="3">
+                                            <td>3</td>
+                                            <td>21055153</td>
+                                            <td>Trần Văn Cường</td>
+                                        </tr>
+                                        <tr class="doctor-row" data-id="4">
+                                            <td>4</td>
+                                            <td>21055154</td>
+                                            <td>Lê Thị Dung</td>
+                                        </tr>
+                                        <tr class="doctor-row" data-id="5">
+                                            <td>5</td>
+                                            <td>21055155</td>
+                                            <td>Phạm Văn Em</td>
+                                        </tr>
+                                        <tr class="doctor-row" data-id="6">
+                                            <td>6</td>
+                                            <td>21055156</td>
+                                            <td>Hoàng Thị Phương</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -315,7 +340,7 @@
             const doctorId = this.getAttribute('data-id');
             // Fetch doctor data (replace with actual data fetching)
             const doctorData = {
-                employeeId: '21055151',
+                1:{employeeId: '21055151',
                 name: 'Đoàn Duy Khương',
                 dob: '2003-01-01',
                 gender: 'Nam',
@@ -324,18 +349,75 @@
                 phone: '0123456789',
                 role: 'Khám Bệnh',
                 specialty: 'Khoa Mắt'
+                },
+                2: {
+                    employeeId: '21055152',
+                    name: 'Nguyễn Thị Bình',
+                    dob: '1985-05-15',
+                    gender: 'Nữ',
+                    address: '45 Lê Lợi, Q1, TP.HCM',
+                    email: 'binh@gmail.com',
+                    phone: '0987654321',
+                    role: 'Khám Bệnh',
+                    specialty: 'Khoa Nội'
+                },
+                3: {
+                    employeeId: '21055153',
+                    name: 'Trần Văn Cường',
+                    dob: '1980-08-20',
+                    gender: 'Nam',
+                    address: '78 Nguyễn Huệ, Q1, TP.HCM',
+                    email: 'cuong@gmail.com',
+                    phone: '0912345678',
+                    role: 'Phẫu Thuật',
+                    specialty: 'Khoa Ngoại'
+                },
+                4: {
+                    employeeId: '21055154',
+                    name: 'Lê Thị Dung',
+                    dob: '1988-12-10',
+                    gender: 'Nữ',
+                    address: '23 Trần Hưng Đạo, Q5, TP.HCM',
+                    email: 'dung@gmail.com',
+                    phone: '0898765432',
+                    role: 'Khám Bệnh',
+                    specialty: 'Khoa Sản'
+                },
+                5: {
+                    employeeId: '21055155',
+                    name: 'Phạm Văn Em',
+                    dob: '1982-03-25',
+                    gender: 'Nam',
+                    address: '56 Võ Văn Tần, Q3, TP.HCM',
+                    email: 'em@gmail.com',
+                    phone: '0976543210',
+                    role: 'Khám Bệnh',
+                    specialty: 'Khoa Nhi'
+                },
+                6: {
+                    employeeId: '21055156',
+                    name: 'Hoàng Thị Phương',
+                    dob: '1990-07-30',
+                    gender: 'Nữ',
+                    address: '89 Điện Biên Phủ, Bình Thạnh, TP.HCM',
+                    email: 'phuong@gmail.com',
+                    phone: '0932109876',
+                    role: 'Phẫu Thuật',
+                    specialty: 'Khoa Mắt'
+                }
             };
+            
 
             // Populate the modal with doctor data
-            document.getElementById('detailDoctorEmployeeId').textContent = doctorData.employeeId;
-            document.getElementById('detailDoctorName').textContent = doctorData.name;
-            document.getElementById('detailDoctorDob').textContent = doctorData.dob;
-            document.getElementById('detailDoctorGender').textContent = doctorData.gender;
-            document.getElementById('detailDoctorAddress').textContent = doctorData.address;
-            document.getElementById('detailDoctorEmail').textContent = doctorData.email;
-            document.getElementById('detailDoctorPhone').textContent = doctorData.phone;
-            document.getElementById('detailDoctorRole').textContent = doctorData.role;
-            document.getElementById('detailDoctorSpecialty').textContent = doctorData.specialty;
+            document.getElementById('detailDoctorEmployeeId').textContent = doctorData[doctorId].employeeId;
+            document.getElementById('detailDoctorName').textContent = doctorData[doctorId].name;
+            document.getElementById('detailDoctorDob').textContent = doctorData[doctorId].dob;
+            document.getElementById('detailDoctorGender').textContent = doctorData[doctorId].gender;
+            document.getElementById('detailDoctorAddress').textContent = doctorData[doctorId].address;
+            document.getElementById('detailDoctorEmail').textContent = doctorData[doctorId].email;
+            document.getElementById('detailDoctorPhone').textContent = doctorData[doctorId].phone;
+            document.getElementById('detailDoctorRole').textContent = doctorData[doctorId].role;
+            document.getElementById('detailDoctorSpecialty').textContent = doctorData[doctorId].specialty;
 
             doctorDetailsModal.show();
         });
