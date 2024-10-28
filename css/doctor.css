@@ -141,30 +141,4 @@ body {
     border-color: #0d6efd;
     color: white;
 }
-
-
-/* Nút chức năng thông thường */
-
-.doctor-functions .btn-function {
-    background-color: #f8f9fa;
-    border-color: #f8f9fa;
-    color: #6c757d;
-}
-
-
-/* Hiệu ứng khi di chuột qua nút chức năng */
-
-.doctor-functions .btn-function:hover {
-    background-color: #e2e6ea;
-    border-color: #dae0e5;
-    color: #6c757d;
-}
-
-
-/* Nút chức năng khi ở trạng thái chọn (active) */
-
-.doctor-functions .btn-function.active {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: white;
 }
