@@ -103,6 +103,8 @@
                                             <th style="text-align: center;">Số lượng</th>
                                             <th style="text-align: center;">Giá</th>
                                             <th style="text-align: center;">Mô tả</th>
+                                            <th style="text-align: center;">Thành tiền</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -113,6 +115,11 @@
                                             <td>2</td>
                                             <td>2,000</td>
                                             <td>Uống sau khi ăn</td>
+                                            <td>4,000</td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="6" style="text-align: center;">Tổng cộng</th>
+                                            <td>4,000</td>
                                         </tr>
                                     </tbody>
                                 </table>
