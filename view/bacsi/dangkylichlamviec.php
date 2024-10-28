@@ -69,6 +69,56 @@
                                         <label for="sun-afternoon">Ca chiều</label>
                                     </div>
                                 </td>
+                                <td class="border p-2">
+                                    <div class="mb-2">
+                                        <input type="checkbox" id="sun-morning" class="mr-2">
+                                        <label for="sun-morning">Ca sáng</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="sun-afternoon" class="mr-2">
+                                        <label for="sun-afternoon">Ca chiều</label>
+                                    </div>
+                                </td>
+                                <td class="border p-2">
+                                    <div class="mb-2">
+                                        <input type="checkbox" id="sun-morning" class="mr-2">
+                                        <label for="sun-morning">Ca sáng</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="sun-afternoon" class="mr-2">
+                                        <label for="sun-afternoon">Ca chiều</label>
+                                    </div>
+                                </td>
+                                <td class="border p-2">
+                                    <div class="mb-2">
+                                        <input type="checkbox" id="sun-morning" class="mr-2">
+                                        <label for="sun-morning">Ca sáng</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="sun-afternoon" class="mr-2">
+                                        <label for="sun-afternoon">Ca chiều</label>
+                                    </div>
+                                </td>
+                                <td class="border p-2">
+                                    <div class="mb-2">
+                                        <input type="checkbox" id="sun-morning" class="mr-2">
+                                        <label for="sun-morning">Ca sáng</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="sun-afternoon" class="mr-2">
+                                        <label for="sun-afternoon">Ca chiều</label>
+                                    </div>
+                                </td>
+                                <td class="border p-2">
+                                    <div class="mb-2">
+                                        <input type="checkbox" id="sun-morning" class="mr-2">
+                                        <label for="sun-morning">Ca sáng</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="sun-afternoon" class="mr-2">
+                                        <label for="sun-afternoon">Ca chiều</label>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

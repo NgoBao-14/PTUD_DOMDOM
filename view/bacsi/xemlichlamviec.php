@@ -57,6 +57,26 @@
                                     <div  class="mb-2">Ca sáng</div>
                                     <div>Ca chiều</div>
                                 </td>
+                                <td class="border p-2">
+                                    <div  class="mb-2">Ca sáng</div>
+                                    <div>Ca chiều</div>
+                                </td>
+                                <td class="border p-2">
+                                    <div  class="mb-2">Ca sáng</div>
+                                    <div>Ca chiều</div>
+                                </td>
+                                <td class="border p-2">
+                                    <div  class="mb-2">Ca sáng</div>
+                                    <div>Ca chiều</div>
+                                </td>
+                                <td class="border p-2">
+                                    <div  class="mb-2">Ca sáng</div>
+                                    <div>Ca chiều</div>
+                                </td>
+                                <td class="border p-2">
+                                    <div  class="mb-2">Ca sáng</div>
+                                    <div>Ca chiều</div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
