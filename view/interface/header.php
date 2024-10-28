@@ -16,7 +16,7 @@
                     <a class="nav-link" href="#">Trang chủ</a>
                     <a class="nav-link" href="#">Bệnh nhân</a>
                     <a class="nav-link" href="#">Nhân viên</a>
-                    <a class="nav-link active" href="#">Lịch làm việc</a>
+                    <a class="nav-link" href="#">Lịch làm việc</a>
                     <a class="nav-link" href="#">Thống kê</a>
                 </div>
                 <div class="navbar-nav">
