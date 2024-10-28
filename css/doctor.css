@@ -1,16 +1,19 @@
-.container{
+.container {
     margin-top: 50px;
     margin-bottom: 50px;
 }
+
 body {
     background-color: #f8f9fa;
 }
-.container{
+
+.container {
     margin-top: 50px;
     margin-bottom: 50px;
 }
+
 .card {
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .table th {
@@ -56,7 +59,8 @@ body {
     border-top: 1px solid #dee2e6;
 }
 
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
     border-color: #80bdff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
@@ -65,11 +69,11 @@ body {
     .card-title {
         font-size: 1.5rem;
     }
-    
     .table {
         font-size: 0.9rem;
     }
 }
+
 .btn-primary,
 .btn-secondary {
     transition: all 0.3s ease;
@@ -105,7 +109,9 @@ body {
     color: #ffffff;
 }
 
+
 /* New styles for the active state */
+
 .btn-primary.active {
     background-color: #0056b3;
     border-color: #0056b3;
@@ -116,4 +122,49 @@ body {
     background-color: #f8f9fa;
     border-color: #f8f9fa;
     color: #6c757d;
+}
+
+
+/* Căn giữa và chỉnh sửa giao diện bảng lịch */
+
+.doctor-functions .schedule-table th,
+.doctor-functions .schedule-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+/* Nút khi ở trạng thái chọn (active) */
+
+.doctor-functions .btn.active {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+}
+
+
+/* Nút chức năng thông thường */
+
+.doctor-functions .btn-function {
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    color: #6c757d;
+}
+
+
+/* Hiệu ứng khi di chuột qua nút chức năng */
+
+.doctor-functions .btn-function:hover {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+    color: #6c757d;
+}
+
+
+/* Nút chức năng khi ở trạng thái chọn (active) */
+
+.doctor-functions .btn-function.active {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
 }
