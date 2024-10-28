@@ -26,8 +26,6 @@
         </nav>
     </div>
     <div class="main">
-    <p>test </p>
-    
     </div>
     <div class="footer">
         <div class="contain1">

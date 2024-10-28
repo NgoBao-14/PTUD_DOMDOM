@@ -17,6 +17,59 @@
     background-color: white;
 }
 
+/* Main Menu Styles */
+.menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: #007bff;
+    display: flex;
+}
+
+.menu > li {
+    position: relative;
+}
+
+.menu > li > a {
+    display: block;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.menu > li > a:hover {
+    background-color: #0056b3;
+}
+
+/* Submenu Styles */
+.submenu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: #0056b3;
+    position: absolute;
+    top: 100%; /* Position below the main menu */
+    left: 0;
+    width: 100%;
+    display: none; /* Initially hidden */
+}
+
+.submenu li a {
+    display: block;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.submenu li a:hover {
+    background-color: #004080;
+}
+
+/* Show submenu on hover */
+.menu > li:hover .submenu {
+    display: block;
+}
 
 /* header */
 .sidebar-item {
@@ -46,12 +99,154 @@
     border: none;
     border-bottom: 4px solid #0d6efd;
 }
+
+#nutdn {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center; 
+    transition: background-color 0.3s;
+    margin-left: 20px;
+}   
+
+
+#nutdn:hover {
+    background-color: #0056b3;
+}
+
 .navbar-nav .nav-link {
     margin-right: 20px;
 }
+
 .card {
     border: none;
     box-shadow: 1px 7px 9px 4px rgba(0, 0, 0, 0.1);
+}
+
+.edit-button a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.cl-top {
+    display: flex;
+
+}
+
+.top {
+    
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.option {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+    padding: 10px 0;
+    z-index: 1;
+}
+
+.option nav {
+    display: flex;
+    justify-content: center;
+}
+
+.option nav ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.option nav ul li {
+    width: 200px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 123, 255, 0.8);
+    margin-right: 50px;
+    border-radius: 10px;
+}
+
+.option nav ul li a{
+    color: white;
+    font-size: 20px;
+    font-style: bold;
+}
+
+.option nav ul li:last-child {
+    margin-right: 0;
+}
+
+button {
+    
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.bsform {
+    display: flex;
+    justify-content: center;
+}
+
+.list-dk {
+    margin-top: 50px;
+}
+
+.top {
+    margin-left: 250px;
+}
+
+.xemthem{
+    margin-right: 270px;
+    height: 50px;
+}
+
+.xemthem a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.bacsi {
+    margin: 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 50px;
+    text-align: center;
+}
+
+.bacsi img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.bacsi b {
+    display: block;
+    margin-top: 10px;
+}
+
+.bacsi a {
+    text-decoration: none;
 }
 
 /* footer */
