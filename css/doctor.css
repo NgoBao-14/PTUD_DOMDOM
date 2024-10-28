@@ -123,21 +123,3 @@ body {
     border-color: #f8f9fa;
     color: #6c757d;
 }
-
-
-/* Căn giữa và chỉnh sửa giao diện bảng lịch */
-
-.doctor-functions .schedule-table th,
-.doctor-functions .schedule-table td {
-    text-align: center;
-    vertical-align: middle;
-}
-
-
-/* Nút khi ở trạng thái chọn (active) */
-
-.doctor-functions .btn.active {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-    color: white;
-}
