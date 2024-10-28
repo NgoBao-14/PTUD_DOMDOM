@@ -144,10 +144,10 @@
         <div class="sidebar">
             <h6>DANH SÁCH CHỨC NĂNG</h6>
             <ul class="function-list">
-                <li><a href="#">Đăng ký lịch làm việc</a></li>
-                <li><a href="#">Xem lịch làm việc</a></li>
+                <li><a href="dangkylichlamviec.php">Đăng ký lịch làm việc</a></li>
+                <li><a href="xemlichlamviec.php">Xem lịch làm việc</a></li>
                 <li><a href="#" class="active">Xem danh sách khám</a></li>
-                <li><a href="#">Xem thông tin bệnh nhân</a></li>
+                <li><a href="xemthongtinbenhnhan.php">Xem thông tin bệnh nhân</a></li>
                 <li><a href="XemLSKB.php">Xem lịch sử khám bệnh</a></li> <!-- Thay đổi link tại đây -->
             </ul>
         </div>
