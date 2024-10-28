@@ -92,91 +92,89 @@
     <?php include("../interface/footer.php"); ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const departmentLinks = document.querySelectorAll('.sidebar-item');
-        const scheduleButtons = document.querySelectorAll('.schedule-day button');
-        const doctorListTitle = document.getElementById('doctor-list-title');
-        const doctorList = document.getElementById('doctor-list');
-        const currentDepartment = document.getElementById('current-department');
-        const confirmButton = document.getElementById('confirm-schedule');
+            document.addEventListener('DOMContentLoaded', function() {
+            const departmentLinks = document.querySelectorAll('.sidebar-item');
+            const scheduleButtons = document.querySelectorAll('.schedule-day button');
+            const doctorListTitle = document.getElementById('doctor-list-title');
+            const doctorList = document.getElementById('doctor-list');
+            const currentDepartment = document.getElementById('current-department');
+            const confirmButton = document.getElementById('confirm-schedule');
 
-        // Dummy data for doctors (you can replace this with actual data from your backend)
-        const doctorsByDepartment = {
-            'Nội': ['Dr. Nguyễn Văn A', 'Dr. Trần Thị B', 'Dr. Lê Văn C'],
-            'Ngoại': ['Dr. Phạm Thị D', 'Dr. Hoàng Văn E', 'Dr. Nguyễn Thị F'],
-            'Nhi': ['Dr. Nguyễn Văn B', 'Dr. Trần Thị C', 'Dr. Lê Văn D'],
-            'Sản': ['Dr. Phạm Thị E', 'Dr. Hoàng Văn F', 'Dr. Nguyễn Thị G'],
-            'Tai mũi họng': ['Dr. Lê Văn H', 'Dr. Trần Thị I', 'Dr. Nguyễn Văn J'],
-            'Da liễu': ['Dr. Hoàng Văn K', 'Dr. Phạm Thị L', 'Dr. Lê Văn M'],
-            'Răng hàm mặt': ['Dr. Nguyễn Thị N', 'Dr. Trần Văn O', 'Dr. Phạm Thị P'],
-            'Mắt': ['Dr. Lê Văn Q', 'Dr. Hoàng Thị R', 'Dr. Nguyễn Văn S']
-        };
+            // Dummy data for doctors (you can replace this with actual data from your backend)
+            const doctorsByDepartment = {
+                'Nội': ['Dr. Nguyễn Văn A', 'Dr. Trần Thị B', 'Dr. Lê Văn C'],
+                'Ngoại': ['Dr. Phạm Thị D', 'Dr. Hoàng Văn E', 'Dr. Nguyễn Thị F'],
+                'Nhi': ['Dr. Nguyễn Văn B', 'Dr. Trần Thị C', 'Dr. Lê Văn D'],
+                'Sản': ['Dr. Phạm Thị E', 'Dr. Hoàng Văn F', 'Dr. Nguyễn Thị G'],
+                'Tai mũi họng': ['Dr. Lê Văn H', 'Dr. Trần Thị I', 'Dr. Nguyễn Văn J'],
+                'Da liễu': ['Dr. Hoàng Văn K', 'Dr. Phạm Thị L', 'Dr. Lê Văn M'],
+                'Răng hàm mặt': ['Dr. Nguyễn Thị N', 'Dr. Trần Văn O', 'Dr. Phạm Thị P'],
+                'Mắt': ['Dr. Lê Văn Q', 'Dr. Hoàng Thị R', 'Dr. Nguyễn Văn S']
+            };
 
-        function updateDoctorList(department, day, shift) {
-            if (!department || !day || !shift) {
-                doctorListTitle.textContent = "Vui lòng chọn khoa và ca làm việc";
-                doctorList.innerHTML = "";
-                return;
+            function updateDoctorList(department, day, shift) {
+                if (!department || !day || !shift) {
+                    doctorListTitle.textContent = "Vui lòng chọn khoa và ca làm việc";
+                    doctorList.innerHTML = "";
+                    return;
+                }
+                const doctors = doctorsByDepartment[department] || [];
+                doctorListTitle.textContent = `Danh sách bác sĩ đăng ký ca ${day}-${shift}`;
+                doctorList.innerHTML = doctors.map(doctor => `
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="${doctor}">
+                        <label class="form-check-label" for="${doctor}">${doctor}</label>
+                    </div>
+                `).join('');
             }
-            const doctors = doctorsByDepartment[department] || [];
-            doctorListTitle.textContent = `Danh sách bác sĩ đăng ký ca ${day}-${shift}`;
-            doctorList.innerHTML = doctors.map(doctor => `
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="${doctor}">
-                    <label class="form-check-label" for="${doctor}">${doctor}</label>
-                </div>
-            `).join('');
-        }
 
-        function showAlert(message, type) {
-            const alertDiv = document.getElementById('alert-message');
-            alertDiv.textContent = message;
-            alertDiv.className = `alert alert-${type}`;
-            alertDiv.classList.remove('d-none');
-            setTimeout(() => {
-                alertDiv.classList.add('d-none');
-            }, 3000);
-        }
-
-        departmentLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                departmentLinks.forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-                const department = this.getAttribute('data-department');
-                currentDepartment.textContent = department;
-                scheduleButtons.forEach(b => b.classList.remove('active'));
-                updateDoctorList(department, null, null);
-            });
-        });
-
-        scheduleButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                scheduleButtons.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                const activeDepartment = document.querySelector('.sidebar-item.active').getAttribute('data-department');
-                updateDoctorList(activeDepartment, this.getAttribute('data-day'), this.getAttribute('data-shift'));
-            });
-        });
-
-        confirmButton.addEventListener('click', function() {
-            const activeDepartment = document.querySelector('.sidebar-item.active');
-            const activeShift = document.querySelector('.schedule-day button.active');
-            const checkedDoctors = document.querySelectorAll('#doctor-list input:checked');
-
-            if (!activeDepartment || !activeShift) {
-                showAlert('Vui lòng chọn khoa và ca làm việc', 'warning');
-            } else if (checkedDoctors.length === 0) {
-                showAlert('Vui lòng chọn ít nhất một bác sĩ', 'warning');
-            } else {
-                showAlert('Xác nhận lịch làm việc thành công', 'success');
-                // Ở đây bạn có thể thêm code để gửi dữ liệu đến server
+            function showAlert(message, type) {
+                const alertDiv = document.getElementById('alert-message');
+                alertDiv.textContent = message;
+                alertDiv.className = `alert alert-${type}`;
+                alertDiv.classList.remove('d-none');
+                setTimeout(() => {
+                    alertDiv.classList.add('d-none');
+                }, 3000);
             }
-        });
 
-        // Initialize with just the department selected
-        updateDoctorList('Nội', null, null);
-    });
+            departmentLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    departmentLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    const department = this.getAttribute('data-department');
+                    currentDepartment.textContent = department;
+                    scheduleButtons.forEach(b => b.classList.remove('active'));
+                    updateDoctorList(department, null, null);
+                });
+            });
+
+            scheduleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    scheduleButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const activeDepartment = document.querySelector('.sidebar-item.active').getAttribute('data-department');
+                    updateDoctorList(activeDepartment, this.getAttribute('data-day'), this.getAttribute('data-shift'));
+                });
+            });
+
+            confirmButton.addEventListener('click', function() {
+                const activeDepartment = document.querySelector('.sidebar-item.active');
+                const activeShift = document.querySelector('.schedule-day button.active');
+                const checkedDoctors = document.querySelectorAll('#doctor-list input:checked');
+
+                if (!activeDepartment || !activeShift) {
+                    showAlert('Vui lòng chọn khoa và ca làm việc', 'warning');
+                } else if (checkedDoctors.length === 0) {
+                    showAlert('Vui lòng chọn ít nhất một bác sĩ', 'warning');
+                } else {
+                    showAlert('Xác nhận lịch làm việc thành công', 'success');
+                    // note
+                }
+            });
+            updateDoctorList('Nội', null, null);
+        } );
     </script>
 </body>
 </html>
