@@ -6,6 +6,7 @@
     <title>Trang chủ - Đom Đóm</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -43,7 +44,7 @@
                 ?>
         </nav>
     </div>
-    
+
     <?php
         if(isset($_GET['dangnhap'])){
             include_once("view/khachhang/Login/dangnhap.php");
@@ -80,8 +81,6 @@
                 </nav>
             </div>
             
-            
-            
             <div class="list-dk">
                 <div class="cl-top">
                     <div class="top">
@@ -116,12 +115,68 @@
                         </a>
                     </div>
                 </form>
-            </div>';
+            </div>
+            
+            <div class="healthcare-section">
+                <div class="header-image">
+                    <div class="banner-overlay">
+                    <p>Tổng Quan Phòng Khám</p>
+                    <h1>CHĂM SÓC SỨC KHỎE TRONG KHÔNG GIAN ĐẲNG CẤP</h1>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                    <h2>100%</h2>
+                    <p>Bảo Hiểm</p>
+                    </div>
+                    <div class="stat-item">
+                    <h2>10K</h2>
+                    <p>Các Dự Án Đã Hoàn Thành</p>
+                    </div>
+                    <div class="stat-item">
+                    <h2>1K</h2>
+                    <p>Khách Hàng</p>
+                    </div>
+                    <div class="stat-item">
+                    <h2>18+</h2>
+                    <p>Bác Sĩ Có Kinh Nghiệm</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="image-section">
+                    <img src="img/gioithieu.jpg" alt="">
+                </div>
+                <div class="content-section">
+                    <div class="info-section">
+                        <h2>Giải Pháp Toàn Diện Uy Tín, An Toàn, và Chuyên Nghiệp</h2>
+                        <p>BS. SAC Phòng Khám Nam Khoa - là địa chỉ tin cậy, an toàn, và chuyên nghiệp. Chúng tôi mang đến những dịch vụ thẩm mỹ an toàn, hiệu quả... Phòng khám chuyên khoa BS. SAC tự hào là địa chỉ thăm khám và điều trị tin cậy, đáp ứng mọi nhu cầu của khách hàng với tiêu chuẩn quốc tế. Chúng tôi cam kết mang đến dịch vụ y tế chất lượng cao, chuyên nghiệp, với đội ngũ y bác sĩ giàu kinh nghiệm và trang thiết bị hiện đại.</p>
+                        <p>Hãy đến với Phòng khám chuyên khoa BS. SAC để trải nghiệm dịch vụ y tế cao cấp và sự chăm sóc tận tâm. Chúng tôi luôn sẵn sàng đồng hành cùng bạn trên hành trình bảo vệ sức khỏe và sắc đẹp.</p>
+                        <a href="#">Xem Thêm...</a>
+                    </div>
+                    <div class="services-section">
+                        <div class="service">
+                            <i class="fa-sharp-duotone fa-solid fa-user-doctor"></i>
+                            <p>Bác Sĩ Chuyên Khoa</p>
+                        </div>
+                        <div class="service">
+                            <i class="fa-sharp-duotone fa-solid fa-eye-slash"></i>
+                            <p>Bảo Mật Tuyệt Đối</p>
+                        </div>
+                        <div class="service">
+                            <i class="fa-sharp-duotone fa-solid fa-calendar-days"></i>
+                            <p>Thăm Khám 24/7</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            ';
         }
     ?>
 
             
-
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
