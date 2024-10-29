@@ -1,6 +1,6 @@
 /* Full */
 *{
-    margin: 0 auto;
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
@@ -258,6 +258,7 @@ button:hover {
     color: #fff;
     width: 1000px;
     margin-bottom: 50px;
+    margin: 0 auto;
 }
 
 .header-image {
