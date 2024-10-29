@@ -1,0 +1,455 @@
+/* Full */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.header
+{
+    height: 50px;
+    width: 100%;
+    background-color: #333;
+}
+.main
+{
+    width: 100%;
+    height: auto;
+    background-color: white;
+}
+
+/* Main Menu Styles */
+.menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: #007bff;
+    display: flex;
+}
+
+.menu > li {
+    position: relative;
+}
+
+.menu > li > a {
+    display: block;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.menu > li > a:hover {
+    background-color: #0056b3;
+}
+
+/* Submenu Styles */
+.submenu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: #0056b3;
+    position: absolute;
+    top: 100%; /* Position below the main menu */
+    left: 0;
+    width: 100%;
+    display: none; /* Initially hidden */
+}
+
+.submenu li a {
+    display: block;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.submenu li a:hover {
+    background-color: #004080;
+}
+
+/* Show submenu on hover */
+.menu > li:hover .submenu {
+    display: block;
+}
+
+/* header */
+.sidebar-item {
+    cursor: pointer;
+}
+.sidebar-item:hover {
+    background-color: #e9ecef;
+}
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+.schedule-day {
+    text-align: center;
+}
+.btn-sm {
+    width: 100%;
+    margin-bottom: 5px;
+}
+.navbar-brand, .sidebar-item, .navbar-nav a {
+    font-weight: bold;
+}
+.sidebar-item.active {
+    background-color: #e9ecef;
+    color: #0d6efd;
+    border: none;
+    border-bottom: 4px solid #0d6efd;
+}
+
+#nutdn {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center; 
+    transition: background-color 0.3s;
+    margin-left: 20px;
+}   
+
+
+#nutdn:hover {
+    background-color: #0056b3;
+}
+
+.navbar-nav .nav-link {
+    margin-right: 20px;
+}
+
+.card {
+    border: none;
+    box-shadow: 1px 7px 9px 4px rgba(0, 0, 0, 0.1);
+}
+
+.edit-button a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.cl-top {
+    display: flex;
+
+}
+
+.top {
+    
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.option {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+    padding: 10px 0;
+    z-index: 1;
+    margin-bottom: 50px;
+}
+
+.option nav {
+    display: flex;
+    justify-content: center;
+}
+
+.option nav ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.option nav ul li {
+    width: 200px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 123, 255, 0.8);
+    margin-right: 50px;
+    border-radius: 10px;
+}
+
+.option nav ul li a{
+    color: white;
+    font-size: 20px;
+    font-style: bold;
+    text-decoration: none;
+}
+
+.option nav ul li:last-child {
+    margin-right: 0;
+}
+
+button {
+    
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.bsform {
+    display: flex;
+    justify-content: center;
+}
+
+.list-dk {
+    margin-top: 150px;
+    margin-bottom: 50px;
+}
+
+.top {
+    margin-left: 250px;
+}
+
+.xemthem{
+    margin-right: 270px;
+    height: 50px;
+}
+
+.xemthem a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.bacsi {
+    margin: 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 50px;
+    text-align: center;
+}
+
+.bacsi img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.bacsi b {
+    display: block;
+    margin-top: 10px;
+}
+
+.bacsi a {
+    text-decoration: none;
+}
+
+
+.healthcare-section {
+    text-align: center;
+    color: #fff;
+    width: 1000px;
+    margin-bottom: 50px;
+    margin: 0 auto;
+}
+
+.header-image {
+    position: relative;
+    background-image: url('../img/phongkham.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.banner-overlay p {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.banner-overlay h1 {
+    margin-top: 10px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 30px;
+    background-color: #f8f9fa;
+}
+
+.stat-item {
+    margin: 0 15px;
+    text-align: center;
+    color: #000;
+}
+
+.stat-item h2 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+    color: #007bff;
+}
+
+.stat-item p {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+
+.card {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.image-section img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.image-section {
+    flex: 1;
+    overflow: hidden;
+    margin-right: 20px;
+    border-radius: 8px;
+}
+
+.content-section {
+    flex: 2;
+}
+
+.info-section h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.info-section p {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.info-section a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.services-section {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 80px;
+    border-top: 1px solid #ddd;
+    margin-top: 30px;
+}
+
+.service {
+    text-align: center;
+    color: #333;
+}
+
+.service i {
+    font-size: 100px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.service p {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+
+/* footer */
+.footer{
+    width: 100%;
+    height: 500px;
+    background-image: url(../img/banner_web.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 50px;
+}
+.contain1{
+    width: 100%px;
+    height:400px;
+    background-color: #464545b0;
+    box-sizing: border-box;
+}
+.doc1, .doc2, .doc3, .doc4{
+
+    width: 25%;
+    height: 350px;
+    /* background-color: #333; */
+    float: left;
+    margin-top: px;
+    color: #fff;
+    padding: 20px;
+}
+.doc1 img{
+    max-width: 100%;
+    height: 150px;
+}
+.doc1 > ul li{
+    list-style: none;
+    padding: 5px;
+}
+.doc2 > ul li{
+    list-style: none;
+    padding: 5px;
+}
+.doc3 > ul li{
+    list-style: none;
+    padding: 5px;
+}
+.doc4 > ul li{
+    list-style: none;
+    padding: 5px;
+}
+.doc{
+    color: #fff;
+    text-decoration: none;
+}
+.doc:hover{
+    color:#fff;
+    text-decoration:none;
+}
+.doc1 > ul{
+    padding: 0;
+}
+.doc2 > ul{
+    padding: 0;
+}
+.doc3 > ul{
+    padding: 0;
+}
+.doc4 > ul{
+    padding: 0;
+}

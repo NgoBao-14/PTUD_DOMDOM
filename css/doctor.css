@@ -1,16 +1,19 @@
-.container{
+.container {
     margin-top: 50px;
     margin-bottom: 50px;
 }
+
 body {
     background-color: #f8f9fa;
 }
-.container{
+
+.container {
     margin-top: 50px;
     margin-bottom: 50px;
 }
+
 .card {
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .table th {
@@ -56,7 +59,8 @@ body {
     border-top: 1px solid #dee2e6;
 }
 
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
     border-color: #80bdff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
@@ -65,11 +69,11 @@ body {
     .card-title {
         font-size: 1.5rem;
     }
-    
     .table {
         font-size: 0.9rem;
     }
 }
+
 .btn-primary,
 .btn-secondary {
     transition: all 0.3s ease;
@@ -105,7 +109,9 @@ body {
     color: #ffffff;
 }
 
+
 /* New styles for the active state */
+
 .btn-primary.active {
     background-color: #0056b3;
     border-color: #0056b3;

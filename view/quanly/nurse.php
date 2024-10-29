@@ -49,8 +49,33 @@
                                     <tbody>
                                         <tr class="nurse-row" data-id="1">
                                             <td>1</td>
-                                            <td>21055152</td>
-                                            <td>Nguyễn Thị Hoa</td>
+                                            <td>21098431</td>
+                                            <td>Lê Quang Huy</td>
+                                        </tr>
+                                        <tr class="nurse-row" data-id="2">
+                                            <td>2</td>
+                                            <td>21105841</td>
+                                            <td>Đào Hoa Anh Thư</td>
+                                        </tr>
+                                        <tr class="nurse-row" data-id="3">
+                                            <td>3</td>
+                                            <td>21049691</td>
+                                            <td>Trần Nhật Cường</td>
+                                        </tr>
+                                        <tr class="nurse-row" data-id="4">
+                                            <td>4</td>
+                                            <td>21003861</td>
+                                            <td>Ngô Huỳnh Hoài Bảo</td>
+                                        </tr>
+                                        <tr class="nurse-row" data-id="5">
+                                            <td>5</td>
+                                            <td>21017801</td>
+                                            <td>Trần Thái Bảo</td>
+                                        </tr>
+                                        <tr class="nurse-row" data-id="6">
+                                            <td>6</td>
+                                            <td>21080031</td>
+                                            <td>Lê Hoàng Nhớ</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -328,42 +353,86 @@
         addNurseClickListener(newRow);
     }
 
-    function addNurseClickListener(row) {
+    document.querySelectorAll('.nurse-row').forEach(row => {
         row.addEventListener('click', function() {
             const nurseId = this.getAttribute('data-id');
             // In a real application, you would fetch the nurse data from a server
             // For this example, we'll use the data in the row
             const nurseData = {
-                employeeId: this.cells[1].textContent,
-                name: this.cells[2].textContent,
-                // For demonstration, we'll use placeholder data for other fields
+                1:{employeeId: '21098431',
+                name: 'Lê Quang Huy',
                 dob: '1990-01-01',
-                gender: 'Nữ',
-                address: '123 Đường ABC, Quận XYZ, TP.HCM',
+                gender: 'Nam',
+                address: '123 Đường Nguyễn văn bảo, Quận GV, TP.HCM',
                 email: 'nurse@example.com',
                 phone: '0123456789',
                 role: 'Điều dưỡng',
                 department: 'Khoa Nội'
+                },
+                2:{employeeId: '21105841',
+                name: 'Đào Hoa Anh Thư',
+                dob: '1990-01-01',
+                gender: 'Nữ',
+                address: '123 Đường Nguyễn văn bảo, Quận GV, TP.HCM',
+                email: 'nurse@example.com',
+                phone: '0123456789',
+                role: 'Điều dưỡng',
+                department: 'Khoa Nội'
+                },
+                3:{employeeId: '21049691',
+                name: 'Trần Nhật Cường',
+                dob: '1990-01-01',
+                gender: 'Nam',
+                address: '123 Đường Nguyễn văn bảo, Quận GV, TP.HCM',
+                email: 'nurse@example.com',
+                phone: '0123456789',
+                role: 'Điều dưỡng',
+                department: 'Khoa Nội'
+                },
+                4:{employeeId: '21003861',
+                name: 'Ngô Huỳnh Hoài Bảo',
+                dob: '1990-01-01',
+                gender: 'Nam',
+                address: '123 Đường Nguyễn văn bảo, Quận GV, TP.HCM',
+                email: 'nurse@example.com',
+                phone: '0123456789',
+                role: 'Điều dưỡng',
+                department: 'Khoa Nội'
+                },
+                5:{employeeId: '21017801',
+                name: 'Trần Thái Bảo',
+                dob: '1990-01-01',
+                gender: 'Nam',
+                address: '123 Đường Nguyễn văn bảo, Quận GV, TP.HCM',
+                email: 'nurse@example.com',
+                phone: '0123456789',
+                role: 'Điều dưỡng',
+                department: 'Khoa Nội'
+                },
+                6:{employeeId: '21080031',
+                name: 'Lê Hoàng Nhớ',
+                dob: '1990-01-01',
+                gender: 'Nam',
+                address: '123 Đường Nguyễn văn bảo, Quận GV, TP.HCM',
+                email: 'nurse@example.com',
+                phone: '0123456789',
+                role: 'Điều dưỡng',
+                department: 'Khoa Nội'
+                },
             };
-
-            populateNurseDetails(nurseData);
-            nurseDetailsModal.show();
-        });
-    }
-
-    function populateNurseDetails(nurseData) {
-        document.getElementById('detailNurseEmployeeId').textContent = nurseData.employeeId;
-        document.getElementById('detailNurseName').textContent = nurseData.name;
-        document.getElementById('detailNurseDob').textContent = nurseData.dob;
-        document.getElementById('detailNurseGender').textContent = nurseData.gender;
-        document.getElementById('detailNurseAddress').textContent = nurseData.address;
-        document.getElementById('detailNurseEmail').textContent = nurseData.email;
-        document.getElementById('detailNursePhone').textContent = nurseData.phone;
-        document.getElementById('detailNurseRole').textContent = nurseData.role;
-        document.getElementById('detailNurseDepartment').textContent = nurseData.department;
-    }
-
-    document.querySelectorAll('.nurse-row').forEach(addNurseClickListener);
+    
+        document.getElementById('detailNurseEmployeeId').textContent = nurseData[nurseId].employeeId;
+        document.getElementById('detailNurseName').textContent = nurseData[nurseId].name;
+        document.getElementById('detailNurseDob').textContent = nurseData[nurseId].dob;
+        document.getElementById('detailNurseGender').textContent = nurseData[nurseId].gender;
+        document.getElementById('detailNurseAddress').textContent = nurseData[nurseId].address;
+        document.getElementById('detailNurseEmail').textContent = nurseData[nurseId].email;
+        document.getElementById('detailNursePhone').textContent = nurseData[nurseId].phone;
+        document.getElementById('detailNurseRole').textContent = nurseData[nurseId].role;
+        document.getElementById('detailNurseDepartment').textContent = nurseData[nurseId].department;
+        nurseDetailsModal.show();
+    });
+});
 
     document.getElementById('editNurseBtn').addEventListener('click', function() {
         nurseDetailsModal.hide();
