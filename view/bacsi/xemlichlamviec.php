@@ -30,10 +30,11 @@
                 <div class="bg-white shadow-md rounded-lg p-6">
                     <h2 class="text-2xl font-bold mb-4">Xem lịch làm việc</h2>
                     <div class="flex justify-between mb-4">
-                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Tuần trước</button>
-                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">Hiện tại</button>
-                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Tuần sau</button>
+                        <button id="prevWeek" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Tuần trước</button>
+                        <button id="currentWeek" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">Hiện tại</button>
+                        <button id="nextWeek" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Tuần sau</button>
                     </div>
+                    <div id="weekRange" class="text-center font-bold mb-4"></div>
                     <table class="w-full border-collapse mb-4">
                         <thead>
                             <tr>
@@ -52,35 +53,35 @@
                                     <div class="mb-2">Ca sáng</div>
                                     <div>Ca chiều</div>
                                 </td>
-                                <!-- Repeat for other days -->
                                 <td class="border p-2">
-                                    <div  class="mb-2">Ca sáng</div>
+                                    <div class="mb-2">Ca sáng</div>
                                     <div>Ca chiều</div>
                                 </td>
                                 <td class="border p-2">
-                                    <div  class="mb-2">Ca sáng</div>
+                                    <div class="mb-2">Ca sáng</div>
                                     <div>Ca chiều</div>
                                 </td>
                                 <td class="border p-2">
-                                    <div  class="mb-2">Ca sáng</div>
+                                    <div class="mb-2">Ca sáng</div>
                                     <div>Ca chiều</div>
                                 </td>
                                 <td class="border p-2">
-                                    <div  class="mb-2">Ca sáng</div>
+                                    
+                                    <div class="mb-2">Ca sáng</div>
                                     <div>Ca chiều</div>
                                 </td>
                                 <td class="border p-2">
-                                    <div  class="mb-2">Ca sáng</div>
+                                    <div class="mb-2">Ca sáng</div>
                                     <div>Ca chiều</div>
                                 </td>
                                 <td class="border p-2">
-                                    <div  class="mb-2">Ca sáng</div>
+                                    <div class="mb-2">Ca sáng</div>
                                     <div>Ca chiều</div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition duration-300">In lịch làm việc</button>
+                    <button id="printSchedule" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition duration-300">In lịch làm việc</button>
                 </div>
             </div>
         </div>
@@ -89,9 +90,48 @@
     <?php include("../interface/footer.php"); ?>
 
     <script>
-        document.querySelector('.bg-yellow-500').addEventListener('click', function() {
+        function getMonday(d) {
+            d = new Date(d);
+            var day = d.getDay(),
+                diff = d.getDate() - day + (day == 0 ? -6:1);
+            return new Date(d.setDate(diff));
+        }
+
+        function formatDate(date) {
+            return date.getDate().toString().padStart(2, '0') + '/' + 
+                   (date.getMonth() + 1).toString().padStart(2, '0') + '/' + 
+                   date.getFullYear();
+        }
+
+        function updateWeekRange(monday) {
+            var sunday = new Date(monday);
+            sunday.setDate(sunday.getDate() + 6);
+            document.getElementById('weekRange').textContent = 
+                formatDate(monday) + ' - ' + formatDate(sunday);
+        }
+
+        var currentMonday = getMonday(new Date());
+
+        document.getElementById('prevWeek').addEventListener('click', function() {
+            currentMonday.setDate(currentMonday.getDate() - 7);
+            updateWeekRange(currentMonday);
+        });
+
+        document.getElementById('nextWeek').addEventListener('click', function() {
+            currentMonday.setDate(currentMonday.getDate() + 7);
+            updateWeekRange(currentMonday);
+        });
+
+        document.getElementById('currentWeek').addEventListener('click', function() {
+            currentMonday = getMonday(new Date());
+            updateWeekRange(currentMonday);
+        });
+
+        document.getElementById('printSchedule').addEventListener('click', function() {
             window.print();
         });
+
+        updateWeekRange(currentMonday);
     </script>
 </body>
 </html>

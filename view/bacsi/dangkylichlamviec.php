@@ -30,10 +30,11 @@
                 <div class="bg-white shadow-md rounded-lg p-6">
                     <h2 class="text-2xl font-bold mb-4">Đăng ký lịch làm việc</h2>
                     <div class="flex justify-between mb-4">
-                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Tuần trước</button>
-                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">Hiện tại</button>
-                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Tuần sau</button>
+                        <button id="prevWeek" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Tuần trước</button>
+                        <button id="currentWeek" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">Hiện tại</button>
+                        <button id="nextWeek" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Tuần sau</button>
                     </div>
+                    <div id="weekRange" class="text-center font-bold mb-4"></div>
                     <table class="w-full border-collapse">
                         <thead>
                             <tr>
@@ -58,55 +59,54 @@
                                         <label for="mon-afternoon">Ca chiều</label>
                                     </div>
                                 </td>
-                                <!-- Repeat for other days -->
                                 <td class="border p-2">
                                     <div class="mb-2">
-                                        <input type="checkbox" id="sun-morning" class="mr-2">
-                                        <label for="sun-morning">Ca sáng</label>
+                                        <input type="checkbox" id="tue-morning" class="mr-2">
+                                        <label for="tue-morning">Ca sáng</label>
                                     </div>
                                     <div>
-                                        <input type="checkbox" id="sun-afternoon" class="mr-2">
-                                        <label for="sun-afternoon">Ca chiều</label>
+                                        <input type="checkbox" id="tue-afternoon" class="mr-2">
+                                        <label for="tue-afternoon">Ca chiều</label>
                                     </div>
                                 </td>
                                 <td class="border p-2">
                                     <div class="mb-2">
-                                        <input type="checkbox" id="sun-morning" class="mr-2">
-                                        <label for="sun-morning">Ca sáng</label>
+                                        <input type="checkbox" id="wed-morning" class="mr-2">
+                                        <label for="wed-morning">Ca sáng</label>
                                     </div>
                                     <div>
-                                        <input type="checkbox" id="sun-afternoon" class="mr-2">
-                                        <label for="sun-afternoon">Ca chiều</label>
+                                        <input type="checkbox" id="wed-afternoon" class="mr-2">
+                                        <label for="wed-afternoon">Ca chiều</label>
                                     </div>
                                 </td>
                                 <td class="border p-2">
                                     <div class="mb-2">
-                                        <input type="checkbox" id="sun-morning" class="mr-2">
-                                        <label for="sun-morning">Ca sáng</label>
+                                        <input type="checkbox" id="thu-morning" class="mr-2">
+                                        <label for="thu-morning">Ca sáng</label>
                                     </div>
                                     <div>
-                                        <input type="checkbox" id="sun-afternoon" class="mr-2">
-                                        <label for="sun-afternoon">Ca chiều</label>
+                                        <input type="checkbox" id="thu-afternoon" class="mr-2">
+                                        <label for="thu-afternoon">Ca chiều</label>
                                     </div>
                                 </td>
                                 <td class="border p-2">
                                     <div class="mb-2">
-                                        <input type="checkbox" id="sun-morning" class="mr-2">
-                                        <label for="sun-morning">Ca sáng</label>
+                                        <input type="checkbox" id="fri-morning" class="mr-2">
+                                        <label for="fri-morning">Ca sáng</label>
                                     </div>
                                     <div>
-                                        <input type="checkbox" id="sun-afternoon" class="mr-2">
-                                        <label for="sun-afternoon">Ca chiều</label>
+                                        <input type="checkbox" id="fri-afternoon" class="mr-2">
+                                        <label for="fri-afternoon">Ca chiều</label>
                                     </div>
                                 </td>
                                 <td class="border p-2">
                                     <div class="mb-2">
-                                        <input type="checkbox" id="sun-morning" class="mr-2">
-                                        <label for="sun-morning">Ca sáng</label>
+                                        <input type="checkbox" id="sat-morning" class="mr-2">
+                                        <label for="sat-morning">Ca sáng</label>
                                     </div>
                                     <div>
-                                        <input type="checkbox" id="sun-afternoon" class="mr-2">
-                                        <label for="sun-afternoon">Ca chiều</label>
+                                        <input type="checkbox" id="sat-afternoon" class="mr-2">
+                                        <label for="sat-afternoon">Ca chiều</label>
                                     </div>
                                 </td>
                                 <td class="border p-2">
@@ -129,5 +129,46 @@
     </div>
 
     <?php include("../interface/footer.php"); ?>
+
+    <script>
+        function getMonday(d) {
+            d = new Date(d);
+            var day = d.getDay(),
+                diff = d.getDate() - day + (day == 0 ? -6:1);
+            return new Date(d.setDate(diff));
+        }
+
+        function formatDate(date) {
+            return date.getDate().toString().padStart(2, '0') + '/' + 
+                   (date.getMonth() + 1).toString().padStart(2, '0') + '/' + 
+                   date.getFullYear();
+        }
+
+        function updateWeekRange(monday) {
+            var sunday = new Date(monday);
+            sunday.setDate(sunday.getDate() + 6);
+            document.getElementById('weekRange').textContent = 
+                formatDate(monday) + ' - ' + formatDate(sunday);
+        }
+
+        var currentMonday = getMonday(new Date());
+
+        document.getElementById('prevWeek').addEventListener('click', function() {
+            currentMonday.setDate(currentMonday.getDate() - 7);
+            updateWeekRange(currentMonday);
+        });
+
+        document.getElementById('nextWeek').addEventListener('click', function() {
+            currentMonday.setDate(currentMonday.getDate() + 7);
+            updateWeekRange(currentMonday);
+        });
+
+        document.getElementById('currentWeek').addEventListener('click', function() {
+            currentMonday = getMonday(new Date());
+            updateWeekRange(currentMonday);
+        });
+
+        updateWeekRange(currentMonday);
+    </script>
 </body>
 </html>
