@@ -62,7 +62,7 @@
                                         <input type="date" class="form-control" id="specificDate">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100">Xác nhận thống kê</button>
+                                <button type="submit" class="btn btn-primary w-100" id="submitButton" disabled>Xác nhận thống kê</button>
                             </form>
                         </div>
                     </div>
@@ -72,7 +72,6 @@
                         <div class="card-body">
                             <h5 class="card-title">Biểu đồ thống kê</h5>
                             <canvas id="chartCanvas"></canvas>
-                            </div>
                         </div>
                         <div class="card-footer text-end mt-2">
                             <button class="btn btn-primary">In báo cáo</button>
@@ -83,63 +82,93 @@
         </div>
     </div>
     <script>
-        document.getElementById('statisticCriteria').addEventListener('change', function() {
-            const serviceOptions = document.getElementById('serviceOptions');
-            const timeOptions = document.getElementById('timeOptions');
-            if (this.value === '1') {
-                serviceOptions.classList.remove('d-none');
-                timeOptions.classList.add('d-none');
-            } else if (this.value === '2') {
-                serviceOptions.classList.add('d-none');
-                timeOptions.classList.remove('d-none');
-            } else {
-                serviceOptions.classList.add('d-none');
-                timeOptions.classList.add('d-none');
-            }
-        });
+    const statisticCriteria = document.getElementById('statisticCriteria');
+    const serviceOptions = document.getElementById('serviceOptions');
+    const timeOptions = document.getElementById('timeOptions');
+    const timePeriod = document.getElementById('timePeriod');
+    const specificDateContainer = document.getElementById('specificDateContainer');
+    const submitButton = document.getElementById('submitButton');
+    const statisticForm = document.getElementById('statisticForm');
 
-        document.getElementById('timePeriod').addEventListener('change', function() {
-            const specificDateContainer = document.getElementById('specificDateContainer');
-            if (this.value === 'day') {
-                specificDateContainer.classList.remove('d-none');
-            } else {
-                specificDateContainer.classList.add('d-none');
-            }
-        });
+    function checkFormValidity() {
+        const criteriaSelected = statisticCriteria.value !== 'Chọn tiêu chí thống kê';
+        let detailsSelected = false;
 
-        function displayChart() {
-            const ctx = document.getElementById('chartCanvas').getContext('2d');
-            
-            if (window.myChart) {
-                window.myChart.destroy();
+        if (criteriaSelected) {
+            if (statisticCriteria.value === '1') {
+                detailsSelected = document.querySelector('input[name="serviceType"]:checked') !== null;
+            } else if (statisticCriteria.value === '2') {
+                const timeSelected = timePeriod.value !== 'Chọn khoảng thời gian';
+                if (timeSelected && timePeriod.value === 'day') {
+                    detailsSelected = document.getElementById('specificDate').value !== '';
+                } else {
+                    detailsSelected = timeSelected;
+                }
             }
-            
-            // Create new chart instance
-            window.myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Dịch vụ 1', 'Dịch vụ 2', 'Dịch vụ 3'],
-                    datasets: [{
-                        label: 'Số lượng',
-                        data: [12, 19, 7], 
-                        backgroundColor: ['rgba(75, 192, 192, 0.2)'],
-                        borderColor: ['rgba(75, 192, 192, 1)'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+        }
+
+        submitButton.disabled = !(criteriaSelected && detailsSelected);
+    }
+
+    statisticCriteria.addEventListener('change', function() {
+        if (this.value === '1') {
+            serviceOptions.classList.remove('d-none');
+            timeOptions.classList.add('d-none');
+        } else if (this.value === '2') {
+            serviceOptions.classList.add('d-none');
+            timeOptions.classList.remove('d-none');
+        } else {
+            serviceOptions.classList.add('d-none');
+            timeOptions.classList.add('d-none');
+        }
+        checkFormValidity();
+    });
+
+    timePeriod.addEventListener('change', function() {
+        if (this.value === 'day') {
+            specificDateContainer.classList.remove('d-none');
+        } else {
+            specificDateContainer.classList.add('d-none');
+        }
+        checkFormValidity();
+    });
+
+    serviceOptions.addEventListener('change', checkFormValidity);
+    specificDateContainer.addEventListener('change', checkFormValidity);
+
+    statisticForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        displayChart();
+    });
+
+    function displayChart() {
+        const ctx = document.getElementById('chartCanvas').getContext('2d');
+        
+        if (window.myChart) {
+            window.myChart.destroy();
+        }
+        
+        window.myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Dịch vụ 1', 'Dịch vụ 2', 'Dịch vụ 3'],
+                datasets: [{
+                    label: 'Số lượng',
+                    data: [12, 19, 7], 
+                    backgroundColor: ['rgba(75, 192, 192, 0.2)'],
+                    borderColor: ['rgba(75, 192, 192, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
-            });
-        }
-        document.getElementById('statisticForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            displayChart();
+            }
         });
+    }
     </script>
     <?php include("../interface/footer.php"); ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
