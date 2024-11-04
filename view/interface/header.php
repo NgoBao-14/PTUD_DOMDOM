@@ -11,13 +11,13 @@
     <div class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Đom Đóm</a>
+                <a class="navbar-brand" href="index.php">Đom Đóm</a>
                 <div class="navbar-nav ms-auto">
-                    <a class="nav-link" href="#">Trang chủ</a>
-                    <a class="nav-link" href="#">Bệnh nhân</a>
+                    <a class="nav-link" href="index.php">Trang chủ</a>
+                    <a class="nav-link" href="workSchedule.php">Bệnh nhân</a>
                     <a class="nav-link" href="#">Nhân viên</a>
-                    <a class="nav-link" href="#">Lịch làm việc</a>
-                    <a class="nav-link" href="#">Thống kê</a>
+                    <a class="nav-link" href="workSchedule.php">Lịch làm việc</a>
+                    <a class="nav-link" href="statistic.php">Thống kê</a>
                 </div>
                 <div class="navbar-nav">
                     <a class="nav-link" href="#">Đăng nhập</a>
