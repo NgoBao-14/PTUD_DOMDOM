@@ -19,7 +19,7 @@
                     <a class="nav-link" href="#">Bệnh nhân</a>
                     <a class="nav-link" href="#">Nhân viên</a>
                     <a class="nav-link" href="#">Lịch làm việc</a>
-                    <a class="nav-link active" href="#">Thống kê</a>
+                    <a class="nav-link" href="#">Thống kê</a>
                 </div>
 
                 <?php
