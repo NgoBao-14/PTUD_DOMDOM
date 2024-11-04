@@ -196,37 +196,6 @@
                                 document.getElementById(method + 'Action').style.display = 'block';
                             }
                             </script>
-                            <!-- <h2>Order Items</h2>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align: center;">Sản phẩm</th>
-                                            <th style="text-align: center;">Quantity</th>
-                                            <th style="text-align: center;">Price</th>
-                                            <th style="text-align: center;">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Widget A</td>
-                                            <td>2</td>
-                                            <td>$25.00</td>
-                                            <td>$50.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gadget B</td>
-                                            <td>1</td>
-                                            <td>$40.00</td>
-                                            <td>$40.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tool C</td>
-                                            <td>3</td>
-                                            <td>$10.00</td>
-                                            <td>$30.00</td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
                         </div>
                     </div>
                 </div>

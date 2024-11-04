@@ -20,7 +20,7 @@
                     <a class="nav-link" href="statistic.php">Thống kê</a>
                 </div>
                 <div class="navbar-nav">
-                    <a class="nav-link" href="#">Quản lý-Duy Khương</a>
+                    <a class="nav-link" href="#">Đăng nhập</a>
                 </div>
             </div>
         </nav>
