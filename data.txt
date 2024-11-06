@@ -1,0 +1,482 @@
+-- phpMyAdmin SQL Dump
+-- version 2.11.6
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Nov 06, 2024 at 10:00 PM
+-- Server version: 5.0.51
+-- PHP Version: 5.2.6
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- Database: `domdom`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bacsi`
+--
+
+CREATE TABLE `bacsi` (
+  `MaNV` int(10) unsigned NOT NULL,
+  `MaKhoa` int(10) unsigned NOT NULL,
+  KEY `MaKhoa` (`MaKhoa`),
+  KEY `MaNV` (`MaNV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `bacsi`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `benhnhan`
+--
+
+CREATE TABLE `benhnhan` (
+  `MaBN` int(10) unsigned NOT NULL auto_increment,
+  `HovaTen` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `GioiTinh` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `NgaySinh` date NOT NULL,
+  `SoDT` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `DiaChi` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `Email` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `BHYT` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `MaPK` int(10) unsigned NOT NULL,
+  `ID` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`MaBN`),
+  UNIQUE KEY `MaBN` (`MaBN`),
+  KEY `ID` (`ID`),
+  KEY `MaPK` (`MaPK`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `benhnhan`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chitietdonthuoc`
+--
+
+CREATE TABLE `chitietdonthuoc` (
+  `MaDT` int(10) unsigned NOT NULL,
+  `MaThuoc` int(10) unsigned NOT NULL,
+  `SoLuong` int(10) NOT NULL,
+  `LieuDung` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `CachDung` varchar(255) collate utf8_unicode_ci NOT NULL,
+  KEY `MaDT` (`MaDT`),
+  KEY `MaThuoc` (`MaThuoc`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `chitietdonthuoc`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chitiethoadon`
+--
+
+CREATE TABLE `chitiethoadon` (
+  `MaHD` int(10) unsigned NOT NULL,
+  `DonGia` decimal(10,0) NOT NULL,
+  `GiamGia` decimal(10,0) NOT NULL,
+  `ThanhTien` decimal(10,0) NOT NULL,
+  `DichVu` varchar(255) collate utf8_unicode_ci NOT NULL,
+  KEY `MaHD` (`MaHD`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `chitiethoadon`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chuyenkhoa`
+--
+
+CREATE TABLE `chuyenkhoa` (
+  `MaKhoa` int(10) unsigned NOT NULL auto_increment,
+  `TenKhoa` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `MoTa` text collate utf8_unicode_ci NOT NULL,
+  `MaPhongKham` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`MaKhoa`),
+  KEY `MaPhongKham` (`MaPhongKham`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `chuyenkhoa`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `donthuoc`
+--
+
+CREATE TABLE `donthuoc` (
+  `MaDT` int(10) unsigned NOT NULL auto_increment,
+  `TenBenhNhan` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `TenBacSi` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `NgayKham` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `MoTa` text collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`MaDT`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `donthuoc`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hoadon`
+--
+
+CREATE TABLE `hoadon` (
+  `MaHD` int(10) unsigned NOT NULL auto_increment,
+  `MaPK` int(10) unsigned NOT NULL,
+  `MaBN` int(10) unsigned NOT NULL,
+  `NgayLapHoaDon` datetime NOT NULL,
+  `TongTien` decimal(10,0) NOT NULL,
+  `PhuongThucThanhToan` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `TrangThai` varchar(255) collate utf8_unicode_ci NOT NULL default 'Pending',
+  PRIMARY KEY  (`MaHD`),
+  KEY `MaPK` (`MaPK`),
+  KEY `MaBN` (`MaBN`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `hoadon`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lichkham`
+--
+
+CREATE TABLE `lichkham` (
+  `MaLK` int(10) unsigned NOT NULL auto_increment,
+  `NgayKham` datetime NOT NULL,
+  PRIMARY KEY  (`MaLK`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `lichkham`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lichlamviec`
+--
+
+CREATE TABLE `lichlamviec` (
+  `MaLLV` int(10) unsigned NOT NULL auto_increment,
+  `NgayLamViec` datetime NOT NULL,
+  `TrangThai` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `GhiChu` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `CaLamViec` varchar(255) collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`MaLLV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `lichlamviec`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nhanvien`
+--
+
+CREATE TABLE `nhanvien` (
+  `MaNV` int(10) unsigned NOT NULL auto_increment,
+  `HovaTen` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `NgaySinh` date NOT NULL,
+  `SoDT` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `ChucVu` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `GioiTinh` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `TrangThaiLamViec` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `Email` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `ID` int(10) unsigned NOT NULL,
+  `MaLLV` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`MaNV`),
+  UNIQUE KEY `ID` (`ID`,`MaLLV`),
+  KEY `ID_2` (`ID`),
+  KEY `MaLLV` (`MaLLV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `nhanvien`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nhanviennhathuoc`
+--
+
+CREATE TABLE `nhanviennhathuoc` (
+  `MaNV` int(10) unsigned NOT NULL,
+  `MaDT` int(10) unsigned NOT NULL,
+  KEY `MaNV` (`MaNV`),
+  KEY `MaDT` (`MaDT`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `nhanviennhathuoc`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nhanvienyte`
+--
+
+CREATE TABLE `nhanvienyte` (
+  `MaNV` int(10) unsigned NOT NULL,
+  `MaHD` int(10) unsigned NOT NULL,
+  KEY `MaNV` (`MaNV`),
+  KEY `MaHD` (`MaHD`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `nhanvienyte`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `phieukham`
+--
+
+CREATE TABLE `phieukham` (
+  `MaPK` int(10) unsigned NOT NULL auto_increment,
+  `NgayTao` datetime NOT NULL,
+  `TenBenhNhan` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `TenBacSi` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `ChiPhi` decimal(10,0) NOT NULL,
+  `KetQua` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `MaXN` int(10) unsigned NOT NULL,
+  `MaLK` int(10) unsigned NOT NULL,
+  `MaHD` int(10) unsigned NOT NULL,
+  `MaDT` int(10) unsigned NOT NULL,
+  `MaBN` int(10) unsigned NOT NULL,
+  `MaBS` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`MaPK`),
+  KEY `MaLK` (`MaLK`),
+  KEY `MaHD` (`MaHD`),
+  KEY `MaDT` (`MaDT`),
+  KEY `MaBN` (`MaBN`),
+  KEY `MaBS` (`MaBS`),
+  KEY `MaXN` (`MaXN`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `phieukham`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `phongkham`
+--
+
+CREATE TABLE `phongkham` (
+  `MaPhongKham` int(10) unsigned NOT NULL auto_increment,
+  `TenPhongKham` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `ViTri` varchar(255) collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`MaPhongKham`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `phongkham`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quanly`
+--
+
+CREATE TABLE `quanly` (
+  `MaQL` int(10) unsigned NOT NULL auto_increment,
+  `HovaTen` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `ChucVu` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `SoDT` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `DiaChi` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `Email` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `GhiChu` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `ID` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`MaQL`),
+  UNIQUE KEY `ID` (`ID`),
+  KEY `ID_2` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `quanly`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `taikhoan`
+--
+
+CREATE TABLE `taikhoan` (
+  `ID` int(10) unsigned NOT NULL auto_increment,
+  `username` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `password` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `phanquyen` varchar(255) collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`ID`),
+  KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `taikhoan`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `thuoc`
+--
+
+CREATE TABLE `thuoc` (
+  `MaThuoc` int(10) unsigned NOT NULL auto_increment,
+  `TenThuoc` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `DonViTinh` int(10) NOT NULL,
+  `GiaTien` decimal(10,0) NOT NULL,
+  PRIMARY KEY  (`MaThuoc`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `thuoc`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xetnghiem`
+--
+
+CREATE TABLE `xetnghiem` (
+  `MaXN` int(10) unsigned NOT NULL auto_increment,
+  `NgayXetNghiem` datetime NOT NULL,
+  `KetQua` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `LoaiXN` varchar(255) collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`MaXN`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `xetnghiem`
+--
+
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `bacsi`
+--
+ALTER TABLE `bacsi`
+  ADD CONSTRAINT `bacsi_ibfk_2` FOREIGN KEY (`MaKhoa`) REFERENCES `chuyenkhoa` (`MaKhoa`),
+  ADD CONSTRAINT `bacsi_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`);
+
+--
+-- Constraints for table `benhnhan`
+--
+ALTER TABLE `benhnhan`
+  ADD CONSTRAINT `benhnhan_ibfk_2` FOREIGN KEY (`ID`) REFERENCES `taikhoan` (`ID`),
+  ADD CONSTRAINT `benhnhan_ibfk_1` FOREIGN KEY (`MaPK`) REFERENCES `phieukham` (`MaPK`);
+
+--
+-- Constraints for table `chitietdonthuoc`
+--
+ALTER TABLE `chitietdonthuoc`
+  ADD CONSTRAINT `chitietdonthuoc_ibfk_2` FOREIGN KEY (`MaThuoc`) REFERENCES `thuoc` (`MaThuoc`),
+  ADD CONSTRAINT `chitietdonthuoc_ibfk_1` FOREIGN KEY (`MaDT`) REFERENCES `donthuoc` (`MaDT`);
+
+--
+-- Constraints for table `chitiethoadon`
+--
+ALTER TABLE `chitiethoadon`
+  ADD CONSTRAINT `chitiethoadon_ibfk_1` FOREIGN KEY (`MaHD`) REFERENCES `hoadon` (`MaHD`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `chuyenkhoa`
+--
+ALTER TABLE `chuyenkhoa`
+  ADD CONSTRAINT `chuyenkhoa_ibfk_1` FOREIGN KEY (`MaPhongKham`) REFERENCES `phongkham` (`MaPhongKham`);
+
+--
+-- Constraints for table `hoadon`
+--
+ALTER TABLE `hoadon`
+  ADD CONSTRAINT `hoadon_ibfk_2` FOREIGN KEY (`MaBN`) REFERENCES `benhnhan` (`MaBN`),
+  ADD CONSTRAINT `hoadon_ibfk_1` FOREIGN KEY (`MaPK`) REFERENCES `phieukham` (`MaPK`);
+
+--
+-- Constraints for table `nhanvien`
+--
+ALTER TABLE `nhanvien`
+  ADD CONSTRAINT `nhanvien_ibfk_2` FOREIGN KEY (`MaLLV`) REFERENCES `lichlamviec` (`MaLLV`),
+  ADD CONSTRAINT `nhanvien_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `taikhoan` (`ID`);
+
+--
+-- Constraints for table `nhanviennhathuoc`
+--
+ALTER TABLE `nhanviennhathuoc`
+  ADD CONSTRAINT `nhanviennhathuoc_ibfk_2` FOREIGN KEY (`MaDT`) REFERENCES `donthuoc` (`MaDT`),
+  ADD CONSTRAINT `nhanviennhathuoc_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`);
+
+--
+-- Constraints for table `nhanvienyte`
+--
+ALTER TABLE `nhanvienyte`
+  ADD CONSTRAINT `nhanvienyte_ibfk_2` FOREIGN KEY (`MaHD`) REFERENCES `hoadon` (`MaHD`),
+  ADD CONSTRAINT `nhanvienyte_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`);
+
+--
+-- Constraints for table `phieukham`
+--
+ALTER TABLE `phieukham`
+  ADD CONSTRAINT `phieukham_ibfk_20` FOREIGN KEY (`MaBS`) REFERENCES `bacsi` (`MaNV`),
+  ADD CONSTRAINT `phieukham_ibfk_15` FOREIGN KEY (`MaXN`) REFERENCES `xetnghiem` (`MaXN`),
+  ADD CONSTRAINT `phieukham_ibfk_16` FOREIGN KEY (`MaLK`) REFERENCES `lichkham` (`MaLK`),
+  ADD CONSTRAINT `phieukham_ibfk_17` FOREIGN KEY (`MaHD`) REFERENCES `hoadon` (`MaHD`),
+  ADD CONSTRAINT `phieukham_ibfk_18` FOREIGN KEY (`MaDT`) REFERENCES `donthuoc` (`MaDT`),
+  ADD CONSTRAINT `phieukham_ibfk_19` FOREIGN KEY (`MaBN`) REFERENCES `benhnhan` (`MaBN`);
+
+--
+-- Constraints for table `quanly`
+--
+ALTER TABLE `quanly`
+  ADD CONSTRAINT `quanly_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `taikhoan` (`ID`);
