@@ -40,69 +40,7 @@
                 <h1>Đặt khám bác sĩ</h1>
                 <p>Phiếu khám kèm số thứ tự và thời gian của bạn được xác nhận.</p>
                 <div class="list" id="doctorList">
-                    <div class="bs_card">
-                        <a href="" style="text-decoration: none">
-                            <img src="https://via.placeholder.com/200x150" alt="" class="image">
-                            <div class="bs_info">
-                                <h2 class="name">Dr. John Smith</h2>
-                                <p class="department">Cardiology</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="bs_card">
-                        <a href="" style="text-decoration: none">
-                            <img src="https://via.placeholder.com/200x150" alt="" class="image">
-                            <div class="bs_info">
-                                <h2 class="name">Dr. John Smith</h2>
-                                <p class="department">Cardiology</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="bs_card">
-                        <a href="" style="text-decoration: none">
-                            <img src="https://via.placeholder.com/200x150" alt="" class="image">
-                            <div class="bs_info">
-                                <h2 class="name">Dr. John Smith</h2>
-                                <p class="department">Cardiology</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="bs_card">
-                        <a href="" style="text-decoration: none">
-                            <img src="https://via.placeholder.com/200x150" alt="" class="image">
-                            <div class="bs_info">
-                                <h2 class="name">Dr. John Smith</h2>
-                                <p class="department">Cardiology</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="bs_card">
-                        <a href="" style="text-decoration: none">
-                            <img src="https://via.placeholder.com/200x150" alt="" class="image">
-                            <div class="bs_info">
-                                <h2 class="name">Dr. John Smith</h2>
-                                <p class="department">Cardiology</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="bs_card">
-                        <a href="" style="text-decoration: none">
-                            <img src="https://via.placeholder.com/200x150" alt="" class="image">
-                            <div class="bs_info">
-                                <h2 class="name">Dr. John Smith</h2>
-                                <p class="department">Cardiology</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="bs_card">
-                        <a href="" style="text-decoration: none">
-                            <img src="https://via.placeholder.com/200x150" alt="" class="image">
-                            <div class="bs_info">
-                                <h2 class="name">Dr. John Smith</h2>
-                                <p class="department">Cardiology</p>
-                            </div>
-                        </a>
-                    </div>
+                    <?php include("view/bacsi/BacSi.php"); ?>
                 </div>
                 <button class="see-more-button">Xem thêm ></button>
                 <button id="scrollLeftDoctor" class="scroll-button" aria-label="Scroll left">&lt;</button>
