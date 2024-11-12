@@ -15,19 +15,21 @@
 				else
                 {
                     $dem=0;
-                    echo '<div class="bs_card">
-                    <a href="" style="text-decoration: none">';
+                    
                        
 
                     while($r = $tblBS->fetch_assoc())
                     {
+                        echo '<div class="bs_card">
+                            <a href="" style="text-decoration: none">';
                         echo '<img src="https://via.placeholder.com/200x150" alt="" class="image">
                         <div class="bs_info">
                             <h2 class="name">'.$r["HovaTen"].'</h2>
                             <p class="department">'.$r["TenKhoa"].'</p>
                         </div>';
+                        echo '</a>';
+                        echo '</div>';
                     }
-                    echo '</a>
-                    </div>';
+                    
                 }
 ?>
