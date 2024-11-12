@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 06, 2024 at 10:00 PM
+-- Generation Time: Nov 12, 2024 at 03:29 PM
 -- Server version: 5.0.51
 -- PHP Version: 5.2.6
 
@@ -30,6 +30,12 @@ CREATE TABLE `bacsi` (
 -- Dumping data for table `bacsi`
 --
 
+INSERT INTO `bacsi` (`MaNV`, `MaKhoa`) VALUES
+(1, 1),
+(5, 2),
+(9, 3),
+(10, 4),
+(6, 5);
 
 -- --------------------------------------------------------
 
@@ -52,12 +58,23 @@ CREATE TABLE `benhnhan` (
   UNIQUE KEY `MaBN` (`MaBN`),
   KEY `ID` (`ID`),
   KEY `MaPK` (`MaPK`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `benhnhan`
 --
 
+INSERT INTO `benhnhan` (`MaBN`, `HovaTen`, `GioiTinh`, `NgaySinh`, `SoDT`, `DiaChi`, `Email`, `BHYT`, `MaPK`, `ID`) VALUES
+(1, 'Nguyễn Đăng Hồng Phúc', 'Nữ', '2003-09-14', '0948520853', 'Nguyễn Văn Quá, Quận 12', 'phucngu@gmail.com', '2093215487', 1, 1),
+(2, 'Trần Minh Thùy', 'Nữ', '1995-03-22', '0903456789', 'Số 45 Lý Thường Kiệt, Hà Nội', 'thuy.tran@example.com', '2093215488', 2, 2),
+(3, 'Lê Anh Tuấn', 'Nam', '1990-07-10', '0976347821', 'Số 15 Nguyễn Thị Minh Khai, TP.HCM', 'tuan.le@example.com', '2093215489', 3, 3),
+(4, 'Phạm Thu Trang', 'Nữ', '1987-11-05', '0934567890', 'Số 78 Hoàng Mai, Hà Nội', 'trang.pham@example.com', '2093215490', 4, 1),
+(5, 'Nguyễn Quang Huy', 'Nam', '2000-02-14', '0912345678', 'Số 33 Đinh Tiên Hoàng, Bình Dương', 'huy.nguyen@example.com', '2093215491', 5, 2),
+(6, 'Vũ Thị Thu Hà', 'Nữ', '1993-12-15', '0978123456', 'Số 9 Trần Hưng Đạo, TP.HCM', 'ha.vu@example.com', '2093215492', 6, 3),
+(7, 'Đỗ Minh Tú', 'Nữ', '2001-02-28', '0945678901', 'Số 14 Cầu Giấy, Hà Nội', 'minhtu.do@example.com', '2093215493', 7, 2),
+(8, 'Mai Hoàng Nam', 'Nam', '1990-10-03', '0901122334', 'Số 12 Lê Duẩn, TP.HCM', 'nam.mai@example.com', '2093215494', 8, 3),
+(9, 'Hoàng Thanh Lan', 'Nữ', '1996-06-17', '0933445566', 'Số 5 Nguyễn Xiển, Thanh Xuân', 'lan.hoang@example.com', '2093215495', 9, 2),
+(10, 'Lý Hoàng Yến', 'Nữ', '1997-01-25', '0967654321', 'Số 6 Láng Hạ, Ba Đình, Hà Nội', 'yen.ly@example.com', '2093215496', 10, 1);
 
 -- --------------------------------------------------------
 
@@ -79,6 +96,27 @@ CREATE TABLE `chitietdonthuoc` (
 -- Dumping data for table `chitietdonthuoc`
 --
 
+INSERT INTO `chitietdonthuoc` (`MaDT`, `MaThuoc`, `SoLuong`, `LieuDung`, `CachDung`) VALUES
+(1, 1, 2, '2 viên/ngày', 'Uống sau ăn'),
+(1, 2, 1, '1 viên/ngày', 'Uống trước ăn sáng'),
+(2, 14, 1, '1 viên/ngày', 'Uống sau ăn'),
+(2, 15, 2, '2 viên/ngày', 'Uống sau ăn'),
+(3, 11, 1, '1 viên/ngày', 'Uống sau ăn'),
+(3, 12, 2, '2 viên/ngày', 'Uống vào buổi sáng'),
+(4, 3, 1, '1 viên/ngày', 'Uống sau ăn'),
+(4, 18, 2, '2 viên/ngày', 'Uống sau ăn'),
+(5, 5, 1, '1 viên/ngày', 'Uống sau ăn'),
+(5, 13, 2, '2 viên/ngày', 'Uống trước ăn'),
+(6, 1, 1, '1 viên/ngày', 'Uống sau ăn'),
+(6, 2, 1, '1 viên/ngày', 'Uống vào buổi tối'),
+(7, 8, 2, '2 viên/ngày', 'Uống sau ăn'),
+(7, 10, 1, '1 viên/ngày', 'Uống trước khi ăn'),
+(8, 9, 1, '1 viên/ngày', 'Uống sau ăn'),
+(8, 16, 1, '1 viên/ngày', 'Uống sau ăn'),
+(9, 17, 2, '2 viên/ngày', 'Uống sau ăn'),
+(9, 4, 1, '1 viên/ngày', 'Uống vào buổi sáng'),
+(10, 20, 1, '1 viên/ngày', 'Uống vào buổi tối'),
+(10, 7, 1, '1 viên/ngày', 'Uống trước khi ngủ');
 
 -- --------------------------------------------------------
 
@@ -99,6 +137,17 @@ CREATE TABLE `chitiethoadon` (
 -- Dumping data for table `chitiethoadon`
 --
 
+INSERT INTO `chitiethoadon` (`MaHD`, `DonGia`, `GiamGia`, `ThanhTien`, `DichVu`) VALUES
+(1, '400000', '50', '200000', 'Khám bệnh'),
+(2, '600000', '17', '500000', 'Xét nghiệm'),
+(3, '1000000', '25', '750000', 'Khám bệnh'),
+(4, '400000', '20', '320000', 'Xét nghiệm'),
+(5, '500000', '8', '460000', 'Khám bệnh'),
+(6, '200000', '25', '150000', 'Xét nghiệm'),
+(7, '980000', '0', '980000', 'Khám bệnh'),
+(8, '550000', '50', '275000', 'Xét nghiệm'),
+(9, '800000', '20', '640000', 'Khám bệnh'),
+(10, '830000', '0', '830000', 'Xét nghiệm');
 
 -- --------------------------------------------------------
 
@@ -110,15 +159,24 @@ CREATE TABLE `chuyenkhoa` (
   `MaKhoa` int(10) unsigned NOT NULL auto_increment,
   `TenKhoa` varchar(255) collate utf8_unicode_ci NOT NULL,
   `MoTa` text collate utf8_unicode_ci NOT NULL,
-  `MaPhongKham` int(10) unsigned NOT NULL,
-  PRIMARY KEY  (`MaKhoa`),
-  KEY `MaPhongKham` (`MaPhongKham`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  PRIMARY KEY  (`MaKhoa`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `chuyenkhoa`
 --
 
+INSERT INTO `chuyenkhoa` (`MaKhoa`, `TenKhoa`, `MoTa`) VALUES
+(1, 'Thần kinh', 'Khoa thần kinh'),
+(2, 'Tim mạch', 'Khoa tim mạch'),
+(3, 'Nội tiết', 'Khoa nội tiết'),
+(4, 'Ngoại khoa', 'Khoa ngoại khoa'),
+(5, 'Sản phụ khoa', 'Khoa sản phụ khoa'),
+(6, 'Nhi khoa', 'Khoa nhi'),
+(7, 'Mắt', 'Khoa mắt'),
+(8, 'Răng hàm mặt', 'Khoa răng hàm mặt'),
+(9, 'Tai mũi họng', 'Khoa tai mũi họng'),
+(10, 'Da liễu', 'Khoa da liễu');
 
 -- --------------------------------------------------------
 
@@ -128,17 +186,30 @@ CREATE TABLE `chuyenkhoa` (
 
 CREATE TABLE `donthuoc` (
   `MaDT` int(10) unsigned NOT NULL auto_increment,
-  `TenBenhNhan` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `TenBacSi` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `NgayKham` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `NgayTao` varchar(255) collate utf8_unicode_ci NOT NULL,
   `MoTa` text collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`MaDT`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `MaBS` int(10) unsigned NOT NULL,
+  `MaBN` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`MaDT`),
+  KEY `MaBS` (`MaBS`),
+  KEY `MaBN` (`MaBN`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `donthuoc`
 --
 
+INSERT INTO `donthuoc` (`MaDT`, `NgayTao`, `MoTa`, `MaBS`, `MaBN`) VALUES
+(1, '2024-11-12 10:46:54', 'Thuốc điều trị cảm cúm', 1, 1),
+(2, '2024-11-12 10:46:54', 'Thuốc giảm đau', 5, 2),
+(3, '2024-11-12 10:46:54', 'Thuốc bổ sung vitamin', 9, 3),
+(4, '2024-11-12 10:46:54', 'Thuốc kháng sinh', 10, 4),
+(5, '2024-11-12 10:46:54', 'Thuốc chống dị ứng', 6, 5),
+(6, '2024-11-12 10:46:54', 'Thuốc hạ sốt', 1, 6),
+(7, '2024-11-12 10:46:54', 'Thuốc trị viêm họng', 5, 7),
+(8, '2024-11-12 10:46:54', 'Thuốc hỗ trợ tiêu hóa', 9, 8),
+(9, '2024-11-12 10:46:54', 'Thuốc chống viêm', 10, 9),
+(10, '2024-11-12 10:46:54', 'Thuốc an thần', 6, 10);
 
 -- --------------------------------------------------------
 
@@ -148,21 +219,30 @@ CREATE TABLE `donthuoc` (
 
 CREATE TABLE `hoadon` (
   `MaHD` int(10) unsigned NOT NULL auto_increment,
-  `MaPK` int(10) unsigned NOT NULL,
   `MaBN` int(10) unsigned NOT NULL,
   `NgayLapHoaDon` datetime NOT NULL,
   `TongTien` decimal(10,0) NOT NULL,
   `PhuongThucThanhToan` varchar(255) collate utf8_unicode_ci NOT NULL,
   `TrangThai` varchar(255) collate utf8_unicode_ci NOT NULL default 'Pending',
   PRIMARY KEY  (`MaHD`),
-  KEY `MaPK` (`MaPK`),
   KEY `MaBN` (`MaBN`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `hoadon`
 --
 
+INSERT INTO `hoadon` (`MaHD`, `MaBN`, `NgayLapHoaDon`, `TongTien`, `PhuongThucThanhToan`, `TrangThai`) VALUES
+(1, 1, '2024-11-12 09:55:35', '200000', 'MoMo', 'Pending'),
+(2, 2, '2024-11-12 10:00:44', '500000', 'Tiền mặt', 'Processing'),
+(3, 3, '2024-11-12 10:00:44', '750000', 'Chuyển khoản ngân hàng', 'Cancelled'),
+(4, 4, '2024-11-12 10:00:44', '320000', 'MoMo', 'Pending'),
+(5, 5, '2024-11-12 10:00:44', '460000', 'Tiền mặt', 'Processing'),
+(6, 6, '2024-11-12 10:00:44', '150000', 'Chuyển khoản ngân hàng', 'Pending'),
+(7, 7, '2024-11-12 10:00:44', '980000', 'MoMo', 'Processing'),
+(8, 8, '2024-11-12 10:00:44', '275000', 'Tiền mặt', 'Cancelled'),
+(9, 9, '2024-11-12 10:00:44', '640000', 'Chuyển khoản ngân hàng', 'Pending'),
+(10, 10, '2024-11-12 10:00:44', '830000', 'MoMo', 'Processing');
 
 -- --------------------------------------------------------
 
@@ -174,12 +254,44 @@ CREATE TABLE `lichkham` (
   `MaLK` int(10) unsigned NOT NULL auto_increment,
   `NgayKham` datetime NOT NULL,
   PRIMARY KEY  (`MaLK`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `lichkham`
 --
 
+INSERT INTO `lichkham` (`MaLK`, `NgayKham`) VALUES
+(1, '2024-11-12 09:44:05'),
+(2, '2024-11-15 08:00:00'),
+(3, '2024-11-15 09:30:00'),
+(4, '2024-11-15 11:00:00'),
+(5, '2024-11-15 13:30:00'),
+(6, '2024-11-15 15:00:00'),
+(7, '2024-11-16 08:00:00'),
+(8, '2024-11-16 09:30:00'),
+(9, '2024-11-16 11:00:00'),
+(10, '2024-11-16 13:30:00'),
+(11, '2024-11-16 15:00:00'),
+(12, '2024-11-17 08:00:00'),
+(13, '2024-11-17 09:30:00'),
+(14, '2024-11-17 11:00:00'),
+(15, '2024-11-17 13:30:00'),
+(16, '2024-11-17 15:00:00'),
+(17, '2024-11-18 08:00:00'),
+(18, '2024-11-18 09:30:00'),
+(19, '2024-11-18 11:00:00'),
+(20, '2024-11-18 13:30:00'),
+(21, '2024-11-18 15:00:00'),
+(22, '2024-11-19 08:00:00'),
+(23, '2024-11-19 09:30:00'),
+(24, '2024-11-19 11:00:00'),
+(25, '2024-11-19 13:30:00'),
+(26, '2024-11-19 15:00:00'),
+(27, '2024-11-20 08:00:00'),
+(28, '2024-11-20 09:30:00'),
+(29, '2024-11-20 11:00:00'),
+(30, '2024-11-20 13:30:00'),
+(31, '2024-11-20 15:00:00');
 
 -- --------------------------------------------------------
 
@@ -222,12 +334,23 @@ CREATE TABLE `nhanvien` (
   UNIQUE KEY `ID` (`ID`,`MaLLV`),
   KEY `ID_2` (`ID`),
   KEY `MaLLV` (`MaLLV`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `nhanvien`
 --
 
+INSERT INTO `nhanvien` (`MaNV`, `HovaTen`, `NgaySinh`, `SoDT`, `ChucVu`, `GioiTinh`, `TrangThaiLamViec`, `Email`, `ID`, `MaLLV`) VALUES
+(1, 'Ngô Huỳnh Hoài Bảo ', '2003-09-14', '0948520853', 'Bác sĩ', 'Nam', 'Đang làm việc', 'ngobao3861@gmail.com', 1, 1),
+(2, 'Trần Minh Thảo', '1998-05-22', '0903857214', 'Nhân viên y tế', 'Nữ', 'Đang làm việc', 'thao.tran@example.com', 2, 2),
+(3, 'Lê Anh Tuấn', '1989-11-10', '0976347821', 'Nhân viên y tế', 'Nam', 'Đang làm việc', 'tuan.le@example.com', 3, 3),
+(4, 'Phạm Thu Trang', '1995-03-01', '0934567890', 'Nhân viên y tế', 'Nữ', 'Đang làm việc', 'thutrang.pham@example.com', 4, 1),
+(5, 'Nguyễn Quang Huy', '2000-07-08', '0912345678', 'Bác sĩ', 'Nam', 'Đang làm việc', 'huy.nguyen@example.com', 5, 1),
+(6, 'Vũ Thị Thu Hà', '1993-12-15', '0978123456', 'Nhân viên nhà thuốc', 'Nữ', 'Đang làm việc', 'ha.vu@example.com', 6, 2),
+(7, 'Đỗ Minh Tú', '2001-02-28', '0945678901', 'Nhân viên y tế', 'Nữ', 'Đang làm việc', 'minhtu.do@example.com', 7, 1),
+(8, 'Mai Hoàng Nam', '1990-10-03', '0901122334', 'Nhân viên nhà thuốc', 'Nam', 'Đang làm việc', 'nam.mai@example.com', 8, 3),
+(9, 'Hoàng Thanh Lan', '1996-06-17', '0933445566', 'Nhân viên y tế', 'Nữ', 'Đang làm việc', 'lan.hoang@example.com', 9, 2),
+(10, 'Lý Hoàng Yến', '1997-01-25', '0967654321', 'Bác sĩ', 'Nữ', 'Đang làm việc', 'yen.ly@example.com', 10, 1);
 
 -- --------------------------------------------------------
 
@@ -246,6 +369,17 @@ CREATE TABLE `nhanviennhathuoc` (
 -- Dumping data for table `nhanviennhathuoc`
 --
 
+INSERT INTO `nhanviennhathuoc` (`MaNV`, `MaDT`) VALUES
+(6, 1),
+(6, 3),
+(6, 5),
+(8, 2),
+(8, 4),
+(8, 6),
+(6, 7),
+(6, 9),
+(8, 8),
+(8, 10);
 
 -- --------------------------------------------------------
 
@@ -264,6 +398,17 @@ CREATE TABLE `nhanvienyte` (
 -- Dumping data for table `nhanvienyte`
 --
 
+INSERT INTO `nhanvienyte` (`MaNV`, `MaHD`) VALUES
+(2, 1),
+(2, 3),
+(3, 2),
+(3, 5),
+(4, 4),
+(4, 6),
+(7, 7),
+(7, 8),
+(9, 9),
+(9, 10);
 
 -- --------------------------------------------------------
 
@@ -274,16 +419,13 @@ CREATE TABLE `nhanvienyte` (
 CREATE TABLE `phieukham` (
   `MaPK` int(10) unsigned NOT NULL auto_increment,
   `NgayTao` datetime NOT NULL,
-  `TenBenhNhan` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `TenBacSi` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `ChiPhi` decimal(10,0) NOT NULL,
-  `KetQua` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `MaXN` int(10) unsigned NOT NULL,
-  `MaLK` int(10) unsigned NOT NULL,
-  `MaHD` int(10) unsigned NOT NULL,
-  `MaDT` int(10) unsigned NOT NULL,
+  `KetQua` varchar(255) collate utf8_unicode_ci default NULL,
+  `MaXN` int(10) unsigned default NULL,
+  `MaLK` int(10) unsigned default NULL,
+  `MaHD` int(10) unsigned default NULL,
+  `MaDT` int(10) unsigned default NULL,
   `MaBN` int(10) unsigned NOT NULL,
-  `MaBS` int(10) unsigned NOT NULL,
+  `MaBS` int(10) unsigned default NULL,
   PRIMARY KEY  (`MaPK`),
   KEY `MaLK` (`MaLK`),
   KEY `MaHD` (`MaHD`),
@@ -291,12 +433,14 @@ CREATE TABLE `phieukham` (
   KEY `MaBN` (`MaBN`),
   KEY `MaBS` (`MaBS`),
   KEY `MaXN` (`MaXN`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `phieukham`
 --
 
+INSERT INTO `phieukham` (`MaPK`, `NgayTao`, `KetQua`, `MaXN`, `MaLK`, `MaHD`, `MaDT`, `MaBN`, `MaBS`) VALUES
+(1, '2024-11-12 12:17:24', 'Sốt', NULL, NULL, NULL, NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -308,13 +452,26 @@ CREATE TABLE `phongkham` (
   `MaPhongKham` int(10) unsigned NOT NULL auto_increment,
   `TenPhongKham` varchar(255) collate utf8_unicode_ci NOT NULL,
   `ViTri` varchar(255) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`MaPhongKham`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `MaKhoa` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`MaPhongKham`),
+  KEY `MaKhoa` (`MaKhoa`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `phongkham`
 --
 
+INSERT INTO `phongkham` (`MaPhongKham`, `TenPhongKham`, `ViTri`, `MaKhoa`) VALUES
+(1, 'Phòng 001', 'Số 16 – 18 Phủ Doãn, Hoàn Kiếm, Hà Nội', 1),
+(2, 'Phòng 002', 'Số 20 – 22 Nguyễn Trãi, Hà Đông, Hà Nội', 2),
+(3, 'Phòng 003', 'Số 34 – 36 Trần Phú, Ba Đình, Hà Nội', 3),
+(4, 'Phòng 004', 'Số 10 – 12 Lê Duẩn, Đống Đa, Hà Nội', 4),
+(5, 'Phòng 005', 'Số 5 – 7 Hàng Bông, Hoàn Kiếm, Hà Nội', 5),
+(6, 'Phòng 006', 'Số 8 – 10 Lý Thường Kiệt, Hai Bà Trưng, Hà Nội', 6),
+(7, 'Phòng 007', 'Số 15 – 17 Nguyễn Xiển, Thanh Xuân, Hà Nội', 7),
+(8, 'Phòng 008', 'Số 4 – 6 Cầu Giấy, Cầu Giấy, Hà Nội', 8),
+(9, 'Phòng 009', 'Số 25 – 27 Phạm Ngọc Thạch, Đống Đa, Hà Nội', 9),
+(10, 'Phòng 010', 'Số 11 – 13 Nguyễn Văn Cừ, Long Biên, Hà Nội', 10);
 
 -- --------------------------------------------------------
 
@@ -373,12 +530,33 @@ CREATE TABLE `thuoc` (
   `DonViTinh` int(10) NOT NULL,
   `GiaTien` decimal(10,0) NOT NULL,
   PRIMARY KEY  (`MaThuoc`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `thuoc`
 --
 
+INSERT INTO `thuoc` (`MaThuoc`, `TenThuoc`, `DonViTinh`, `GiaTien`) VALUES
+(1, 'Paracetamol', 1, '5000'),
+(2, 'Ibuprofen', 1, '8000'),
+(3, 'Amoxicillin', 1, '12000'),
+(4, 'Ciprofloxacin', 1, '15000'),
+(5, 'Cetirizine', 1, '7000'),
+(6, 'Azithromycin', 1, '18000'),
+(7, 'Metronidazole', 1, '6000'),
+(8, 'Omeprazole', 1, '9000'),
+(9, 'Loperamide', 1, '4000'),
+(10, 'Hydrocortisone', 1, '11000'),
+(11, 'Vitamin C', 1, '3000'),
+(12, 'Calcium Carbonate', 1, '5000'),
+(13, 'Loratadine', 1, '7500'),
+(14, 'Aspirin', 1, '6000'),
+(15, 'Prednisolone', 1, '10000'),
+(16, 'Diclofenac', 1, '8500'),
+(17, 'Clarithromycin', 1, '17000'),
+(18, 'Doxycycline', 1, '9500'),
+(19, 'Fexofenadine', 1, '8000'),
+(20, 'Acetylcysteine', 1, '6500');
 
 -- --------------------------------------------------------
 
@@ -389,15 +567,23 @@ CREATE TABLE `thuoc` (
 CREATE TABLE `xetnghiem` (
   `MaXN` int(10) unsigned NOT NULL auto_increment,
   `NgayXetNghiem` datetime NOT NULL,
-  `KetQua` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `KetQua` varchar(255) collate utf8_unicode_ci default NULL,
   `LoaiXN` varchar(255) collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`MaXN`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `xetnghiem`
 --
 
+INSERT INTO `xetnghiem` (`MaXN`, `NgayXetNghiem`, `KetQua`, `LoaiXN`) VALUES
+(1, '2024-11-12 09:46:33', 'Dương tính', 'HIV'),
+(2, '2024-11-12 09:48:12', 'Dương tính', 'HIV'),
+(3, '2024-11-15 08:00:00', NULL, 'HIV'),
+(4, '2024-11-20 09:30:00', NULL, 'COVID-19'),
+(5, '2024-11-10 11:00:00', 'Âm tính', 'HIV'),
+(6, '2024-11-12 09:48:12', 'Dương tính', 'COVID-19'),
+(7, '2024-12-01 10:00:00', NULL, 'HIV');
 
 --
 -- Constraints for dumped tables
@@ -407,15 +593,7 @@ CREATE TABLE `xetnghiem` (
 -- Constraints for table `bacsi`
 --
 ALTER TABLE `bacsi`
-  ADD CONSTRAINT `bacsi_ibfk_2` FOREIGN KEY (`MaKhoa`) REFERENCES `chuyenkhoa` (`MaKhoa`),
   ADD CONSTRAINT `bacsi_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`);
-
---
--- Constraints for table `benhnhan`
---
-ALTER TABLE `benhnhan`
-  ADD CONSTRAINT `benhnhan_ibfk_2` FOREIGN KEY (`ID`) REFERENCES `taikhoan` (`ID`),
-  ADD CONSTRAINT `benhnhan_ibfk_1` FOREIGN KEY (`MaPK`) REFERENCES `phieukham` (`MaPK`);
 
 --
 -- Constraints for table `chitietdonthuoc`
@@ -428,27 +606,7 @@ ALTER TABLE `chitietdonthuoc`
 -- Constraints for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
-  ADD CONSTRAINT `chitiethoadon_ibfk_1` FOREIGN KEY (`MaHD`) REFERENCES `hoadon` (`MaHD`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `chuyenkhoa`
---
-ALTER TABLE `chuyenkhoa`
-  ADD CONSTRAINT `chuyenkhoa_ibfk_1` FOREIGN KEY (`MaPhongKham`) REFERENCES `phongkham` (`MaPhongKham`);
-
---
--- Constraints for table `hoadon`
---
-ALTER TABLE `hoadon`
-  ADD CONSTRAINT `hoadon_ibfk_2` FOREIGN KEY (`MaBN`) REFERENCES `benhnhan` (`MaBN`),
-  ADD CONSTRAINT `hoadon_ibfk_1` FOREIGN KEY (`MaPK`) REFERENCES `phieukham` (`MaPK`);
-
---
--- Constraints for table `nhanvien`
---
-ALTER TABLE `nhanvien`
-  ADD CONSTRAINT `nhanvien_ibfk_2` FOREIGN KEY (`MaLLV`) REFERENCES `lichlamviec` (`MaLLV`),
-  ADD CONSTRAINT `nhanvien_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `taikhoan` (`ID`);
+  ADD CONSTRAINT `chitiethoadon_ibfk_1` FOREIGN KEY (`MaHD`) REFERENCES `hoadon` (`MaHD`);
 
 --
 -- Constraints for table `nhanviennhathuoc`
@@ -465,18 +623,7 @@ ALTER TABLE `nhanvienyte`
   ADD CONSTRAINT `nhanvienyte_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`);
 
 --
--- Constraints for table `phieukham`
+-- Constraints for table `phongkham`
 --
-ALTER TABLE `phieukham`
-  ADD CONSTRAINT `phieukham_ibfk_20` FOREIGN KEY (`MaBS`) REFERENCES `bacsi` (`MaNV`),
-  ADD CONSTRAINT `phieukham_ibfk_15` FOREIGN KEY (`MaXN`) REFERENCES `xetnghiem` (`MaXN`),
-  ADD CONSTRAINT `phieukham_ibfk_16` FOREIGN KEY (`MaLK`) REFERENCES `lichkham` (`MaLK`),
-  ADD CONSTRAINT `phieukham_ibfk_17` FOREIGN KEY (`MaHD`) REFERENCES `hoadon` (`MaHD`),
-  ADD CONSTRAINT `phieukham_ibfk_18` FOREIGN KEY (`MaDT`) REFERENCES `donthuoc` (`MaDT`),
-  ADD CONSTRAINT `phieukham_ibfk_19` FOREIGN KEY (`MaBN`) REFERENCES `benhnhan` (`MaBN`);
-
---
--- Constraints for table `quanly`
---
-ALTER TABLE `quanly`
-  ADD CONSTRAINT `quanly_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `taikhoan` (`ID`);
+ALTER TABLE `phongkham`
+  ADD CONSTRAINT `phongkham_ibfk_1` FOREIGN KEY (`MaKhoa`) REFERENCES `chuyenkhoa` (`MaKhoa`);
