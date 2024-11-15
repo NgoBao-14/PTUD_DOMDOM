@@ -1,3 +1,24 @@
+<?php
+    $mabn = $_SESSION["idbn"];
+    include_once("controller/choso.php");
+    $p = new cHoSo();
+    $bn = $p->get1HoSo($mabn);
+    if($bn){
+        while($r = mysqli_fetch_assoc($bn)){
+            $tenbn = $r["HovaTen"];
+            $gioitinh = $r["GioiTinh"];
+            $ngaysinh = $r["NgaySinh"];
+            $sdt = $r["SoDT"];
+            $diachi = $r["DiaChi"];
+            $email = $r["Email"];
+            $baohiem = $r["BHYT"];
+            $mapk = $r["MaPK"];
+        }
+    } else {
+        echo "<script>alert('Ma benh nhan khong ton tai!')</script>";
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -82,6 +103,10 @@
             text-align: right;
             margin-top: 20px;
         }
+        .btn a {
+            color: white;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -96,20 +121,14 @@
             <a href="#">Đăng xuất</a>
         </div>
         
-        <?php
-            if(isset($_GET['capnhathoso'])){
-                include_once("capnhathoso.php");
-            } else if(isset($_GET['lichkham'])){
-                include_once("../XemLichKham/xemlk.php");
-            } else{
-                echo '<div class="col-md-9">
+        <div class="col-md-9">
             <h4 class="main-title">Hồ sơ</h4>
             <div class="profile-container">
                 <div class="profile-header">
                     <div class="avatar">👤</div>
                     <div>
-                        <h5>Nguyễn Văn A</h5>
-                        <small>Mã BN: ABC123456</small>
+                        <h5><?php echo $tenbn;?></h5>
+                        <small>Mã BN: <?php echo $mabn;?></small>
                     </div>
                 </div>
                 
@@ -117,23 +136,23 @@
                     <p>Thông tin cơ bản</p>
                     <div>
                         <span>Họ và tên</span>
-                        <span>Nguyễn Văn A</span>
+                        <span><?php echo $tenbn; ?></span>
                     </div>
                     <div>
                         <span>Điện thoại</span>
-                        <span>0987654321</span>
-                    </div>
-                    <div>
-                        <span>Ngày sinh</span>
-                        <span>01/01/2003</span>
+                        <span><?php echo $sdt; ?></span>
                     </div>
                     <div>
                         <span>Giới tính</span>
-                        <span>Nam</span>
+                        <span><?php echo $gioitinh; ?></span>
+                    </div>
+                    <div>
+                        <span>Ngày sinh</span>
+                        <span><?php echo $ngaysinh; ?></span>
                     </div>
                     <div>
                         <span>Địa chỉ</span>
-                        <span>12 Nguyễn Văn Bảo</span>
+                        <span><?php echo $diachi; ?></span>
                     </div>
                 </div>
 
@@ -141,19 +160,15 @@
                     <p>Thông tin bổ sung</p>
                     <div>
                         <span>Mã BHYT</span>
-                        <span>YT11111111</span>
-                    </div>
-                    <div>
-                        <span>Số CCCD</span>
-                        <span>0943515135</span>
-                    </div>
-                    <div>
-                        <span>Dân tộc</span>
-                        <span>Kinh</span>
+                        <span><?php echo $baohiem;?></span>
                     </div>
                     <div>
                         <span>Email</span>
-                        <span>bao@gmail.com</span>
+                        <span><?php echo $email;?></span>
+                    </div>
+                    <div>
+                        <span>Mã phiếu khám</span>
+                        <span><?php echo $mapk;?></span>
                     </div>
                 </div>
 
@@ -161,11 +176,7 @@
                     <button class="btn btn-primary"><a href="?capnhathoso">Thay đổi thông tin</a></button>
                 </div>
             </div>
-        </div>';
-            }
-        ?>
-
-        
+        </div>
     </div>
 </div>
 

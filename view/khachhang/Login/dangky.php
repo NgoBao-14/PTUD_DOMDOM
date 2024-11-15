@@ -1,3 +1,24 @@
+<?php
+    if (isset($_REQUEST['btn-dk'])) {
+        include_once("controller/cnguoidung.php");
+        $p = new cNguoiDung();
+        $password = $_REQUEST['password'];
+        $password2 = $_REQUEST['password2'];
+        if ($password !== $password2) {
+            echo "<script>alert('Mật khẩu và mật khẩu nhập lại không khớp!')</script>";
+            exit;
+        }
+        $password = md5($password);
+        $id_taikhoan = $p->cDangKy($_REQUEST['txtuser'], $password, $_REQUEST['hiddenphanquyen']);
+        if ($id_taikhoan) {
+            echo "<script>alert('Đăng ký thành công! Mời bạn tạo hồ sơ.')</script>";
+            header("Location: index.php?thongtin&id_taikhoan=" . $id_taikhoan);
+        } else {
+            echo "<script>alert('Đăng ký thất bại!')</script>";
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,20 +71,21 @@
             </ul>
             <div class="tab-content mt-3">
                 <div class="tab-pane fade show active" id="login" role="tabpanel">
-                    <form>
+                    <form method="POST">
                         <div class="mb-3">
-                            <label for="phone" class="form-label">Số điện thoại</label>
-                            <input type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại">
+                            <label for="txtuser" class="form-label">Username</label>
+                            <input type="text" class="form-control" name="txtuser" id="txtuser" placeholder="Nhập username">
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Mật khẩu</label>
-                            <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Nhập mật khẩu">
+                            <input type="hidden" name="hiddenphanquyen" id="hiddenphanquyen" value="Bệnh Nhân">
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Nhập lại mật khẩu</label>
-                            <input type="password" class="form-control" id="password" placeholder="Nhập lại mật khẩu">
+                            <label for="password2" class="form-label">Nhập lại mật khẩu</label>
+                            <input type="password" class="form-control" name="password2" id="password2" placeholder="Nhập lại mật khẩu" required>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
+                        <button type="submit" name="btn-dk" id="btn-dk" class="btn btn-primary w-100">Đăng ký</button>
                     </form>
                     <p class="mt-3 text-center">Đã có tài khoản? <a href="?dangnhap">Đăng nhập ngay</a></p>
                 </div>
