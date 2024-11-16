@@ -4,7 +4,8 @@ if (!isset($_SESSION['username'])) {
     $_SESSION['username'] = 'Nguyễn Nam'; 
 }
 
-$patients = [
+$patients = 
+[
     [
         "id" => "1",
         "name" => "Nguyễn Nam",
