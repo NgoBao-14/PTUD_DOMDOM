@@ -1,10 +1,10 @@
 <?php
-    include("../../model/mBacSi.php");
+    include("./model/mBacSi.php");
     class cbacsi
     {
         public function getAllBS()
         {
-            $p = new mBacSi();
+            $p = new Mbacsi();
             $tblBS = $p->getAllBacSi();
             if($tblBS)
             {
