@@ -1,58 +1,7 @@
-<?php
-include("../../controller/cNVYT.php");
-$controller = new cNVYT();
-
-$message = '';
-$error = '';
-
-// Handle form submissions
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['action'])) {
-        switch ($_POST['action']) {
-            case 'delete':
-                $controller->setInactive($_POST['MaNV']);
-                $message = "Nhân viên y tế đã được ẩn khỏi danh sách.";
-                break;
-            case 'edit':
-                $controller->updateNVYT($_POST['MaNV'], $_POST['NgaySinh'], $_POST['GioiTinh'], $_POST['SoDT'], $_POST['Email']);
-                $message = "Thông tin nhân viên y tế đã được cập nhật thành công.";
-                break;
-            case 'add':
-                $result = $controller->addNVYT($_POST['HovaTen'], $_POST['NgaySinh'], $_POST['GioiTinh'], $_POST['SoDT'], $_POST['Email']);
-                if ($result === true) {
-                    $message = "Nhân viên y tế mới đã được thêm thành công.";
-                } else {
-                    $error = $result;
-                }
-                break;
-        }
-    }
-}
 
 
-// Xử lý tìm kiếm
-$searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
-$tblNVYT = $searchTerm ? $controller->searchNVYT($searchTerm) : $controller->getAllNVYT();
 
-// Xử lý hiển thị chi tiết nhân viên y tế
-$selectedNurse = null;
-if (isset($_GET['MaNV'])) {
-    $result = $controller->getNVYT($_GET['MaNV']);
-    if ($result && $result !== -1) {
-        $selectedNurse = $result->fetch_assoc();
-    }
-}
 
-// Xử lý hiển thị form sửa thông tin nhân viên y tế
-$editNurse = null;
-if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV'])) {
-    $result = $controller->getNVYT($_GET['MaNV']);
-    if ($result && $result !== -1) {
-        $editNurse = $result->fetch_assoc();
-    }
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -292,13 +241,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV']))
     </div>
     <div class="modal-backdrop fade show"></div>
     <?php endif; ?>
-    <?php
-    // Xử lý xóa nhân viên y tế
-    if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['MaNV'])) {
-        $controller->setInactive($_GET['MaNV']);
-        echo "<script>alert('Nhân viên y tế đã được ẩn khỏi danh sách.'); window.location.href='nurse.php';</script>";
-    }
-    ?>
+   
     <?php include("../interface/footer.php"); ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
