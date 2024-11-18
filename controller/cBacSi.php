@@ -21,6 +21,29 @@
                 return false;
             }
         }
+        
+        public function getBS($MaNV)
+        {   
+            $p = new mBacSi();
+            $tblBS = $p->getBS($MaNV);
+            if($tblBS)
+            {
+                if($tblBS->num_rows>0)
+                {
+                    return $tblBS;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+        
     }
 
 ?>

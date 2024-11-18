@@ -1,172 +1,59 @@
 <?php
-include_once('../../model/ketnoi.php');
+include("../../controller/cBacSi.php");
+include("../../controller/cChuyenKhoa.php");
+$controller = new cbacsi();
+$chuyenKhoaController = new CChuyenKhoa();
 
-class Doctor {
-    private $conn;
+$message = '';
+$error = '';
 
-    public function __construct() {
-        $ketnoi = new ketnoi();
-        $this->conn = $ketnoi->moketnoi();
-    }
-
-    public function getAllDoctors() {
-        $query = "SELECT nhanvien.*, chuyenkhoa.TenKhoa 
-                  FROM nhanvien 
-                  INNER JOIN bacsi ON nhanvien.MaNV = bacsi.MaNV 
-                  INNER JOIN chuyenkhoa ON bacsi.MaKhoa = chuyenkhoa.MaKhoa 
-                  WHERE nhanvien.ChucVu = 'Bác sĩ' AND nhanvien.TrangThaiLamViec != 'Đã nghỉ việc'";
-        $result = $this->conn->query($query);
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function getDoctorById($id) {
-        $query = "SELECT nhanvien.*, chuyenkhoa.TenKhoa, chuyenkhoa.MaKhoa 
-                  FROM nhanvien 
-                  INNER JOIN bacsi ON nhanvien.MaNV = bacsi.MaNV 
-                  INNER JOIN chuyenkhoa ON bacsi.MaKhoa = chuyenkhoa.MaKhoa 
-                  WHERE nhanvien.MaNV = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("s", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc();
-    }
-
-    public function addDoctor($data) {
-        $this->conn->begin_transaction();
-
-        try {
-            if ($this->isDuplicatePhone($data['SoDT'])) {
-                throw new Exception("Số điện thoại đã được sử dụng.");
-            }
-            if ($this->isDuplicateEmail($data['Email'])) {
-                throw new Exception("Email đã được sử dụng.");
-            }
-
-            $newId = $this->generateNewEmployeeId();
-
-            $query = "INSERT INTO nhanvien (MaNV, HovaTen, NgaySinh, SoDT, ChucVu, GioiTinh, TrangThaiLamViec, Email) 
-                      VALUES (?, ?, ?, ?, 'Bác sĩ', ?, 'Đang làm việc', ?)";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bind_param("ssssss", $newId, $data['HovaTen'], $data['NgaySinh'], $data['SoDT'], $data['GioiTinh'], $data['Email']);
-            $stmt->execute();
-
-            $query = "INSERT INTO bacsi (MaNV, MaKhoa) VALUES (?, ?)";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bind_param("si", $newId, $data['MaKhoa']);
-            $stmt->execute();
-
-            $this->conn->commit();
-
-            return $this->getDoctorById($newId);
-        } catch (Exception $e) {
-            $this->conn->rollback();
-            throw $e;
+// Handle form submissions
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['action'])) {
+        switch ($_POST['action']) {
+            case 'delete':
+                $controller->setInactive($_POST['MaNV']);
+                $message = "Bác sĩ đã được ẩn khỏi danh sách.";
+                break;
+            case 'edit':
+                $controller->updateBS($_POST['MaNV'], $_POST['MaKhoa'], $_POST['NgaySinh'], $_POST['GioiTinh'], $_POST['SoDT'], $_POST['Email']);
+                $message = "Thông tin bác sĩ đã được cập nhật thành công.";
+                break;
+            case 'add':
+                $result = $controller->addBS($_POST['HovaTen'], $_POST['NgaySinh'], $_POST['GioiTinh'], $_POST['SoDT'], $_POST['Email'], $_POST['MaKhoa']);
+                if ($result === true) {
+                    $message = "Bác sĩ mới đã được thêm thành công.";
+                } else {
+                    $error = $result;
+                }
+                break;
         }
-    }
-
-    public function updateDoctor($id, $data) {
-        $this->conn->begin_transaction();
-
-        try {
-            if ($this->isDuplicatePhone($data['SoDT'], $id)) {
-                throw new Exception("Số điện thoại đã được sử dụng.");
-            }
-            if ($this->isDuplicateEmail($data['Email'], $id)) {
-                throw new Exception("Email đã được sử dụng.");
-            }
-
-            $query = "UPDATE nhanvien SET NgaySinh = ?, SoDT = ?, GioiTinh = ?, Email = ? WHERE MaNV = ?";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bind_param("sssss", $data['NgaySinh'], $data['SoDT'], $data['GioiTinh'], $data['Email'], $id);
-            $stmt->execute();
-
-            $query = "UPDATE bacsi SET MaKhoa = ? WHERE MaNV = ?";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bind_param("is", $data['MaKhoa'], $id);
-            $stmt->execute();
-
-            $this->conn->commit();
-            return $this->getDoctorById($id);
-        } catch (Exception $e) {
-            $this->conn->rollback();
-            throw $e;
-        }
-    }
-
-    public function softDeleteDoctor($id) {
-        $query = "UPDATE nhanvien SET TrangThaiLamViec = 'Đã nghỉ việc' WHERE MaNV = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("s", $id);
-        return $stmt->execute();
-    }
-
-    private function isDuplicatePhone($phone, $excludeId = null) {
-        $query = "SELECT MaNV FROM nhanvien WHERE SoDT = ? AND MaNV != ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("ss", $phone, $excludeId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->num_rows > 0;
-    }
-
-    private function isDuplicateEmail($email, $excludeId = null) {
-        $query = "SELECT MaNV FROM nhanvien WHERE Email = ? AND MaNV != ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("ss", $email, $excludeId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->num_rows > 0;
-    }
-
-    private function generateNewEmployeeId() {
-        $query = "SELECT MAX(CAST(SUBSTRING(MaNV, 3) AS UNSIGNED)) as max_id FROM nhanvien";
-        $result = $this->conn->query($query);
-        $row = $result->fetch_assoc();
-        $newId = $row['max_id'] + 1;
-        return 'NV' . str_pad($newId, 5, '0', STR_PAD_LEFT);
     }
 }
 
-$doctor = new Doctor();
+// Xử lý tìm kiếm
+$searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
+$filterKhoa = isset($_GET['filterKhoa']) ? $_GET['filterKhoa'] : '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'] ?? '';
-
-    switch ($action) {
-        case 'add':
-            try {
-                $newDoctor = $doctor->addDoctor($_POST);
-                echo json_encode(['success' => true, 'message' => 'Thêm bác sĩ thành công', 'doctor' => $newDoctor]);
-            } catch (Exception $e) {
-                echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-            }
-            exit;
-
-        case 'update':
-            try {
-                $updatedDoctor = $doctor->updateDoctor($_POST['MaNV'], $_POST);
-                echo json_encode(['success' => true, 'message' => 'Cập nhật thông tin bác sĩ thành công', 'doctor' => $updatedDoctor]);
-            } catch (Exception $e) {
-                echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-            }
-            exit;
-
-        case 'delete':
-            $result = $doctor->softDeleteDoctor($_POST['MaNV']);
-            echo json_encode(['success' => $result, 'message' => $result ? 'Xóa bác sĩ thành công' : 'Xóa bác sĩ thất bại']);
-            exit;
-
-        case 'get':
-            $doctorData = $doctor->getDoctorById($_POST['MaNV']);
-            echo json_encode($doctorData);
-            exit;
+// Xử lý hiển thị chi tiết bác sĩ
+$selectedDoctor = null;
+if (isset($_GET['MaNV'])) {
+    $result = $controller->getBS($_GET['MaNV']);
+    if ($result && $result !== -1) {
+        $selectedDoctor = $result->fetch_assoc();
     }
 }
 
-$doctors = $doctor->getAllDoctors();
+// Xử lý hiển thị form sửa thông tin bác sĩ
+$editDoctor = null;
+if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV'])) {
+    $result = $controller->getBS($_GET['MaNV']);
+    if ($result && $result !== -1) {
+        $editDoctor = $result->fetch_assoc();
+    }
+}
+
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -196,13 +83,32 @@ $doctors = $doctor->getAllDoctors();
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
+                            <?php if ($message): ?>
+                                <div class="alert alert-success"><?php echo $message; ?></div>
+                            <?php endif; ?>
+                            <?php if ($error): ?>
+                                <div class="alert alert-danger"><?php echo $error; ?></div>
+                            <?php endif; ?>
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="input-group w-25">
-                                    <input type="text" class="form-control" id="searchInput" placeholder="Tìm kiếm...">
-                                    <button class="btn btn-outline-secondary" type="button" id="searchBtn">OK</button>
-                                </div>
+                                <form action="" method="GET" class="d-flex">
+                                    <input type="text" class="form-control me-2" name="search" placeholder="Tìm kiếm..." value="<?php echo htmlspecialchars($searchTerm); ?>">
+                                    <button class="btn btn-outline-secondary" type="submit">Tìm</button>
+                                </form>
                                 <h2 class="card-title">Danh Sách Bác Sĩ</h2>
-                                <button class="btn btn-secondary" id="filterBtn">Bộ Lọc</button>
+                                <form action="" method="GET">
+                                    <select name="filterKhoa" class="form-select" onchange="this.form.submit()">
+                                        <option value="">Tất cả chuyên khoa</option>
+                                        <?php
+                                        $chuyenkhoa = $chuyenKhoaController->getAllChuyenKhoa();
+                                        if ($chuyenkhoa && $chuyenkhoa !== -1) {
+                                            while ($khoa = $chuyenkhoa->fetch_assoc()) {
+                                                $selected = ($khoa['MaKhoa'] == $filterKhoa) ? 'selected' : '';
+                                                echo "<option value='" . $khoa['MaKhoa'] . "' $selected>" . htmlspecialchars($khoa['TenKhoa']) . "</option>";
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </form>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered">
@@ -212,21 +118,45 @@ $doctors = $doctor->getAllDoctors();
                                             <th>Mã Nhân Viên</th>
                                             <th>Tên Bác Sĩ</th>
                                             <th>Chuyên Khoa</th>
+                                            <th>Thao Tác</th>
                                         </tr>
                                     </thead>
                                     <tbody id="doctorTableBody">
-                                        <?php foreach ($doctors as $index => $doctor): ?>
-                                        <tr class="doctor-row" data-id="<?php echo $doctor['MaNV']; ?>">
-                                            <td><?php echo $index + 1; ?></td>
-                                            <td><?php echo $doctor['MaNV']; ?></td>
-                                            <td><?php echo $doctor['HovaTen']; ?></td>
-                                            <td><?php echo $doctor['TenKhoa']; ?></td>
-                                        </tr>
-                                        <?php endforeach; ?>
+                                        <?php
+                                            $tblBS = $controller->getAllBS();
+                                            if($tblBS !== false && $tblBS !== -1) {
+                                                $stt = 1;
+                                                while($r = $tblBS->fetch_assoc()) {
+                                                    // Kiểm tra điều kiện tìm kiếm và lọc
+                                                    if (
+                                                        ($searchTerm === '' || 
+                                                         strpos(strtolower($r['MaNV']), strtolower($searchTerm)) !== false ||
+                                                         strpos(strtolower($r['HovaTen']), strtolower($searchTerm)) !== false) &&
+                                                        ($filterKhoa === '' || $r['MaKhoa'] == $filterKhoa) &&
+                                                        $r['TrangThaiLamViec'] == 'Đang làm việc'
+                                                    ) {
+                                        ?>
+                                                    <tr>
+                                                        <td><?= $stt++ ?></td>
+                                                        <td><?= htmlspecialchars($r['MaNV']) ?></td>
+                                                        <td><?= htmlspecialchars($r['HovaTen']) ?></td>
+                                                        <td><?= htmlspecialchars($r['TenKhoa']) ?></td>
+                                                        <td>
+                                                            <a href="?MaNV=<?= $r['MaNV'] ?>" class="btn btn-primary btn-sm">Xem</a>
+                                                        </td>
+                                                    </tr>
+                                        <?php
+                                                    }
+                                                }
+                                            }
+                                            if ($stt == 1) {
+                                                echo "<tr><td colspan='5'>Không tìm thấy bác sĩ nào</td></tr>";
+                                            }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
-                            <button id="add-doctor-btn" class="btn btn-primary mt-3">Thêm Bác Sĩ Mới +</button>
+                            <a href="?action=showAddForm" class="btn btn-primary mt-3">Thêm Bác Sĩ Mới +</a>
                         </div>
                     </div>
                 </div>
@@ -234,333 +164,192 @@ $doctors = $doctor->getAllDoctors();
         </div>
     </div>
 
-    <!-- Modal for adding/editing doctor -->
-    <div class="modal fade" id="doctorModal" tabindex="-1" aria-hidden="true">
+    <!-- Modal hiển thị thông tin chi tiết bác sĩ -->
+    <?php if ($selectedDoctor): ?>
+        <div class="modal fade show" id="doctorDetailsModal" tabindex="-1" aria-hidden="true" style="display: block;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Thông Tin Chi Tiết Bác Sĩ</h5>
+                        <a href="doctor.php" class="btn-close" aria-label="Close"></a>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Mã Nhân Viên</th>
+                                <td><?php echo htmlspecialchars($selectedDoctor['MaNV']); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Họ và tên bác sĩ</th>
+                                <td><?php echo htmlspecialchars($selectedDoctor['HovaTen']); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Ngày sinh</th>
+                                <td><?php echo htmlspecialchars($selectedDoctor['NgaySinh']); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Giới tính</th>
+                                <td><?php echo htmlspecialchars($selectedDoctor['GioiTinh']); ?></td>
+                            </tr>
+                            <tr>
+                                <th>SDT</th>
+                                <td><?php echo htmlspecialchars($selectedDoctor['SoDT']); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td><?php echo htmlspecialchars($selectedDoctor['Email']); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Chuyên khoa</th>
+                                <td><?php echo htmlspecialchars($selectedDoctor['TenKhoa']); ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="?action=edit&MaNV=<?php echo $selectedDoctor['MaNV']; ?>" class="btn btn-primary">Sửa</a>
+                        <a href="?action=delete&MaNV=<?php echo $selectedDoctor['MaNV']; ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa bác sĩ này?');">Xóa</a>
+                        <a href="doctor.php" class="btn btn-secondary">Đóng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-backdrop fade show"></div>
+    <?php endif; ?>
+
+    <!-- Modal sửa thông tin bác sĩ -->
+    <?php if ($editDoctor): ?>
+        <div class="modal fade show" id="doctorSuaModal" tabindex="-1" aria-hidden="true" style="display: block;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Sửa Thông Tin Bác Sĩ</h5>
+                        <a href="doctor.php" class="btn-close" aria-label="Close"></a>
+                    </div>
+                    <div class="modal-body">
+                        <form action="doctor.php" method="POST">
+                            <input type="hidden" name="action" value="edit">
+                            <input type="hidden" name="MaNV" value="<?php echo htmlspecialchars($editDoctor['MaNV']); ?>">
+                            <div class="mb-3">
+                                <label class="form-label">Mã Nhân Viên</label>
+                                <input type="text" class="form-control" value="<?php echo htmlspecialchars($editDoctor['MaNV']); ?>" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Họ và tên bác sĩ</label>
+                                <input type="text" class="form-control" value="<?php echo htmlspecialchars($editDoctor['HovaTen']); ?>" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Ngày sinh</label>
+                                <input type="date" class="form-control" name="NgaySinh" value="<?php echo htmlspecialchars($editDoctor['NgaySinh']); ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Giới tính</label>
+                                <select class="form-select" name="GioiTinh" required>
+                                    <option value="Nam" <?php echo $editDoctor['GioiTinh'] == 'Nam' ? 'selected' : ''; ?>>Nam</option>
+                                    <option value="Nữ" <?php echo $editDoctor['GioiTinh'] == 'Nữ' ? 'selected' : ''; ?>>Nữ</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">SDT</label>
+                                <input type="tel" class="form-control" name="SoDT" value="<?php echo htmlspecialchars($editDoctor['SoDT']); ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" name="Email" value="<?php echo htmlspecialchars($editDoctor['Email']); ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Chuyên khoa</label>
+                                <select class="form-select" name="MaKhoa" required>
+                                <?php
+                                $chuyenkhoa = $chuyenKhoaController->getAllChuyenKhoa();
+                                if ($chuyenkhoa && $chuyenkhoa !== -1) {
+                                    while ($khoa = $chuyenkhoa->fetch_assoc()) {
+                                        $selected = ($khoa['MaKhoa'] == $editDoctor['MaKhoa']) ? 'selected' : '';
+                                        echo "<option value='" . $khoa['MaKhoa'] . "' $selected>" . htmlspecialchars($khoa['TenKhoa']) . "</option>";
+                                    }
+                                } else {
+                                    echo "<option value=''>Không có chuyên khoa nào</option>";
+                                }
+                            ?>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                            <a href="doctor.php" class="btn btn-secondary">Hủy</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-backdrop fade show"></div>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['action']) && $_GET['action'] == 'showAddForm'): ?>
+    <!-- Modal for adding new doctor -->
+    <div class="modal fade show" id="addDoctorModal" tabindex="-1" aria-hidden="true" style="display: block;">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">Thêm Bác Sĩ Mới</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title">Thêm Bác Sĩ Mới</h5>
+                    <a href="doctor.php" class="btn-close" aria-label="Close"></a>
                 </div>
                 <div class="modal-body">
-                    <form id="doctorForm">
-                        <input type="hidden" id="MaNV" name="MaNV">
-                        <div class="mb-3 row">
-                            <label for="HovaTen" class="col-sm-4 col-form-label">Họ và tên bác sĩ</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="HovaTen" name="HovaTen" required>
-                            </div>
+                    <form action="doctor.php" method="POST">
+                        <input type="hidden" name="action" value="add">
+                        <div class="mb-3">
+                            <label for="HovaTen" class="form-label">Họ và tên bác sĩ</label>
+                            <input type="text" class="form-control" id="HovaTen" name="HovaTen" required pattern="^[a-zA-ZÀ-ỹ\s]+$">
                         </div>
-                        <div class="mb-3 row">
-                            <label for="NgaySinh" class="col-sm-4 col-form-label">Ngày sinh</label>
-                            <div class="col-sm-8">
-                                <input type="date" class="form-control" id="NgaySinh" name="NgaySinh" required>
-                            </div>
+                        <div class="mb-3">
+                            <label for="NgaySinh" class="form-label">Ngày sinh</label>
+                            <input type="date" class="form-control" id="NgaySinh" name="NgaySinh" required>
                         </div>
-                        <div class="mb-3 row">
-                            <label for="GioiTinh" class="col-sm-4 col-form-label">Giới tính</label>
-                            <div class="col-sm-8">
-                                <select class="form-select" id="GioiTinh" name="GioiTinh" required>
-                                    <option value="Nam">Nam</option>
-                                    <option value="Nữ">Nữ</option>
-                                </select>
-                            </div>
+                        <div class="mb-3">
+                            <label for="GioiTinh" class="form-label">Giới tính</label>
+                            <select class="form-select" id="GioiTinh" name="GioiTinh" required>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                            </select>
                         </div>
-                        <div class="mb-3 row">
-                            <label for="SoDT" class="col-sm-4 col-form-label">SDT</label>
-                            <div class="col-sm-8">
-                                <input type="tel" class="form-control" id="SoDT" name="SoDT" required>
-                            </div>
+                        <div class="mb-3">
+                            <label for="SoDT" class="form-label">Số điện thoại</label>
+                            <input type="tel" class="form-control" id="SoDT" name="SoDT" required>
                         </div>
-                        <div class="mb-3 row">
-                            <label for="Email" class="col-sm-4 col-form-label">Email</label>
-                            <div class="col-sm-8">
-                                <input type="email" class="form-control" id="Email" name="Email" required>
-                            </div>
+                        <div class="mb-3">
+                            <label for="Email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="Email" name="Email" required>
                         </div>
-                        <div class="mb-3 row">
-                            <label for="MaKhoa" class="col-sm-4 col-form-label">Chuyên khoa</label>
-                            <div class="col-sm-8">
-                                <select class="form-select" id="MaKhoa" name="MaKhoa" required>
-                                    <option value="1">Thần kinh</option>
-                                    <option value="2">Tim mạch</option>
-                                    <option value="3">Nội tiết</option>
-                                    <option value="4">Ngoại khoa</option>
-                                    <option value="5">Sản phụ khoa</option>
-                                    <option value="6">Nhi khoa</option>
-                                    <option value="7">Mắt</option>
-                                    <option value="8">Răng hàm mặt</option>
-                                    <option value="9">Tai mũi họng</option>
-                                    <option value="10">Da liễu</option>
-                                </select>
-                            </div>
+                        <div class="mb-3">
+                            <label for="MaKhoa" class="form-label">Chuyên khoa</label>
+                            <select class="form-select" id="MaKhoa" name="MaKhoa" required>
+                                <?php
+                                $chuyenkhoa = $chuyenKhoaController->getAllChuyenKhoa();
+                                if ($chuyenkhoa && $chuyenkhoa !== -1) {
+                                    while ($khoa = $chuyenkhoa->fetch_assoc()) {
+                                        echo "<option value='" . $khoa['MaKhoa'] . "'>" . htmlspecialchars($khoa['TenKhoa']) . "</option>";
+                                    }
+                                } else {
+                                    echo "<option value=''>Không có chuyên khoa nào</option>";
+                                }
+                                ?>
+                            </select>
                         </div>
+                        <button type="submit" class="btn btn-primary">Thêm bác sĩ</button>
+                        <a href="doctor.php" class="btn btn-secondary">Hủy</a>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary" id="saveDoctor">Lưu</button>
-                </div>
             </div>
         </div>
     </div>
+    <div class="modal-backdrop fade show"></div>
+    <?php endif; ?>
 
-    <!-- Modal for doctor details -->
-    <div class="modal fade" id="doctorDetailsModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Thông Tin Chi Tiết Bác Sĩ</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>Mã Nhân Viên</th>
-                            <td id="detailMaNV"></td>
-                        </tr>
-                        <tr>
-                            <th>Họ và tên bác sĩ</th>
-                            <td id="detailHovaTen"></td>
-                        </tr>
-                        <tr>
-                            <th>Ngày sinh</th>
-                            <td id="detailNgaySinh"></td>
-                        </tr>
-                        <tr>
-                            <th>Giới tính</th>
-                            <td id="detailGioiTinh"></td>
-                        </tr>
-                        <tr>
-                            <th>SDT</th>
-                            <td id="detailSoDT"></td>
-                        </tr>
-                        <tr>
-                            <th>Email</th>
-                            <td id="detailEmail"></td>
-                        </tr>
-                        <tr>
-                            <th>Chuyên khoa</th>
-                            <td id="detailTenKhoa"></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="editDoctorBtn">Sửa</button>
-                    <button type="button" class="btn btn-danger" id="deleteDoctorBtn">Xóa</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php
+    // Xử lý xóa bác sĩ
+    if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['MaNV'])) {
+        $controller->setInactive($_GET['MaNV']);
+        echo "<script>alert('Bác sĩ đã được ẩn khỏi danh sách.'); window.location.href='doctor.php';</script>";
+    }
+    ?>
 
     <?php include("../interface/footer.php"); ?>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-    $(document).ready(function() {
-        const doctorModal = new bootstrap.Modal(document.getElementById('doctorModal'));
-        const doctorDetailsModal = new bootstrap.Modal(document.getElementById('doctorDetailsModal'));
-        let currentDoctorId = null;
-
-        // Add new doctor
-        $('#add-doctor-btn').click(function() {
-            $('#modalTitle').text('Thêm Bác Sĩ Mới');
-            $('#doctorForm')[0].reset();
-            $('#MaNV').val('');
-            $('#HovaTen').prop('readonly', false);
-            doctorModal.show();
-        });
-
-        // Save doctor (add or update)
-        $('#saveDoctor').click(function() {
-            if (validateForm()) {
-                const formData = new FormData($('#doctorForm')[0]);
-                formData.append('action', $('#MaNV').val() ? 'update' : 'add');
-
-                $.ajax({
-                    url: 'doctor.php',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    dataType: 'json',
-                    success: function(response) {
-                        if (response.success) {
-                            alert(response.message);
-                            doctorModal.hide();
-                            if (formData.get('action') === 'add') {
-                                addDoctorToTable(response.doctor);
-                            } else {
-                                updateDoctorInTable(response.doctor);
-                            }
-                        } else {
-                            alert(response.message);
-                        }
-                    },
-                    error: function() {
-                        alert('Đã xảy ra lỗi. Vui lòng thử lại.');
-                    }
-                });
-            }
-        });
-
-        // Show doctor details
-        $(document).on('click', '.doctor-row', function() {
-            const doctorId = $(this).data('id');
-            currentDoctorId = doctorId;
-
-            $.ajax({
-                url: 'doctor.php',
-                type: 'POST',
-                data: { action: 'get', MaNV: doctorId },
-                dataType: 'json',
-                success: function(doctor) {
-                    $('#detailMaNV').text(doctor.MaNV);
-                    $('#detailHovaTen').text(doctor.HovaTen);
-                    $('#detailNgaySinh').text(doctor.NgaySinh);
-                    $('#detailGioiTinh').text(doctor.GioiTinh);
-                    $('#detailSoDT').text(doctor.SoDT);
-                    $('#detailEmail').text(doctor.Email);
-                    $('#detailTenKhoa').text(doctor.TenKhoa);
-                    doctorDetailsModal.show();
-                },
-                error: function() {
-                    alert('Đã xảy ra lỗi khi tải thông tin bác sĩ. Vui lòng thử lại.');
-                }
-            });
-        });
-
-        // Edit doctor
-        $('#editDoctorBtn').click(function() {
-            doctorDetailsModal.hide();
-            $('#modalTitle').text('Sửa Thông Tin Bác Sĩ');
-
-            $.ajax({
-                url: 'doctor.php',
-                type: 'POST',
-                data: { action: 'get', MaNV: currentDoctorId },
-                dataType: 'json',
-                success: function(doctor) {
-                    $('#MaNV').val(doctor.MaNV);
-                    $('#HovaTen').val(doctor.HovaTen).prop('readonly', true);
-                    $('#NgaySinh').val(doctor.NgaySinh);
-                    $('#GioiTinh').val(doctor.GioiTinh);
-                    $('#SoDT').val(doctor.SoDT);
-                    $('#Email').val(doctor.Email);
-                    $('#MaKhoa').val(doctor.MaKhoa);
-                    doctorModal.show();
-                },
-                error: function() {
-                    alert('Đã xảy ra lỗi khi tải thông tin bác sĩ. Vui lòng thử lại.');
-                }
-            });
-        });
-
-        // Delete doctor
-        $('#deleteDoctorBtn').click(function() {
-            if (confirm('Bạn có chắc chắn muốn xóa bác sĩ này?')) {
-                $.ajax({
-                    url: 'doctor.php',
-                    type: 'POST',
-                    data: { action: 'delete', MaNV: currentDoctorId },
-                    dataType: 'json',
-                    success: function(response) {
-                        if (response.success) {
-                            alert(response.message);
-                            doctorDetailsModal.hide();
-                            $(`tr[data-id="${currentDoctorId}"]`).remove();
-                            updateSTTColumn();
-                        } else {
-                            alert(response.message);
-                        }
-                    },
-                    error: function() {
-                        alert('Đã xảy ra lỗi khi xóa bác sĩ. Vui lòng thử lại.');
-                    }
-                });
-            }
-        });
-
-        function addDoctorToTable(doctor) {
-            const newRow = `
-                <tr class="doctor-row" data-id="${doctor.MaNV}">
-                    <td>${$('#doctorTableBody tr').length + 1}</td>
-                    <td>${doctor.MaNV}</td>
-                    <td>${doctor.HovaTen}</td>
-                    <td>${doctor.TenKhoa}</td>
-                </tr>
-            `;
-            $('#doctorTableBody').append(newRow);
-        }
-
-        function updateDoctorInTable(doctor) {
-            const row = $(`tr[data-id="${doctor.MaNV}"]`);
-            row.find('td:eq(2)').text(doctor.HovaTen);
-            row.find('td:eq(3)').text(doctor.TenKhoa);
-        }
-
-        function updateSTTColumn() {
-            $('#doctorTableBody tr').each(function(index) {
-                $(this).find('td:first').text(index + 1);
-            });
-        }
-
-        function validateForm() {
-            const name = $('#HovaTen').val().trim();
-            const phone = $('#SoDT').val().trim();
-            const email = $('#Email').val().trim();
-            const dob = new Date($('#NgaySinh').val());
-            const today = new Date();
-            const age = today.getFullYear() - dob.getFullYear();
-
-            if (!name || !phone || !email) {
-                alert('Vui lòng điền đầy đủ thông tin.');
-                return false;
-            }
-
-            if (!/^[a-zA-ZÀ-ỹ\s]+$/.test(name)) {
-                alert('Họ tên không được chứa số.');
-                return false;
-            }
-
-            if (!/^[0-9]{10}$/.test(phone)) {
-                alert('Số điện thoại phải có 10 chữ số.');
-                return false;
-            }
-
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                alert('Email không hợp lệ.');
-                return false;
-            }
-
-            if (age < 25) {
-                alert('Bác sĩ phải trên 25 tuổi.');
-                return false;
-            }
-
-            return true;
-        }
-
-        // Search functionality
-        $('#searchBtn').click(function() {
-            const searchTerm = $('#searchInput').val().toLowerCase();
-            $('.doctor-row').each(function() {
-                const doctorName = $(this).find('td:eq(2)').text().toLowerCase();
-                if (doctorName.includes(searchTerm)) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
-        });
-
-        // Filter functionality (placeholder)
-        $('#filterBtn').click(function() {
-            alert('Chức năng lọc sẽ được triển khai sau.');
-        });
-    });
-    </script>
 </body>
 </html>

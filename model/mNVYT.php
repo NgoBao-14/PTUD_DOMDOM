@@ -22,6 +22,7 @@
             }
      
         }
+
         public function getCTHD($MaHD)
         {
             $p = new ketnoi;
@@ -41,42 +42,6 @@
             else
             {
                 return false;
-            }
-        }
-        public function setPTTT($MaHD,$PT)
-        {
-            $p = new ketnoi;
-            $con = $p->moketnoi();
-            if($con)
-            {
-                $str = 'UPDATE hoadon SET MaPTTT = '.$PT.' WHERE MaHD = '.$MaHD.' LIMIT 1';
-                $tblNVYT = $con->query($str);
-                $p->dongketnoi($con);
-                return $tblNVYT;
-            }
-        }
-        public function loadPTTT()
-        {
-            $p = new ketnoi;
-            $con = $p->moketnoi();
-            if($con)
-            {   
-                $str = 'SELECT * FROM phuongthucthanhtoan WHERE MaPTTT > 0';
-                $tblNVYT = $con->query($str);
-                $p->dongketnoi($con);
-                return $tblNVYT;
-            }
-        }
-        public function setTrangThai($MaHD,$TT)
-        {
-            $p = new ketnoi;
-            $con = $p->moketnoi();
-            if($con)
-            {
-                $str = 'UPDATE hoadon SET TrangThai = '.$TT.' WHERE MaHD = '.$MaHD.' LIMIT 1';
-                $tblNVYT = $con->query($str);
-                $p->dongketnoi($con);
-                return $tblNVYT;
             }
         }
     }
