@@ -51,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $message = "Bác sĩ mới đã được thêm thành công.";
                 // Reset form data after successful submission
                 $formData = array_fill_keys(array_keys($formData), '');
+                echo "<script>alert('Bác sĩ đã được thêm vào danh sách.'); window.location.href='doctor.php';</script>";
             } else {
                 $error = $result;
             }
