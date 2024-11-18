@@ -1,5 +1,5 @@
 <?php
-include("../../controller/cBacSi.php");
+include("../../controller/cQLBacSi.php");
 include("../../controller/cChuyenKhoa.php");
 $controller = new cbacsi();
 $chuyenKhoaController = new CChuyenKhoa();

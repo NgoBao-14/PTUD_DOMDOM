@@ -86,21 +86,56 @@
                 return false;
             }
         }
-        public function checkDuplicatePhoneOrEmail($SoDT, $Email)
+        private $con;
+
+    public function __construct()
+    {
+        $p = new ketnoi();
+        $this->con = $p->moketnoi();
+    }
+
+    // ... (keep other existing methods)
+    public function checkPhoneExists($phone)
+    {
+        if($this->con)
         {
-            $p = new ketnoi;
-            $con = $p->moketnoi();
-            if($con)
-            {
-                $SoDT = mysqli_real_escape_string($con, $SoDT);
-                $Email = mysqli_real_escape_string($con, $Email);
-                $query = "SELECT * FROM nhanvien WHERE SoDT = '$SoDT' OR Email = '$Email'";
-                $result = $con->query($query);
-                $p->dongketnoi($con);
-                return $result->num_rows > 0;
-            }
-            return false;
+            $phone = mysqli_real_escape_string($this->con, $phone);
+            $query = "SELECT * FROM nhanvien WHERE SoDT = '$phone'";
+            $result = $this->con->query($query);
+            return $result->num_rows > 0;
         }
+        return false;
+    }
+
+    public function checkEmailExists($email)
+    {
+        if($this->con)
+        {
+            $email = mysqli_real_escape_string($this->con, $email);
+            $query = "SELECT * FROM nhanvien WHERE Email = '$email'";
+            $result = $this->con->query($query);
+            return $result->num_rows > 0;
+        }
+        return false;
+    }
+    public function checkDuplicatePhoneOrEmail($SoDT, $Email, $MaNV = null)
+    {
+        if($this->con)
+        {
+            $SoDT = mysqli_real_escape_string($this->con, $SoDT);
+            $Email = mysqli_real_escape_string($this->con, $Email);
+            $query = "SELECT * FROM nhanvien WHERE (SoDT = '$SoDT' OR Email = '$Email')";
+            if ($MaNV !== null) {
+                $MaNV = mysqli_real_escape_string($this->con, $MaNV);
+                $query .= " AND MaNV != '$MaNV'";
+            }
+            $result = $this->con->query($query);
+            if ($result->num_rows > 0) {
+                return $result->fetch_assoc();
+            }
+        }
+        return false;
+    }
 
         public function addBS($HovaTen, $NgaySinh, $GioiTinh, $SoDT, $Email, $MaKhoa)
         {
