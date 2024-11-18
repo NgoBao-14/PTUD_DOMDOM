@@ -1,4 +1,114 @@
+<?php
+include("../../controller/cQLBacSi.php");
+include("../../controller/cChuyenKhoa.php");
+$controller = new cbacsi();
+$chuyenKhoaController = new CChuyenKhoa();
 
+$message = '';
+$error = '';
+
+$message = '';
+$error = '';
+$formData = [
+    'HovaTen' => '',
+    'NgaySinh' => '',
+    'GioiTinh' => '',
+    'SoDT' => '',
+    'Email' => '',
+    'MaKhoa' => ''
+];
+$formErrors = [
+    'SoDT' => '',
+    'Email' => ''
+];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['action']) && $_POST['action'] == 'add') {
+        // Lưu dữ liệu form
+        $formData = [
+            'HovaTen' => $_POST['HovaTen'] ?? '',
+            'NgaySinh' => $_POST['NgaySinh'] ?? '',
+            'GioiTinh' => $_POST['GioiTinh'] ?? '',
+            'SoDT' => $_POST['SoDT'] ?? '',
+            'Email' => $_POST['Email'] ?? '',
+            'MaKhoa' => $_POST['MaKhoa'] ?? ''
+        ];
+
+        // Kiểm tra số điện thoại
+        if ($controller->checkPhoneExists($formData['SoDT'])) {
+            $formErrors['SoDT'] = 'Số điện thoại đã được sử dụng.';
+        }
+
+        // Kiểm tra email
+        if ($controller->checkEmailExists($formData['Email'])) {
+            $formErrors['Email'] = 'Email đã được sử dụng.';
+        }
+
+        // Nếu không có lỗi, thêm bác sĩ mới
+        if (empty($formErrors['SoDT']) && empty($formErrors['Email'])) {
+            $result = $controller->addBS($formData['HovaTen'], $formData['NgaySinh'], $formData['GioiTinh'], $formData['SoDT'], $formData['Email'], $formData['MaKhoa']);
+            if ($result === true) {
+                $message = "Bác sĩ mới đã được thêm thành công.";
+                // Reset form data after successful submission
+                $formData = array_fill_keys(array_keys($formData), '');
+            } else {
+                $error = $result;
+            }
+        }
+    }
+}
+// Handle form submissions
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['action'])) {
+        switch ($_POST['action']) {
+            case 'delete':
+                $controller->setInactive($_POST['MaNV']);
+                $message = "Bác sĩ đã được ẩn khỏi danh sách.";
+                break;
+            case 'edit':
+                $result = $controller->updateBS($_POST['MaNV'], $_POST['MaKhoa'], $_POST['NgaySinh'], $_POST['GioiTinh'], $_POST['SoDT'], $_POST['Email']);
+                if ($result === true) {
+                    $message = "Thông tin bác sĩ đã được cập nhật thành công.";
+                } else {
+                    $error = $result;
+                }
+                break;
+            case 'add':
+                $result = $controller->addBS($_POST['HovaTen'], $_POST['NgaySinh'], $_POST['GioiTinh'], $_POST['SoDT'], $_POST['Email'], $_POST['MaKhoa']);
+                if ($result === true) {
+                    $message = "Bác sĩ mới đã được thêm thành công.";
+                } else {
+                    $error = $result;
+                }
+                break;
+        }
+    }
+}
+
+
+// Xử lý tìm kiếm
+$searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
+$filterKhoa = isset($_GET['filterKhoa']) ? $_GET['filterKhoa'] : '';
+
+// Xử lý hiển thị chi tiết bác sĩ
+$selectedDoctor = null;
+if (isset($_GET['MaNV'])) {
+    $result = $controller->getBS($_GET['MaNV']);
+    if ($result && $result !== -1) {
+        $selectedDoctor = $result->fetch_assoc();
+    }
+}
+
+// Xử lý hiển thị form sửa thông tin bác sĩ
+$editDoctor = null;
+if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV'])) {
+    $result = $controller->getBS($_GET['MaNV']);
+    if ($result && $result !== -1) {
+        $editDoctor = $result->fetch_assoc();
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -298,8 +408,13 @@
     </div>
     <div class="modal-backdrop fade show"></div>
     <?php endif; ?>
-
-    
+    <?php
+    // Xử lý xóa bác sĩ
+    if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['MaNV'])) {
+        $controller->setInactive($_GET['MaNV']);
+        echo "<script>alert('Bác sĩ đã được ẩn khỏi danh sách.'); window.location.href='doctor.php';</script>";
+    }
+    ?>
 
     <?php include("../interface/footer.php"); ?>
 </body>
