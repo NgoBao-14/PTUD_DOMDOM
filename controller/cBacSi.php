@@ -1,5 +1,5 @@
 <?php
-    include("./model/mBacSi.php");
+    include("../../model/mBacSi.php");
     class cbacsi
     {
         public function getAllBS()
