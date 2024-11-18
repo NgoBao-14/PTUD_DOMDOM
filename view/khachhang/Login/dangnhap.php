@@ -1,9 +1,16 @@
+<?php 
+    if(isset($_REQUEST['nut'])){
+        include_once("controller/cnguoidung.php");
+        $p = new cNguoiDung();
+        $kq=$p->getNguoiDung($_REQUEST['phone'],$_REQUEST['pass']);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Trang đăng nhập</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .login-container {
@@ -52,15 +59,16 @@
                     <form method="POST">
                         <div class="mb-3">
                             <label for="phone" class="form-label">Số điện thoại</label>
-                            <input type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại">
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Nhập số điện thoại">
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Mật khẩu</label>
-                            <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu">
+                            <input type="password" class="form-control" id="pass" name="pass" placeholder="Nhập mật khẩu">
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+                        <button type="submit" class="btn btn-primary w-100" name="nut" id="nut">Đăng nhập</button>
                     </form>
                     <p class="mt-3 text-center">Chưa có tài khoản? <a href="?dangky">Đăng ký ngay</a></p>
+                    
                 </div>
             </div>
         </div>

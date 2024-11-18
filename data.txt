@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 12, 2024 at 03:29 PM
+-- Generation Time: Nov 15, 2024 at 11:22 PM
 -- Server version: 5.0.51
 -- PHP Version: 5.2.6
 
@@ -33,9 +33,7 @@ CREATE TABLE `bacsi` (
 INSERT INTO `bacsi` (`MaNV`, `MaKhoa`) VALUES
 (1, 1),
 (5, 2),
-(9, 3),
-(10, 4),
-(6, 5);
+(10, 4);
 
 -- --------------------------------------------------------
 
@@ -190,26 +188,27 @@ CREATE TABLE `donthuoc` (
   `MoTa` text collate utf8_unicode_ci NOT NULL,
   `MaBS` int(10) unsigned NOT NULL,
   `MaBN` int(10) unsigned NOT NULL,
+  `TrangThai` varchar(255) collate utf8_unicode_ci NOT NULL default 'Pending',
   PRIMARY KEY  (`MaDT`),
   KEY `MaBS` (`MaBS`),
   KEY `MaBN` (`MaBN`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `donthuoc`
 --
 
-INSERT INTO `donthuoc` (`MaDT`, `NgayTao`, `MoTa`, `MaBS`, `MaBN`) VALUES
-(1, '2024-11-12 10:46:54', 'Thuốc điều trị cảm cúm', 1, 1),
-(2, '2024-11-12 10:46:54', 'Thuốc giảm đau', 5, 2),
-(3, '2024-11-12 10:46:54', 'Thuốc bổ sung vitamin', 9, 3),
-(4, '2024-11-12 10:46:54', 'Thuốc kháng sinh', 10, 4),
-(5, '2024-11-12 10:46:54', 'Thuốc chống dị ứng', 6, 5),
-(6, '2024-11-12 10:46:54', 'Thuốc hạ sốt', 1, 6),
-(7, '2024-11-12 10:46:54', 'Thuốc trị viêm họng', 5, 7),
-(8, '2024-11-12 10:46:54', 'Thuốc hỗ trợ tiêu hóa', 9, 8),
-(9, '2024-11-12 10:46:54', 'Thuốc chống viêm', 10, 9),
-(10, '2024-11-12 10:46:54', 'Thuốc an thần', 6, 10);
+INSERT INTO `donthuoc` (`MaDT`, `NgayTao`, `MoTa`, `MaBS`, `MaBN`, `TrangThai`) VALUES
+(1, '2024-11-12 10:46:54', 'Thuốc điều trị cảm cúm', 1, 1, 'Pending'),
+(2, '2024-11-12 10:46:54', 'Thuốc giảm đau', 5, 2, 'Pending'),
+(3, '2024-11-12 10:46:54', 'Thuốc bổ sung vitamin', 5, 3, 'Pending'),
+(4, '2024-11-12 10:46:54', 'Thuốc kháng sinh', 10, 4, 'Pending'),
+(5, '2024-11-12 10:46:54', 'Thuốc chống dị ứng', 1, 5, 'Completed'),
+(6, '2024-11-12 10:46:54', 'Thuốc hạ sốt', 1, 6, 'Cancelled'),
+(7, '2024-11-12 10:46:54', 'Thuốc trị viêm họng', 5, 7, 'Pending'),
+(8, '2024-11-12 10:46:54', 'Thuốc hỗ trợ tiêu hóa', 10, 8, 'Pending'),
+(9, '2024-11-12 10:46:54', 'Thuốc chống viêm', 10, 9, 'Pending'),
+(10, '2024-11-12 10:46:54', 'Thuốc an thần', 1, 10, 'Pending');
 
 -- --------------------------------------------------------
 
@@ -222,7 +221,7 @@ CREATE TABLE `hoadon` (
   `MaBN` int(10) unsigned NOT NULL,
   `NgayLapHoaDon` datetime NOT NULL,
   `TongTien` decimal(10,0) NOT NULL,
-  `PhuongThucThanhToan` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `MaPTTT` int(10) unsigned NOT NULL default '0',
   `TrangThai` varchar(255) collate utf8_unicode_ci NOT NULL default 'Pending',
   PRIMARY KEY  (`MaHD`),
   KEY `MaBN` (`MaBN`)
@@ -232,17 +231,17 @@ CREATE TABLE `hoadon` (
 -- Dumping data for table `hoadon`
 --
 
-INSERT INTO `hoadon` (`MaHD`, `MaBN`, `NgayLapHoaDon`, `TongTien`, `PhuongThucThanhToan`, `TrangThai`) VALUES
-(1, 1, '2024-11-12 09:55:35', '200000', 'MoMo', 'Pending'),
-(2, 2, '2024-11-12 10:00:44', '500000', 'Tiền mặt', 'Processing'),
-(3, 3, '2024-11-12 10:00:44', '750000', 'Chuyển khoản ngân hàng', 'Cancelled'),
-(4, 4, '2024-11-12 10:00:44', '320000', 'MoMo', 'Pending'),
-(5, 5, '2024-11-12 10:00:44', '460000', 'Tiền mặt', 'Processing'),
-(6, 6, '2024-11-12 10:00:44', '150000', 'Chuyển khoản ngân hàng', 'Pending'),
-(7, 7, '2024-11-12 10:00:44', '980000', 'MoMo', 'Processing'),
-(8, 8, '2024-11-12 10:00:44', '275000', 'Tiền mặt', 'Cancelled'),
-(9, 9, '2024-11-12 10:00:44', '640000', 'Chuyển khoản ngân hàng', 'Pending'),
-(10, 10, '2024-11-12 10:00:44', '830000', 'MoMo', 'Processing');
+INSERT INTO `hoadon` (`MaHD`, `MaBN`, `NgayLapHoaDon`, `TongTien`, `MaPTTT`, `TrangThai`) VALUES
+(1, 1, '2024-11-12 09:55:35', '200000', 4, 'Completed'),
+(2, 2, '2024-11-12 10:00:44', '500000', 4, 'Cancelled'),
+(3, 3, '2024-11-12 10:00:44', '750000', 0, 'Cancelled'),
+(4, 4, '2024-11-12 10:00:44', '320000', 3, 'Completed'),
+(5, 5, '2024-11-12 10:00:44', '460000', 4, 'Cancelled'),
+(6, 6, '2024-11-12 10:00:44', '150000', 4, 'Cancelled'),
+(7, 7, '2024-11-12 10:00:44', '980000', 3, 'Completed'),
+(8, 8, '2024-11-12 10:00:44', '275000', 3, 'Cancelled'),
+(9, 9, '2024-11-12 10:00:44', '640000', 4, 'Completed'),
+(10, 10, '2024-11-12 10:00:44', '830000', 4, 'Completed');
 
 -- --------------------------------------------------------
 
@@ -321,13 +320,13 @@ CREATE TABLE `lichlamviec` (
 
 CREATE TABLE `nhanvien` (
   `MaNV` int(10) unsigned NOT NULL auto_increment,
-  `HovaTen` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `HovaTenNV` varchar(255) collate utf8_unicode_ci NOT NULL,
   `NgaySinh` date NOT NULL,
   `SoDT` varchar(255) collate utf8_unicode_ci NOT NULL,
   `ChucVu` varchar(255) collate utf8_unicode_ci NOT NULL,
   `GioiTinh` varchar(255) collate utf8_unicode_ci NOT NULL,
   `TrangThaiLamViec` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `Email` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `EmailNV` varchar(255) collate utf8_unicode_ci NOT NULL,
   `ID` int(10) unsigned NOT NULL,
   `MaLLV` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`MaNV`),
@@ -340,7 +339,7 @@ CREATE TABLE `nhanvien` (
 -- Dumping data for table `nhanvien`
 --
 
-INSERT INTO `nhanvien` (`MaNV`, `HovaTen`, `NgaySinh`, `SoDT`, `ChucVu`, `GioiTinh`, `TrangThaiLamViec`, `Email`, `ID`, `MaLLV`) VALUES
+INSERT INTO `nhanvien` (`MaNV`, `HovaTenNV`, `NgaySinh`, `SoDT`, `ChucVu`, `GioiTinh`, `TrangThaiLamViec`, `EmailNV`, `ID`, `MaLLV`) VALUES
 (1, 'Ngô Huỳnh Hoài Bảo ', '2003-09-14', '0948520853', 'Bác sĩ', 'Nam', 'Đang làm việc', 'ngobao3861@gmail.com', 1, 1),
 (2, 'Trần Minh Thảo', '1998-05-22', '0903857214', 'Nhân viên y tế', 'Nữ', 'Đang làm việc', 'thao.tran@example.com', 2, 2),
 (3, 'Lê Anh Tuấn', '1989-11-10', '0976347821', 'Nhân viên y tế', 'Nam', 'Đang làm việc', 'tuan.le@example.com', 3, 3),
@@ -476,6 +475,29 @@ INSERT INTO `phongkham` (`MaPhongKham`, `TenPhongKham`, `ViTri`, `MaKhoa`) VALUE
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `phuongthucthanhtoan`
+--
+
+CREATE TABLE `phuongthucthanhtoan` (
+  `MaPTTT` int(10) unsigned NOT NULL,
+  `TenPTTT` varchar(255) collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`MaPTTT`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `phuongthucthanhtoan`
+--
+
+INSERT INTO `phuongthucthanhtoan` (`MaPTTT`, `TenPTTT`) VALUES
+(0, 'Chưa có'),
+(1, 'MoMo'),
+(2, 'ViSa'),
+(3, 'Ngân Hàng'),
+(4, 'Tiền mặt');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `quanly`
 --
 
@@ -511,12 +533,16 @@ CREATE TABLE `taikhoan` (
   `phanquyen` varchar(255) collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`ID`),
   KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `taikhoan`
 --
 
+INSERT INTO `taikhoan` (`ID`, `username`, `password`, `phanquyen`) VALUES
+(1, 'quanly', 'e10adc3949ba59abbe56e057f20f883e', 'Quản Lý'),
+(2, 'canboyte', 'e10adc3949ba59abbe56e057f20f883e', 'Cán Bộ Y Tế'),
+(3, 'benhnhan', 'e10adc3949ba59abbe56e057f20f883e', 'Bệnh Nhân');
 
 -- --------------------------------------------------------
 
@@ -599,8 +625,8 @@ ALTER TABLE `bacsi`
 -- Constraints for table `chitietdonthuoc`
 --
 ALTER TABLE `chitietdonthuoc`
-  ADD CONSTRAINT `chitietdonthuoc_ibfk_2` FOREIGN KEY (`MaThuoc`) REFERENCES `thuoc` (`MaThuoc`),
-  ADD CONSTRAINT `chitietdonthuoc_ibfk_1` FOREIGN KEY (`MaDT`) REFERENCES `donthuoc` (`MaDT`);
+  ADD CONSTRAINT `chitietdonthuoc_ibfk_1` FOREIGN KEY (`MaDT`) REFERENCES `donthuoc` (`MaDT`),
+  ADD CONSTRAINT `chitietdonthuoc_ibfk_2` FOREIGN KEY (`MaThuoc`) REFERENCES `thuoc` (`MaThuoc`);
 
 --
 -- Constraints for table `chitiethoadon`
@@ -612,15 +638,15 @@ ALTER TABLE `chitiethoadon`
 -- Constraints for table `nhanviennhathuoc`
 --
 ALTER TABLE `nhanviennhathuoc`
-  ADD CONSTRAINT `nhanviennhathuoc_ibfk_2` FOREIGN KEY (`MaDT`) REFERENCES `donthuoc` (`MaDT`),
-  ADD CONSTRAINT `nhanviennhathuoc_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`);
+  ADD CONSTRAINT `nhanviennhathuoc_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`),
+  ADD CONSTRAINT `nhanviennhathuoc_ibfk_2` FOREIGN KEY (`MaDT`) REFERENCES `donthuoc` (`MaDT`);
 
 --
 -- Constraints for table `nhanvienyte`
 --
 ALTER TABLE `nhanvienyte`
-  ADD CONSTRAINT `nhanvienyte_ibfk_2` FOREIGN KEY (`MaHD`) REFERENCES `hoadon` (`MaHD`),
-  ADD CONSTRAINT `nhanvienyte_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`);
+  ADD CONSTRAINT `nhanvienyte_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`),
+  ADD CONSTRAINT `nhanvienyte_ibfk_2` FOREIGN KEY (`MaHD`) REFERENCES `hoadon` (`MaHD`);
 
 --
 -- Constraints for table `phongkham`

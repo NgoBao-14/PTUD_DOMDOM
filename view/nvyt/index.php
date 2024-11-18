@@ -33,12 +33,6 @@
                             <div class="content active" id="a1">
                                 <?php include("NVYT.php"); ?>
                             </div>
-
-                            <div class="content" id="a1">
-                                
-                            </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -87,6 +81,18 @@
 
     // Initialize tabs for each section
     initializeTabs('#a', '#a1');
+
+
+
+    function onlyOneCheckbox(checkbox) {
+    // Lấy tất cả các checkbox có cùng tên
+    const checkboxes = document.getElementsByName('paymentOption');
+    checkboxes.forEach((item) => {
+        // Nếu checkbox không phải là checkbox đang được chọn, bỏ chọn nó
+        if (item !== checkbox) item.checked = false;
+    });
+}
+
     </script>
 </body>
 

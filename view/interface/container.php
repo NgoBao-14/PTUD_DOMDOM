@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="fonts/fontawesome-free-6.4.2-web/css/all.css">
     <title>Document</title>
+    <link rel="stylesheet" href="../../css/main.css">
 </head>
-
 <body>
-    <!-- header -->
-    <?php include("view/interface/header.php"); ?>
-    <!-- content -->
-    <div class="main">
+<div class="main">
         <div class="search1">
             <div class="search">
                 <div class="text">
@@ -244,41 +238,5 @@
         </div>
         </div>
     </div>
-
-    <!-- footer -->
-    <?php include("view/interface/footer.php"); ?>
 </body>
-<script>
-// Hàm thiết lập cuộn cho một danh sách dựa trên id của danh sách và các nút cuộn
-function setupScroll(listId, scrollLeftButtonId, scrollRightButtonId) {
-    const list = document.getElementById(listId);
-    const scrollLeftButton = document.getElementById(scrollLeftButtonId);
-    const scrollRightButton = document.getElementById(scrollRightButtonId);
-
-    scrollLeftButton.addEventListener('click', () => {
-        if (list) {
-            list.scrollBy({
-                left: -200,
-                behavior: 'smooth'
-            });
-        }
-    });
-
-    scrollRightButton.addEventListener('click', () => {
-        if (list) {
-            list.scrollBy({
-                left: 200,
-                behavior: 'smooth'
-            });
-        }
-    });
-}
-
-// Áp dụng hàm cuộn riêng cho từng danh sách
-setupScroll('doctorList', 'scrollLeftDoctor', 'scrollRightDoctor');
-setupScroll('hopitalList', 'scrollLeftHopital', 'scrollRightHopital');
-setupScroll('pkList','scrollLeftPK','scrollRightPK');
-</script>
-
-
 </html>
