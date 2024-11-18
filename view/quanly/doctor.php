@@ -7,6 +7,56 @@ $chuyenKhoaController = new CChuyenKhoa();
 $message = '';
 $error = '';
 
+$message = '';
+$error = '';
+$formData = [
+    'HovaTen' => '',
+    'NgaySinh' => '',
+    'GioiTinh' => '',
+    'SoDT' => '',
+    'Email' => '',
+    'MaKhoa' => ''
+];
+$formErrors = [
+    'SoDT' => '',
+    'Email' => ''
+];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['action']) && $_POST['action'] == 'add') {
+        // Lưu dữ liệu form
+        $formData = [
+            'HovaTen' => $_POST['HovaTen'] ?? '',
+            'NgaySinh' => $_POST['NgaySinh'] ?? '',
+            'GioiTinh' => $_POST['GioiTinh'] ?? '',
+            'SoDT' => $_POST['SoDT'] ?? '',
+            'Email' => $_POST['Email'] ?? '',
+            'MaKhoa' => $_POST['MaKhoa'] ?? ''
+        ];
+
+        // Kiểm tra số điện thoại
+        if ($controller->checkPhoneExists($formData['SoDT'])) {
+            $formErrors['SoDT'] = 'Số điện thoại đã được sử dụng.';
+        }
+
+        // Kiểm tra email
+        if ($controller->checkEmailExists($formData['Email'])) {
+            $formErrors['Email'] = 'Email đã được sử dụng.';
+        }
+
+        // Nếu không có lỗi, thêm bác sĩ mới
+        if (empty($formErrors['SoDT']) && empty($formErrors['Email'])) {
+            $result = $controller->addBS($formData['HovaTen'], $formData['NgaySinh'], $formData['GioiTinh'], $formData['SoDT'], $formData['Email'], $formData['MaKhoa']);
+            if ($result === true) {
+                $message = "Bác sĩ mới đã được thêm thành công.";
+                // Reset form data after successful submission
+                $formData = array_fill_keys(array_keys($formData), '');
+            } else {
+                $error = $result;
+            }
+        }
+    }
+}
 // Handle form submissions
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['action'])) {
@@ -16,8 +66,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $message = "Bác sĩ đã được ẩn khỏi danh sách.";
                 break;
             case 'edit':
-                $controller->updateBS($_POST['MaNV'], $_POST['MaKhoa'], $_POST['NgaySinh'], $_POST['GioiTinh'], $_POST['SoDT'], $_POST['Email']);
-                $message = "Thông tin bác sĩ đã được cập nhật thành công.";
+                $result = $controller->updateBS($_POST['MaNV'], $_POST['MaKhoa'], $_POST['NgaySinh'], $_POST['GioiTinh'], $_POST['SoDT'], $_POST['Email']);
+                if ($result === true) {
+                    $message = "Thông tin bác sĩ đã được cập nhật thành công.";
+                } else {
+                    $error = $result;
+                }
                 break;
             case 'add':
                 $result = $controller->addBS($_POST['HovaTen'], $_POST['NgaySinh'], $_POST['GioiTinh'], $_POST['SoDT'], $_POST['Email'], $_POST['MaKhoa']);
@@ -30,6 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
 
 // Xử lý tìm kiếm
 $searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
@@ -283,7 +338,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV']))
     <?php endif; ?>
 
     <?php if (isset($_GET['action']) && $_GET['action'] == 'showAddForm'): ?>
-    <!-- Modal for adding new doctor -->
     <div class="modal fade show" id="addDoctorModal" tabindex="-1" aria-hidden="true" style="display: block;">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -292,30 +346,42 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV']))
                     <a href="doctor.php" class="btn-close" aria-label="Close"></a>
                 </div>
                 <div class="modal-body">
-                    <form action="doctor.php" method="POST">
+                    <?php if ($message): ?>
+                        <div class="alert alert-success"><?php echo $message; ?></div>
+                    <?php endif; ?>
+                    <?php if ($error): ?>
+                        <div class="alert alert-danger"><?php echo $error; ?></div>
+                    <?php endif; ?>
+                    <form action="doctor.php?action=showAddForm" method="POST">
                         <input type="hidden" name="action" value="add">
                         <div class="mb-3">
                             <label for="HovaTen" class="form-label">Họ và tên bác sĩ</label>
-                            <input type="text" class="form-control" id="HovaTen" name="HovaTen" required pattern="^[a-zA-ZÀ-ỹ\s]+$">
+                            <input type="text" class="form-control" id="HovaTen" name="HovaTen" required pattern="^[a-zA-ZÀ-ỹ\s]+$" value="<?php echo htmlspecialchars($formData['HovaTen']); ?>">
                         </div>
                         <div class="mb-3">
                             <label for="NgaySinh" class="form-label">Ngày sinh</label>
-                            <input type="date" class="form-control" id="NgaySinh" name="NgaySinh" required>
+                            <input type="date" class="form-control" id="NgaySinh" name="NgaySinh" required value="<?php echo htmlspecialchars($formData['NgaySinh']); ?>">
                         </div>
                         <div class="mb-3">
                             <label for="GioiTinh" class="form-label">Giới tính</label>
                             <select class="form-select" id="GioiTinh" name="GioiTinh" required>
-                                <option value="Nam">Nam</option>
-                                <option value="Nữ">Nữ</option>
+                                <option value="Nam" <?php echo $formData['GioiTinh'] == 'Nam' ? 'selected' : ''; ?>>Nam</option>
+                                <option value="Nữ" <?php echo $formData['GioiTinh'] == 'Nữ' ? 'selected' : ''; ?>>Nữ</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="SoDT" class="form-label">Số điện thoại</label>
-                            <input type="tel" class="form-control" id="SoDT" name="SoDT" required>
+                            <input type="tel" class="form-control <?php echo !empty($formErrors['SoDT']) ? 'is-invalid' : ''; ?>" id="SoDT" name="SoDT" required value="<?php echo htmlspecialchars($formData['SoDT']); ?>">
+                            <?php if (!empty($formErrors['SoDT'])): ?>
+                                <div class="invalid-feedback"><?php echo $formErrors['SoDT']; ?></div>
+                            <?php endif; ?>
                         </div>
                         <div class="mb-3">
                             <label for="Email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="Email" name="Email" required>
+                            <input type="email" class="form-control <?php echo !empty($formErrors['Email']) ? 'is-invalid' : ''; ?>" id="Email" name="Email" required value="<?php echo htmlspecialchars($formData['Email']); ?>">
+                            <?php if (!empty($formErrors['Email'])): ?>
+                                <div class="invalid-feedback"><?php echo $formErrors['Email']; ?></div>
+                            <?php endif; ?>
                         </div>
                         <div class="mb-3">
                             <label for="MaKhoa" class="form-label">Chuyên khoa</label>
@@ -324,7 +390,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV']))
                                 $chuyenkhoa = $chuyenKhoaController->getAllChuyenKhoa();
                                 if ($chuyenkhoa && $chuyenkhoa !== -1) {
                                     while ($khoa = $chuyenkhoa->fetch_assoc()) {
-                                        echo "<option value='" . $khoa['MaKhoa'] . "'>" . htmlspecialchars($khoa['TenKhoa']) . "</option>";
+                                        $selected = ($khoa['MaKhoa'] == $formData['MaKhoa']) ? 'selected' : '';
+                                        echo "<option value='" . $khoa['MaKhoa'] . "' $selected>" . htmlspecialchars($khoa['TenKhoa']) . "</option>";
                                     }
                                 } else {
                                     echo "<option value=''>Không có chuyên khoa nào</option>";
@@ -341,7 +408,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV']))
     </div>
     <div class="modal-backdrop fade show"></div>
     <?php endif; ?>
-
     <?php
     // Xử lý xóa bác sĩ
     if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['MaNV'])) {
