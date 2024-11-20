@@ -35,3 +35,42 @@
 body {
     background-color: #f0f0f0;
 }
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+.schedule-day {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f8f9fa;
+}
+.doctor-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+.shift {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+.shift-morning {
+    background-color: #e6f3ff;
+}
+.shift-afternoon {
+    background-color: #fff0e6;
+}
+.doctor-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.doctor-drag-handle {
+    cursor: move;
+    margin-right: 5px;
+}
+.form-check-label {
+    font-size: 0.8rem;
+}

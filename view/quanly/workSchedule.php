@@ -6,48 +6,9 @@
     <title>Lịch làm việc - Dom Đóm</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/workSchedule.css">
-    <style>
-        .schedule-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
-        .schedule-day {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            background-color: #f8f9fa;
-        }
-        .doctor-list {
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        .shift {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .shift-morning {
-            background-color: #e6f3ff;
-        }
-        .shift-afternoon {
-            background-color: #fff0e6;
-        }
-        .doctor-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        .doctor-drag-handle {
-            cursor: move;
-            margin-right: 5px;
-        }
-        .form-check-label {
-            font-size: 0.8rem;
-        }
-    </style>
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/workSchedule.css">
+    
 </head>
 <body>
 <?php include("../interface/header.php"); ?>
@@ -59,14 +20,9 @@
                         <div class="card-body">
                             <h5 class="card-title mb-3">Danh sách các khoa</h5>
                             <div class="list-group" id="department-list">
-                                <a href="#" class="list-group-item list-group-item-action active sidebar-item" data-department="Nội">Nội</a>
-                                <a href="#" class="list-group-item list-group-item-action sidebar-item" data-department="Ngoại">Ngoại</a>
-                                <a href="#" class="list-group-item list-group-item-action sidebar-item" data-department="Nhi">Nhi</a>
-                                <a href="#" class="list-group-item list-group-item-action sidebar-item" data-department="Sản">Sản</a>
-                                <a href="#" class="list-group-item list-group-item-action sidebar-item" data-department="Tai mũi họng">Tai mũi họng</a>
-                                <a href="#" class="list-group-item list-group-item-action sidebar-item" data-department="Da liễu">Da liễu</a>
-                                <a href="#" class="list-group-item list-group-item-action sidebar-item" data-department="Răng hàm mặt">Răng hàm mặt</a>
-                                <a href="#" class="list-group-item list-group-item-action sidebar-item" data-department="Mắt">Mắt</a>
+                            <?php
+                                include_once("QL.php");
+                            ?>
                             </div>
                         </div>
                     </div>
