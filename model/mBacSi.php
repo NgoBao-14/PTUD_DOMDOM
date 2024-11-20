@@ -57,7 +57,7 @@
         }
     }
 
-        public function updateBS($MaNV, $MaKhoa, $NgaySinh, $GioiTinh, $SoDT, $Email)
+        public function updateBS($MaNV, $MaKhoa, $NgaySinh, $GioiTinh, $SoDT, $EmailNV)
         {
             $p = new ketnoi;
             $con = $p->moketnoi();
@@ -68,9 +68,9 @@
                 $NgaySinh = mysqli_real_escape_string($con, $NgaySinh);
                 $GioiTinh = mysqli_real_escape_string($con, $GioiTinh);
                 $SoDT = mysqli_real_escape_string($con, $SoDT);
-                $Email = mysqli_real_escape_string($con, $Email);
+                $EmailNV = mysqli_real_escape_string($con, $EmailNV);
                 
-                $str = "UPDATE nhanvien SET NgaySinh = '$NgaySinh', GioiTinh = '$GioiTinh', SoDT = '$SoDT', Email = '$Email' WHERE MaNV = '$MaNV'";
+                $str = "UPDATE nhanvien SET NgaySinh = '$NgaySinh', GioiTinh = '$GioiTinh', SoDT = '$SoDT', EmailNV = '$EmailNV' WHERE MaNV = '$MaNV'";
                 $result = $con->query($str);
                 
                 if($result) {
@@ -107,24 +107,24 @@
         return false;
     }
 
-    public function checkEmailExists($email)
+    public function checkEmailExists($emailNV)
     {
         if($this->con)
         {
-            $email = mysqli_real_escape_string($this->con, $email);
-            $query = "SELECT * FROM nhanvien WHERE Email = '$email'";
+            $emailNV = mysqli_real_escape_string($this->con, $emailNV);
+            $query = "SELECT * FROM nhanvien WHERE EmailNV = '$emailNV'";
             $result = $this->con->query($query);
             return $result->num_rows > 0;
         }
         return false;
     }
-    public function checkDuplicatePhoneOrEmail($SoDT, $Email, $MaNV = null)
+    public function checkDuplicatePhoneOrEmail($SoDT, $EmailNV, $MaNV = null)
     {
         if($this->con)
         {
             $SoDT = mysqli_real_escape_string($this->con, $SoDT);
-            $Email = mysqli_real_escape_string($this->con, $Email);
-            $query = "SELECT * FROM nhanvien WHERE (SoDT = '$SoDT' OR Email = '$Email')";
+            $EmailNV = mysqli_real_escape_string($this->con, $EmailNV);
+            $query = "SELECT * FROM nhanvien WHERE (SoDT = '$SoDT' OR EmailNV = '$EmailNV')";
             if ($MaNV !== null) {
                 $MaNV = mysqli_real_escape_string($this->con, $MaNV);
                 $query .= " AND MaNV != '$MaNV'";
@@ -137,17 +137,17 @@
         return false;
     }
 
-        public function addBS($HovaTen, $NgaySinh, $GioiTinh, $SoDT, $Email, $MaKhoa)
+        public function addBS($HovaTenNV, $NgaySinh, $GioiTinh, $SoDT, $EmailNV, $MaKhoa)
         {
             $p = new ketnoi;
             $con = $p->moketnoi();
             if($con)
             {
-                $HovaTen = mysqli_real_escape_string($con, $HovaTen);
+                $HovaTenNV = mysqli_real_escape_string($con, $HovaTenNV);
                 $NgaySinh = mysqli_real_escape_string($con, $NgaySinh);
                 $GioiTinh = mysqli_real_escape_string($con, $GioiTinh);
                 $SoDT = mysqli_real_escape_string($con, $SoDT);
-                $Email = mysqli_real_escape_string($con, $Email);
+                $EmailNV = mysqli_real_escape_string($con, $EmailNV);
                 $MaKhoa = mysqli_real_escape_string($con, $MaKhoa);
 
                 // Generate a new MaNV (you may want to implement a more sophisticated method)
@@ -168,8 +168,8 @@
                 $MaLLV = $row['max_id'] + 1;
 
                 // Insert into nhanvien table
-                $query = "INSERT INTO nhanvien (MaNV, HovaTen, NgaySinh, SoDT, ChucVu, GioiTinh, TrangThaiLamViec, Email, ID, MaLLV) 
-                        VALUES ('$MaNV', '$HovaTen', '$NgaySinh', '$SoDT', 'Bác sĩ', '$GioiTinh', 'Đang làm việc', '$Email', '$ID', '$MaLLV')";
+                $query = "INSERT INTO nhanvien (MaNV, HovaTenNV, NgaySinh, SoDT, ChucVu, GioiTinh, TrangThaiLamViec, EmailNV, ID, MaLLV) 
+                        VALUES ('$MaNV', '$HovaTenNV', '$NgaySinh', '$SoDT', 'Bác sĩ', '$GioiTinh', 'Đang làm việc', '$EmailNV', '$ID', '$MaLLV')";
                 $result1 = $con->query($query);
 
                 // Insert into bacsi table
@@ -182,4 +182,4 @@
             return false;
         }
     }
-?>
+?> 

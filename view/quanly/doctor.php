@@ -6,15 +6,12 @@ $chuyenKhoaController = new CChuyenKhoa();
 
 $message = '';
 $error = '';
-
-$message = '';
-$error = '';
 $formData = [
-    'HovaTen' => '',
+    'HovaTenNV' => '',
     'NgaySinh' => '',
     'GioiTinh' => '',
     'SoDT' => '',
-    'Email' => '',
+    'EmailNV' => '',
     'MaKhoa' => ''
 ];
 $formErrors = [
@@ -26,11 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['action']) && $_POST['action'] == 'add') {
         // Lưu dữ liệu form
         $formData = [
-            'HovaTen' => $_POST['HovaTen'] ?? '',
+            'HovaTenNV' => $_POST['HovaTenNV'] ?? '',
             'NgaySinh' => $_POST['NgaySinh'] ?? '',
             'GioiTinh' => $_POST['GioiTinh'] ?? '',
             'SoDT' => $_POST['SoDT'] ?? '',
-            'Email' => $_POST['Email'] ?? '',
+            'EmailNV' => $_POST['EmailNV'] ?? '',
             'MaKhoa' => $_POST['MaKhoa'] ?? ''
         ];
 
@@ -40,13 +37,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Kiểm tra email
-        if ($controller->checkEmailExists($formData['Email'])) {
-            $formErrors['Email'] = 'Email đã được sử dụng.';
+        if ($controller->checkEmailExists($formData['EmailNV'])) {
+            $formErrors['EmailNV'] = 'Email đã được sử dụng.';
         }
 
         // Nếu không có lỗi, thêm bác sĩ mới
-        if (empty($formErrors['SoDT']) && empty($formErrors['Email'])) {
-            $result = $controller->addBS($formData['HovaTen'], $formData['NgaySinh'], $formData['GioiTinh'], $formData['SoDT'], $formData['Email'], $formData['MaKhoa']);
+        if (empty($formErrors['SoDT']) && empty($formErrors['EmailNV'])) {
+            $result = $controller->addBS($formData['HovaTenNV'], $formData['NgaySinh'], $formData['GioiTinh'], $formData['SoDT'], $formData['EmailNV'], $formData['MaKhoa']);
             if ($result === true) {
                 $message = "Bác sĩ mới đã được thêm thành công.";
                 // Reset form data after successful submission
@@ -67,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $message = "Bác sĩ đã được ẩn khỏi danh sách.";
                 break;
             case 'edit':
-                $result = $controller->updateBS($_POST['MaNV'], $_POST['MaKhoa'], $_POST['NgaySinh'], $_POST['GioiTinh'], $_POST['SoDT'], $_POST['Email']);
+                $result = $controller->updateBS($_POST['MaNV'], $_POST['MaKhoa'], $_POST['NgaySinh'], $_POST['GioiTinh'], $_POST['SoDT'], $_POST['EmailNV']);
                 if ($result === true) {
                     $message = "Thông tin bác sĩ đã được cập nhật thành công.";
                 } else {
@@ -75,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 break;
             case 'add':
-                $result = $controller->addBS($_POST['HovaTen'], $_POST['NgaySinh'], $_POST['GioiTinh'], $_POST['SoDT'], $_POST['Email'], $_POST['MaKhoa']);
+                $result = $controller->addBS($_POST['HovaTenNV'], $_POST['NgaySinh'], $_POST['GioiTinh'], $_POST['SoDT'], $_POST['EmailNV'], $_POST['MaKhoa']);
                 if ($result === true) {
                     $message = "Bác sĩ mới đã được thêm thành công.";
                 } else {
@@ -187,7 +184,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV']))
                                                     if (
                                                         ($searchTerm === '' || 
                                                          strpos(strtolower($r['MaNV']), strtolower($searchTerm)) !== false ||
-                                                         strpos(strtolower($r['HovaTen']), strtolower($searchTerm)) !== false) &&
+                                                         strpos(strtolower($r['HovaTenNV']), strtolower($searchTerm)) !== false) &&
                                                         ($filterKhoa === '' || $r['MaKhoa'] == $filterKhoa) &&
                                                         $r['TrangThaiLamViec'] == 'Đang làm việc'
                                                     ) {
@@ -195,7 +192,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV']))
                                                     <tr>
                                                         <td><?= $stt++ ?></td>
                                                         <td><?= htmlspecialchars($r['MaNV']) ?></td>
-                                                        <td><?= htmlspecialchars($r['HovaTen']) ?></td>
+                                                        <td><?= htmlspecialchars($r['HovaTenNV']) ?></td>
                                                         <td><?= htmlspecialchars($r['TenKhoa']) ?></td>
                                                         <td>
                                                             <a href="?MaNV=<?= $r['MaNV'] ?>" class="btn btn-primary btn-sm">Xem</a>
@@ -237,7 +234,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV']))
                             </tr>
                             <tr>
                                 <th>Họ và tên bác sĩ</th>
-                                <td><?php echo htmlspecialchars($selectedDoctor['HovaTen']); ?></td>
+                                <td><?php echo htmlspecialchars($selectedDoctor['HovaTenNV']); ?></td>
                             </tr>
                             <tr>
                                 <th>Ngày sinh</th>
@@ -253,7 +250,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV']))
                             </tr>
                             <tr>
                                 <th>Email</th>
-                                <td><?php echo htmlspecialchars($selectedDoctor['Email']); ?></td>
+                                <td><?php echo htmlspecialchars($selectedDoctor['EmailNV']); ?></td>
                             </tr>
                             <tr>
                                 <th>Chuyên khoa</th>
@@ -291,7 +288,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV']))
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Họ và tên bác sĩ</label>
-                                <input type="text" class="form-control" value="<?php echo htmlspecialchars($editDoctor['HovaTen']); ?>" readonly>
+                                <input type="text" class="form-control" value="<?php echo htmlspecialchars($editDoctor['HovaTenNV']); ?>" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Ngày sinh</label>
@@ -310,7 +307,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV']))
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" class="form-control" name="Email" value="<?php echo htmlspecialchars($editDoctor['Email']); ?>" required>
+                                <input type="email" class="form-control" name="EmailNV" value="<?php echo htmlspecialchars($editDoctor['EmailNV']); ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Chuyên khoa</label>
@@ -356,8 +353,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV']))
                     <form action="doctor.php?action=showAddForm" method="POST">
                         <input type="hidden" name="action" value="add">
                         <div class="mb-3">
-                            <label for="HovaTen" class="form-label">Họ và tên bác sĩ</label>
-                            <input type="text" class="form-control" id="HovaTen" name="HovaTen" required pattern="^[a-zA-ZÀ-ỹ\s]+$" value="<?php echo htmlspecialchars($formData['HovaTen']); ?>">
+                            <label for="HovaTenNV" class="form-label">Họ và tên bác sĩ</label>
+                            <input type="text" class="form-control" id="HovaTenNV" name="HovaTenNV" required pattern="^[a-zA-ZÀ-ỹ\s]+$" value="<?php echo htmlspecialchars($formData['HovaTenNV']); ?>">
                         </div>
                         <div class="mb-3">
                             <label for="NgaySinh" class="form-label">Ngày sinh</label>
@@ -378,10 +375,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['MaNV']))
                             <?php endif; ?>
                         </div>
                         <div class="mb-3">
-                            <label for="Email" class="form-label">Email</label>
-                            <input type="email" class="form-control <?php echo !empty($formErrors['Email']) ? 'is-invalid' : ''; ?>" id="Email" name="Email" required value="<?php echo htmlspecialchars($formData['Email']); ?>">
+                            <label for="EmailNV" class="form-label">Email</label>
+                            <input type="email" class="form-control <?php echo !empty($formErrors['EmailNV']) ? 'is-invalid' : ''; ?>" id="EmailNV" name="EmailNV" required value="<?php echo htmlspecialchars($formData['EmailNV']); ?>">
                             <?php if (!empty($formErrors['Email'])): ?>
-                                <div class="invalid-feedback"><?php echo $formErrors['Email']; ?></div>
+                                <div class="invalid-feedback"><?php echo $formErrors['EmailNV']; ?></div>
                             <?php endif; ?>
                         </div>
                         <div class="mb-3">
