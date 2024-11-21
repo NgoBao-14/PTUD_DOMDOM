@@ -31,8 +31,20 @@
             <div class="w-full md:w-3/4 px-4">
                 <div class="bg-white shadow-md rounded-lg p-6">
                     <h2 class="text-2xl font-bold mb-4">Đăng ký lịch làm việc</h2>
+
+                    <!-- Thông báo kết quả -->
+                    <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
+                        <div class="bg-green-100 text-green-800 p-4 rounded mb-4">
+                            Đăng ký lịch làm việc thành công!
+                        </div>
+                    <?php elseif (isset($_GET['error']) && $_GET['error'] == 1): ?>
+                        <div class="bg-red-100 text-red-800 p-4 rounded mb-4">
+                            Đăng ký thất bại. Có thể lịch đã tồn tại hoặc xảy ra lỗi!
+                        </div>
+                    <?php endif; ?>
+
                     <div class="flex justify-between mb-4">
-                        <button id="prevWeek" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Tuần trước</button>
+                        <button id="prevWeek" class="hidden bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Tuần trước</button>
                         <button id="currentWeek" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">Hiện tại</button>
                         <button id="nextWeek" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Tuần sau</button>
                     </div>
@@ -45,13 +57,34 @@
                         <table class="w-full border-collapse">
                             <thead>
                                 <tr>
-                                    <th class="border p-2">Thứ 2</th>
-                                    <th class="border p-2">Thứ 3</th>
-                                    <th class="border p-2">Thứ 4</th>
-                                    <th class="border p-2">Thứ 5</th>
-                                    <th class="border p-2">Thứ 6</th>
-                                    <th class="border p-2">Thứ 7</th>
-                                    <th class="border p-2">Chủ nhật</th>
+                                    <th class="border p-2">
+                                        <div>Thứ 2</div>
+                                        <div id="date-mon" class="text-xs text-gray-500"></div>
+                                    </th>
+                                    <th class="border p-2">
+                                        <div>Thứ 3</div>
+                                        <div id="date-tue" class="text-xs text-gray-500"></div>
+                                    </th>
+                                    <th class="border p-2">
+                                        <div>Thứ 4</div>
+                                        <div id="date-wed" class="text-xs text-gray-500"></div>
+                                    </th>
+                                    <th class="border p-2">
+                                        <div>Thứ 5</div>
+                                        <div id="date-thu" class="text-xs text-gray-500"></div>
+                                    </th>
+                                    <th class="border p-2">
+                                        <div>Thứ 6</div>
+                                        <div id="date-fri" class="text-xs text-gray-500"></div>
+                                    </th>
+                                    <th class="border p-2">
+                                        <div>Thứ 7</div>
+                                        <div id="date-sat" class="text-xs text-gray-500"></div>
+                                    </th>
+                                    <th class="border p-2">
+                                        <div>Chủ nhật</div>
+                                        <div id="date-sun" class="text-xs text-gray-500"></div>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -167,6 +200,14 @@
             // Đồng bộ với trường hidden
             document.getElementById('selectedDateRange').value =
                 formatDate(monday) + ' - ' + formatDate(sunday);
+
+            // Cập nhật ngày cho từng cột
+            const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+            days.forEach((day, index) => {
+                const date = new Date(monday);
+                date.setDate(date.getDate() + index);
+                document.getElementById(`date-${day}`).textContent = formatDate(date);
+            });
         }
 
         // Lấy thứ Hai hiện tại

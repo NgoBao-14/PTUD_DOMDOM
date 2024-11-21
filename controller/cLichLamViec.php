@@ -4,22 +4,36 @@ include("../model/mLichLamViec.php");
 class cLichLamViec
 {
     public function dangKyLich()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $MaBS = $_POST['MaBS'];
-            $schedule = $_POST['schedule'];
-            $model = new mLichLamViec();
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $MaBS = $_POST['MaBS'] ?? null;
+        $schedule = $_POST['schedule'] ?? null;
 
-            foreach ($schedule as $day => $shifts) {
-                foreach ($shifts as $shift) {
-                    $NgayLamViec = $this->mapDayToDate($day, $_POST['dateRange']);
-                    $model->addLichLamViec($MaBS, $NgayLamViec, $shift);
+        if (!$MaBS || !$schedule) {
+            die("Dữ liệu không hợp lệ! Vui lòng kiểm tra lại.");
+        }
+
+        $model = new mLichLamViec();
+        $success = true;
+
+        foreach ($schedule as $day => $shifts) {
+            foreach ($shifts as $shift) {
+                $NgayLamViec = $this->mapDayToDate($day, $_POST['dateRange']);
+                $result = $model->addLichLamViec($MaBS, $NgayLamViec, $shift);
+
+                if (!$result) {
+                    $success = false;
                 }
             }
-
-            header("Location: ../view/bacsi/dangkylichlamviec.php?success=1");
         }
+
+        $status = $success ? 'success=1' : 'error=1';
+        header("Location: ../view/bacsi/dangkylichlamviec.php?$status");
+        exit;
+    } else {
+        die("Yêu cầu không hợp lệ.");
     }
+}
 
     private function mapDayToDate($day, $dateRange)
     {
@@ -37,10 +51,19 @@ class cLichLamViec
         $startDate->modify("+{$dayMapping[$day]} day");
         return $startDate->format('Y-m-d');
     }
+
+    
 }
 
 // Routing logic
-if (isset($_GET['action']) && $_GET['action'] == 'dangkylich') {
+
+
+if (isset($_GET['action'])) {
     $controller = new cLichLamViec();
-    $controller->dangKyLich();
+    switch ($_GET['action']) {
+        case 'dangkylich':
+            $controller->dangKyLich();
+            break;
+        // ... (other cases)
+    }
 }

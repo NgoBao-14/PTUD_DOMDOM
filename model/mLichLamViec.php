@@ -10,8 +10,19 @@ class mLichLamViec
         if ($con) {
             $NgayLamViec = mysqli_real_escape_string($con, $NgayLamViec);
             $CaLamViec = mysqli_real_escape_string($con, $CaLamViec);
-            $TrangThai = 'Chưa duyệt';
 
+            // Kiểm tra xem lịch đã tồn tại hay chưa
+            $checkQuery = "SELECT * FROM LichLamViec 
+                           WHERE MaLLV = '$MaBS' AND NgayLamViec = '$NgayLamViec' AND CaLamViec = '$CaLamViec'";
+            $checkResult = $con->query($checkQuery);
+
+            if ($checkResult && $checkResult->num_rows > 0) {
+                $p->dongketnoi($con);
+                return false; // Lịch đã tồn tại
+            }
+
+            // Thêm lịch mới
+            $TrangThai = 'Chưa duyệt';
             $query = "INSERT INTO LichLamViec (MaLLV, NgayLamViec, TrangThai, CaLamViec)
                       VALUES ('$MaBS', '$NgayLamViec', '$TrangThai', '$CaLamViec')";
             $result = $con->query($query);
@@ -21,4 +32,3 @@ class mLichLamViec
         return false;
     }
 }
-
