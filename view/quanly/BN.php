@@ -60,12 +60,12 @@ if (!isset($_POST["btnsearch"])) {
                             $stt = 0;
                             if (!$tblPKham) {
                                 echo "<tr><td colspan='5'>Không thể kết nối tới cơ sở dữ liệu.</td></tr>";
-                            } elseif (mysqli_num_rows($tblPKham) === 0) {
+                            } elseif (mysqli_num_rows($tblPKham) == 0) {
                                 echo "<tr><td colspan='5'>Không có phiếu khám nào.</td></tr>";
                             } else {
                                 while ($r = mysqli_fetch_assoc($tblPKham)) {
                                     $stt++;
-                                    echo '
+                                    echo '  
                                     <tr>
                                         <td>' . $stt . '</td>
                                         <td>' . $r["NgayTaoPhieuKham"] . '</td>

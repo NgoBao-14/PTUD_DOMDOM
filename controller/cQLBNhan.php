@@ -45,16 +45,16 @@
         public function getPKham($mabn)
         {
             $p = new mBNhan();
-            $tblBNhan = $p->getPKham($mabn);
-            if($tblBNhan)
+            $tblPKham = $p->getPKham($mabn);
+            if($tblPKham)
             {
-                if($tblBNhan->num_rows>0)
+                if($tblPKham->num_rows>0)
                 {
-                    return $tblBNhan;
+                    return $tblPKham;
                 }
                 else
                 {
-                    return null;
+                    return -1;
                 }
             }
             else{
